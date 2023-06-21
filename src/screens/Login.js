@@ -4,66 +4,84 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  ImageBackground,
 } from 'react-native';
 import React from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 export default function Login({navigation}) {
   return (
-    <View style={styles.container}>
-      <View style={styles.content}>
-        <Text style={styles.login}>Login</Text>
-        <Text style={styles.loginContent}>
-          Login to your account or Register below
-        </Text>
+    <ImageBackground
+      source={require('../assest/bg_image.jpeg')}
+      resizeMode="cover"
+      style={styles.image}>
+      <View style={styles.container}>
+        {/* <ImageBackground
+        source={require('../assest/bg_image.jpeg')}
+        style={styles.bgimg}
+      /> */}
+        <View style={styles.content}>
+          <Text style={styles.login}>Login</Text>
+          <Text style={styles.loginContent}>
+            Login to your account or Register below
+          </Text>
 
-        <View>
-          <Text>Email</Text>
-          <View style={styles.inputContainer}>
-            <FontAwesome5 name={'envelope'} size={20} color={'#931314'} />
-            <TextInput placeholder="john123@gmail.com" style={styles.input} />
+          <View>
+            <Text>Email</Text>
+            <View style={styles.inputContainer}>
+              <FontAwesome5 name={'envelope'} size={20} color={'#931314'} />
+              <TextInput placeholder="john123@gmail.com" style={styles.input} />
+            </View>
+
+            <Text>Password</Text>
+            <View style={styles.inputContainer}>
+              <FontAwesome5 name={'lock'} size={20} color={'#931314'} />
+              <TextInput
+                placeholder="Password"
+                secureTextEntry
+                style={styles.input}
+              />
+            </View>
+
+            <TouchableOpacity
+              style={styles.Fpassword}
+              onPress={() => {
+                navigation.navigate('Forget Password');
+              }}>
+              <Text>Forget Password ?</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.btn}>
+              <Text style={styles.btnText}>Login</Text>
+            </TouchableOpacity>
           </View>
 
-          <Text>Password</Text>
-          <View style={styles.inputContainer}>
-            <FontAwesome5 name={'lock'} size={20} color={'#931314'} />
-            <TextInput
-              placeholder="Password"
-              secureTextEntry
-              style={styles.input}
-            />
+          <View style={styles.orContainer}>
+            <View style={styles.line} />
+            <Text style={styles.orText}>OR</Text>
+            <View style={styles.line} />
           </View>
 
-          <TouchableOpacity style={styles.btn}>
-            <Text style={styles.btnText}>Login</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.orContainer}>
-          <View style={styles.line} />
-          <Text style={styles.orText}>OR</Text>
-          <View style={styles.line} />
-        </View>
-
-        <View style={styles.registerContainer}>
-          <Text>Don't have an Account ?</Text>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('Register');
-            }}>
-            <Text style={styles.registerText}>Register</Text>
-          </TouchableOpacity>
+          <View style={styles.registerContainer}>
+            <Text>Don't have an Account ?</Text>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Register');
+              }}>
+              <Text style={styles.registerText}>Register</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 20,
-    marginTop: 150,
+    // paddingHorizontal: 20,
+    marginTop: 50,
   },
   login: {
     fontSize: 25,
@@ -117,14 +135,21 @@ const styles = StyleSheet.create({
   orText: {
     marginHorizontal: 10,
   },
+  content: {
+    backgroundColor: 'white',
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
+    elevation: 10,
+    height: '100%',
+  },
+  Fpassword: {
+    marginBottom: 15,
+    flexDirection: 'row-reverse',
+  },
+  image: {
+    flex: 1,
+    justifyContent: 'center',
+  },
 });
-
-// container: {
-//   flex: 1,
-//   backgroundColor: 'white',
-//   paddingHorizontal: 20,
-//   paddingTop: 20,
-//   borderTopLeftRadius: 10,
-//   borderTopRightRadius: 10,
-//   elevation: 5,
-// }
