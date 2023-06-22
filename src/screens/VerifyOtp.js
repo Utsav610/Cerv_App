@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
-
+import CustomButton from '../componets/CustomeButton';
 export default function OTPScreen() {
   return (
     <ImageBackground
@@ -46,9 +46,7 @@ export default function OTPScreen() {
             </Text>
           </View>
 
-          <TouchableOpacity style={styles.btn}>
-            <Text style={styles.btnText}>Verify Now</Text>
-          </TouchableOpacity>
+          <CustomButton title="Verify Now" />
         </View>
       </View>
     </ImageBackground>
@@ -85,18 +83,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 15,
   },
-  btn: {
-    width: '100%',
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-    backgroundColor: '#FF7722',
-  },
-  btnText: {
-    fontSize: 20,
-    color: 'white',
-  },
+
   image: {
     flex: 1,
     justifyContent: 'center',

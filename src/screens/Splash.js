@@ -6,7 +6,7 @@ import {View, StyleSheet, Text, Image} from 'react-native';
 export default function Splash({navigation}) {
   useEffect(() => {
     setTimeout(() => {
-      navigation.replace('Login');
+      navigation.replace('role');
     }, 2000);
   }, []);
 
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FF7722',
+    backgroundColor: '#F5694E',
   },
   logo: {
     width: 150,

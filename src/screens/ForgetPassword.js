@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
+import CustomButton from '../componets/CustomeButton';
 export default function MobileNumber({navigation}) {
   return (
     <ImageBackground
@@ -17,19 +17,24 @@ export default function MobileNumber({navigation}) {
       style={styles.image}>
       <View style={styles.container}>
         <View style={styles.content}>
-          <Text>Phone Number</Text>
+          <View style={styles.textconatiner}>
+            <Text style={styles.text}>
+              Please enter the email address below, you will receive a link to
+              create a new password via email
+            </Text>
+          </View>
+          <Text>Email</Text>
           <View style={styles.inputContainer}>
             <FontAwesome5 name={'envelope'} size={20} color={'#931314'} />
 
             <TextInput placeholder="john123@gmail.com" style={styles.input} />
           </View>
-          <TouchableOpacity
-            style={styles.btn}
+          <CustomButton
+            title="Send Code"
             onPress={() => {
               navigation.navigate('Otp Verify');
-            }}>
-            <Text style={styles.btnText}>Send Now</Text>
-          </TouchableOpacity>
+            }}
+          />
         </View>
       </View>
     </ImageBackground>
@@ -55,7 +60,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderColor: '#931314',
+    borderColor: '#F5694E',
     borderRadius: 5,
     paddingVertical: 1,
     paddingHorizontal: 10,
@@ -64,20 +69,14 @@ const styles = StyleSheet.create({
   input: {
     marginLeft: 10,
   },
-  btn: {
-    width: '100%',
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-    backgroundColor: '#FF7722',
-  },
-  btnText: {
-    fontSize: 20,
-    color: 'white',
-  },
+
   image: {
     flex: 1,
     justifyContent: 'center',
   },
+  textconatiner: {
+    fontSize: 20,
+    marginVertical: 30,
+  },
+  text: {fontSize: 16},
 });

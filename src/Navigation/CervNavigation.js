@@ -7,6 +7,9 @@ import Registration from '../screens/Registration';
 import MobileNumber from '../screens/MobileNumber';
 import VerifyOtp from '../screens/VerifyOtp';
 import ForgetPassword from '../screens/ForgetPassword';
+import Role from '../screens/Role';
+import HomeNavigation from './HomeNavigation';
+import CatereDetails from '../componets/Caterer/CatereDetails';
 const Stack = createNativeStackNavigator();
 
 export default function CervNavigation() {
@@ -14,17 +17,7 @@ export default function CervNavigation() {
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="Splash"
-        screenOptions={{
-          headerTitleAlign: 'center',
-          headerStyle: {
-            backgroundColor: '#ff9933',
-          },
-          headerTintColor: '#ffffff',
-          headerTitleStyle: {
-            fontSize: 25,
-            fontWeight: 'bold',
-          },
-        }}>
+        screenOptions={{headerShown: false}}>
         <Stack.Screen
           name="Splash"
           component={Splash}
@@ -32,11 +25,15 @@ export default function CervNavigation() {
             headerShown: false,
           }}
         />
+        <Stack.Screen name="role" component={Role} />
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Home" component={HomeNavigation} />
+
         <Stack.Screen name="Register" component={Registration} />
         <Stack.Screen name="Phone Number" component={MobileNumber} />
         <Stack.Screen name="Otp Verify" component={VerifyOtp} />
         <Stack.Screen name="Forget Password" component={ForgetPassword} />
+        <Stack.Screen name="Details" component={CatereDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );

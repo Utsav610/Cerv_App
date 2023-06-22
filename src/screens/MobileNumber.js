@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import CustomButton from '../componets/CustomeButton';
 
 export default function MobileNumber({navigation}) {
   return (
@@ -17,6 +18,10 @@ export default function MobileNumber({navigation}) {
       style={styles.image}>
       <View style={styles.container}>
         <View style={styles.content}>
+          <View style={styles.textconatiner}>
+            <Text>We'll send you a verification code.</Text>
+            <Text>Just enter your phone number below</Text>
+          </View>
           <Text>Phone Number</Text>
           <View style={styles.inputContainer}>
             <FontAwesome5 name={'phone'} size={20} color={'#931314'} />
@@ -27,13 +32,12 @@ export default function MobileNumber({navigation}) {
               keyboardType="numeric"
             />
           </View>
-          <TouchableOpacity
-            style={styles.btn}
+          <CustomButton
+            title="Send Code"
             onPress={() => {
               navigation.navigate('Otp Verify');
-            }}>
-            <Text style={styles.btnText}>Send Code</Text>
-          </TouchableOpacity>
+            }}
+          />
         </View>
       </View>
     </ImageBackground>
@@ -68,20 +72,12 @@ const styles = StyleSheet.create({
   input: {
     marginLeft: 10,
   },
-  btn: {
-    width: '100%',
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-    backgroundColor: '#FF7722',
-  },
-  btnText: {
-    fontSize: 20,
-    color: 'white',
-  },
+
   image: {
     flex: 1,
     justifyContent: 'center',
+  },
+  textconatiner: {
+    marginVertical: 30,
   },
 });

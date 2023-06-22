@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
+import CustomButton from '../componets/CustomeButton';
 export default function Login({navigation}) {
   return (
     <ImageBackground
@@ -51,9 +51,12 @@ export default function Login({navigation}) {
               <Text>Forget Password ?</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.btn}>
-              <Text style={styles.btnText}>Login</Text>
-            </TouchableOpacity>
+            <CustomButton
+              title="Login"
+              onPress={() => {
+                navigation.navigate('Home');
+              }}
+            />
           </View>
 
           <View style={styles.orContainer}>
@@ -81,28 +84,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // paddingHorizontal: 20,
-    marginTop: 50,
+    marginTop: 150,
   },
   login: {
     fontSize: 25,
     fontWeight: 'bold',
     marginBottom: 5,
+    color: '#333',
   },
   loginContent: {
     marginBottom: 25,
   },
-  btn: {
-    width: '100%',
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-    backgroundColor: '#FF7722',
-  },
-  btnText: {
-    fontSize: 20,
-    color: 'white',
-  },
+
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',

@@ -10,7 +10,7 @@ import {
 import React from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import CheckBox from '@react-native-community/checkbox';
-
+import CustomButton from '../componets/CustomeButton';
 export default function Registration({navigation}) {
   return (
     <ImageBackground
@@ -64,13 +64,12 @@ export default function Registration({navigation}) {
             </Text>
           </View>
 
-          <TouchableOpacity
-            style={styles.btn}
+          <CustomButton
+            title="Next"
             onPress={() => {
               navigation.navigate('Phone Number');
-            }}>
-            <Text style={styles.btnText}>Next</Text>
-          </TouchableOpacity>
+            }}
+          />
         </View>
       </View>
     </ImageBackground>
@@ -81,23 +80,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // paddingHorizontal: 20,
-    marginTop: 50,
+    marginTop: 100,
   },
   login: {
     fontWeight: 'bold',
   },
-  btn: {
-    width: '100%',
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-    backgroundColor: '#FF7722',
-  },
-  btnText: {
-    fontSize: 20,
-    color: 'white',
-  },
+
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
