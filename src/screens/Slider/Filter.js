@@ -1,10 +1,10 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 
-export default function Order() {
+export default function Filter() {
   return (
     <View>
-      <Text>Order</Text>
+      <Text>Filter</Text>
     </View>
   );
 }

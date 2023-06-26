@@ -2,12 +2,12 @@
 import React from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Login from '../screens/Login';
+import Login from '../screens/Login/Login';
 import Home from '../screens/Home';
-import Search from '../screens/Search';
-import Order from '../screens/Order';
-import Profile from '../screens/Profile';
-import Chat from '../screens/Chat';
+import Search from '../screens/Search/Search';
+import Order from '../screens/Order/Order';
+import Profile from '../screens/Profile/Profile';
+import Chat from '../screens/Chat/Chat';
 
 const Tab = createBottomTabNavigator();
 
@@ -24,7 +24,7 @@ function HomeNavigation() {
             iconName = 'searchengin';
             size = focused ? 25 : 20;
           } else if (route.name === 'Order') {
-            iconName = 'bucket';
+            iconName = 'briefcase';
             size = focused ? 25 : 20;
           } else if (route.name === 'Chat') {
             iconName = 'rocketchat';
@@ -51,21 +51,9 @@ function HomeNavigation() {
         component={Search}
         options={{headerShown: false}}
       />
-      <Tab.Screen
-        name={'Order'}
-        component={Order}
-        options={{headerShown: false}}
-      />
-      <Tab.Screen
-        name={'Chat'}
-        component={Chat}
-        options={{headerShown: false}}
-      />
-      <Tab.Screen
-        name={'Profile'}
-        component={Profile}
-        options={{headerShown: false}}
-      />
+      <Tab.Screen name={'Order'} component={Order} />
+      <Tab.Screen name={'Chat'} component={Chat} />
+      <Tab.Screen name={'Profile'} component={Profile} />
     </Tab.Navigator>
   );
 }

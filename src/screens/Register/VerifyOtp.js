@@ -7,11 +7,11 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
-import CustomButton from '../componets/CustomeButton';
+import CustomButton from '../../componets/CustomeButton';
 export default function OTPScreen() {
   return (
     <ImageBackground
-      source={require('../assest/bg_image.jpeg')}
+      source={require('../../assest/bg_image.jpeg')}
       resizeMode="cover"
       style={styles.image}>
       <View style={styles.container}>

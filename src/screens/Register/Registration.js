@@ -10,18 +10,18 @@ import {
 import React from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import CheckBox from '@react-native-community/checkbox';
-import CustomButton from '../componets/CustomeButton';
+import CustomButton from '../../componets/CustomeButton';
 export default function Registration({navigation}) {
   return (
     <ImageBackground
-      source={require('../assest/bg_image.jpeg')}
+      source={require('../../assest/bg_image.jpeg')}
       resizeMode="cover"
       style={styles.image}>
       <View style={styles.container}>
         <View style={styles.content}>
           <View style={styles.imageContainer}>
             <Image
-              source={require('../assest/profile_Icon.png')}
+              source={require('../../assest/profile_Icon.png')}
               style={styles.image1}
             />
           </View>

@@ -2,12 +2,9 @@ import React from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-const Cater = props => {
+const Cater = ({onclick}) => {
   return (
-    <TouchableOpacity
-      onPress={() => {
-        console.log(props);
-      }}>
+    <TouchableOpacity onPress={onclick}>
       <View style={styles.container}>
         <Image
           source={require('../../assest/catere.jpeg')}
@@ -18,6 +15,11 @@ const Cater = props => {
             <Text style={styles.name}>Name</Text>
             <Text style={styles.address}>Address</Text>
             <Text style={styles.address}>$80.00/Per Dish</Text>
+            <View style={styles.ratingContainer}>
+              {[1, 2, 3, 4, 5].map(index => (
+                <FontAwesome5 key={index} name="star" size={16} />
+              ))}
+            </View>
           </View>
           <TouchableOpacity style={styles.heartIconContainer}>
             <FontAwesome5 name="heart" size={20} color="#F5694E" />
@@ -62,6 +64,11 @@ const styles = StyleSheet.create({
   },
   heartIconContainer: {
     marginLeft: 10,
+  },
+  ratingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 5,
   },
 });
 

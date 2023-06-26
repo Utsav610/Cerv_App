@@ -2,45 +2,61 @@ import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-const Profile = () => {
+const Profile = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Text style={styles.profileText}>Profile</Text>
-      </View>
-
       <View style={styles.imageContainer}>
         <Image
-          source={require('../assest/profile_Icon.png')}
+          source={require('../../assest/profile_Icon.png')}
           style={styles.image}
         />
       </View>
 
-      <TouchableOpacity style={styles.optionContainer}>
+      <TouchableOpacity
+        style={styles.optionContainer}
+        onPress={() => {
+          navigation.navigate('Personal information');
+        }}>
         <FontAwesome5 name="user" size={20} color="#931314" />
         <Text style={styles.optionText}>Personal Information</Text>
         <FontAwesome5 name="angle-right" size={20} color="#cccc" />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.optionContainer}>
+      <TouchableOpacity
+        style={styles.optionContainer}
+        onPress={() => {
+          navigation.navigate('Payment Method');
+        }}>
         <FontAwesome5 name="credit-card" size={20} color="#931314" />
         <Text style={styles.optionText}>Payment Method</Text>
         <FontAwesome5 name="angle-right" size={20} color="#cccc" />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.optionContainer}>
+      <TouchableOpacity
+        style={styles.optionContainer}
+        onPress={() => {
+          navigation.navigate('My Favorites');
+        }}>
         <FontAwesome5 name="heart" size={20} color="#931314" />
         <Text style={styles.optionText}>My Favorites</Text>
         <FontAwesome5 name="angle-right" size={20} color="#cccc" />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.optionContainer}>
+      <TouchableOpacity
+        style={styles.optionContainer}
+        onPress={() => {
+          navigation.navigate('Saved Address');
+        }}>
         <FontAwesome5 name="location-dot" size={20} color="#931314" />
         <Text style={styles.optionText}>Saved Address</Text>
         <FontAwesome5 name="angle-right" size={20} color="#cccc" />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.optionContainer}>
+      <TouchableOpacity
+        style={styles.optionContainer}
+        onPress={() => {
+          navigation.navigate('Change Password');
+        }}>
         <FontAwesome5 name="lock" size={20} color="#931314" />
         <Text style={styles.optionText}>Change Password</Text>
         <FontAwesome5 name="angle-right" size={20} color="#cccc" />

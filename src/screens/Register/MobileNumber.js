@@ -8,12 +8,12 @@ import {
 } from 'react-native';
 import React from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import CustomButton from '../componets/CustomeButton';
+import CustomButton from '../../componets/CustomeButton';
 
 export default function MobileNumber({navigation}) {
   return (
     <ImageBackground
-      source={require('../assest/bg_image.jpeg')}
+      source={require('../../assest/bg_image.jpeg')}
       resizeMode="cover"
       style={styles.image}>
       <View style={styles.container}>
