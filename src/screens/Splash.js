@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {View, StyleSheet, Text, Image} from 'react-native';
 // import PushNotification from 'react-native-push-notification';
 // import GlobalStyle from '../utils/GlobalStyle';
+import Color from '../Constants/Color';
 
 export default function Splash({navigation}) {
   useEffect(() => {
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F5694E',
+    backgroundColor: Color.primaryColor,
   },
   logo: {
     width: 150,

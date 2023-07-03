@@ -1,14 +1,20 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-export default function Payment_method() {
+import CustomButton from '../../componets/CustomeButton';
+export default function Payment_method({navigation}) {
   return (
     <>
       <View style={styles.Container}>
         <View style={styles.cardcontainer}>
           <View style={styles.textContainer}>
             <Text style={styles.text}>Saved Cards</Text>
-            <Text style={[styles.text, {color: '#F5694E'}]}>ADD CARD</Text>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Add New Card');
+              }}>
+              <Text style={[styles.text, {color: '#F5694E'}]}>ADD CARD</Text>
+            </TouchableOpacity>
           </View>
           <View>
             <View style={styles.card}>
@@ -40,6 +46,12 @@ export default function Payment_method() {
             </TouchableOpacity>
           </View>
         </View>
+        <CustomButton
+          title={'Make Payment'}
+          onPress={() => {
+            navigation.navigate('Order Receipt');
+          }}
+        />
       </View>
     </>
   );

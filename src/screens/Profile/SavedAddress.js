@@ -1,6 +1,7 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Color from '../../Constants/Color';
 
 export default function SavedAddress() {
   return (
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,
     paddingVertical: 15,
-    borderBottomColor: '#cccc',
+    borderBottomColor: Color.accentColor,
   },
   addressTextContainer: {
     flex: 1,

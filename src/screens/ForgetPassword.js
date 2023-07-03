@@ -9,6 +9,7 @@ import {
 import React from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import CustomButton from '../componets/CustomeButton';
+import Color from '../Constants/Color';
 export default function MobileNumber({navigation}) {
   return (
     <ImageBackground
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderColor: '#F5694E',
+    borderColor: Color.primaryColor,
     borderRadius: 5,
     paddingVertical: 1,
     paddingHorizontal: 10,

@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
   Image,
@@ -11,7 +12,7 @@ import {
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-const CatereDetails = () => {
+const CatereDetails = ({navigation}) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -166,6 +167,11 @@ const CatereDetails = () => {
                   orderType === 'delivery' && styles.radioButtonSelected,
                 ]}
                 onPress={() => handleOrderTypeChange('delivery')}>
+                {orderType === 'delivery' ? (
+                  <FontAwesome5 name="check-circle" size={20} />
+                ) : (
+                  <FontAwesome5 name="circle" size={20} />
+                )}
                 <Text style={styles.radioButtonText}>Delivery</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -174,8 +180,59 @@ const CatereDetails = () => {
                   orderType === 'pickup' && styles.radioButtonSelected,
                 ]}
                 onPress={() => handleOrderTypeChange('pickup')}>
+                {orderType === 'pickup' ? (
+                  <FontAwesome5 name="check-circle" size={20} />
+                ) : (
+                  <FontAwesome5 name="circle" size={20} />
+                )}
                 <Text style={styles.radioButtonText}>Pick Up</Text>
               </TouchableOpacity>
+            </View>
+          </View>
+          <View>
+            <View>
+              <Text>Menu</Text>
+              <View style={styles.menuContainer}>
+                <Text style={styles.label}>Noodles</Text>
+                <Text style={styles.label}>Rice</Text>
+                <Text style={styles.label}>Szechwan</Text>
+                <Text style={styles.label}>Chow Main</Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.itemContainer}>
+            <View style={styles.itemImageContainer}>
+              <Image
+                source={require('../../assest/silder1.jpeg')}
+                style={styles.itemImage}
+              />
+            </View>
+            <View style={styles.itemDetailsContainer}>
+              <Text style={styles.itemName}>Chicken Fried Rice</Text>
+              <Text style={styles.itemDescription}>
+                Delicious fried rice with chicken, vegetables, and special
+                spices.
+              </Text>
+              <View style={styles.Direction}>
+                <Text style={styles.itemPrice}>$9.99</Text>
+                <TouchableOpacity style={styles.addToCartButton}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      marginRight: 5,
+                    }}>
+                    <FontAwesome5
+                      name={'cart-plus'}
+                      size={15}
+                      color={'#F5694E'}
+                      style={{marginRight: 5}}
+                    />
+                    <Text style={styles.addToCartButtonText}>Add</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </ScrollView>
@@ -188,7 +245,12 @@ const CatereDetails = () => {
           <Text style={styles.footerText}>|</Text>
         </View>
         <View>
-          <Text style={styles.footerText}>MAKE PAYMENT</Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Order Receipt');
+            }}>
+            <Text style={styles.footerText}>MAKE PAYMENT</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </>
@@ -258,8 +320,9 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   radioButtonSelected: {
-    backgroundColor: '#ccc',
+    marginVertical: 10,
   },
+
   dtContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -284,5 +347,65 @@ const styles = StyleSheet.create({
   footerText: {
     color: '#FFF',
     fontWeight: 'bold',
+  },
+  label: {
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 7,
+    paddingVertical: 2,
+    marginHorizontal: 5,
+    marginVertical: 10,
+  },
+  menuContainer: {
+    flexDirection: 'row',
+  },
+  itemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderBottomWidth: 1,
+    borderBottomColor: '#cccc',
+  },
+  itemImageContainer: {
+    marginRight: 10,
+  },
+  itemImage: {
+    width: 80,
+    height: 90,
+    resizeMode: 'cover',
+    borderRadius: 5,
+  },
+  itemDetailsContainer: {
+    flex: 1,
+  },
+  itemName: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  itemDescription: {
+    fontSize: 14,
+    marginBottom: 5,
+  },
+  itemPrice: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  addToCartButton: {
+    paddingVertical: 1,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  addToCartButtonText: {
+    fontSize: 16,
+  },
+  Direction: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

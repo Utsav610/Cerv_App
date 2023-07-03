@@ -3,7 +3,7 @@ import {StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import CurrentOrder from './CurrentOrder';
 import PastOrder from './PastOrder';
-import Color from '../../Constants/Color';
+import Color from '../../../Constants/Color';
 export default function Order({navigation}) {
   const [selectedTab, setSelectedTab] = useState('current');
 

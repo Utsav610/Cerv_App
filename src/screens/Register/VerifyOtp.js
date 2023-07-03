@@ -8,6 +8,7 @@ import {
   ImageBackground,
 } from 'react-native';
 import CustomButton from '../../componets/CustomeButton';
+import Color from '../../Constants/Color';
 export default function OTPScreen() {
   return (
     <ImageBackground
@@ -42,7 +43,7 @@ export default function OTPScreen() {
           <View style={styles.otpContainer}>
             <Text>
               Didn't Get Code?{' '}
-              <Text style={{color: '#FF7722'}}> Resend Code</Text>
+              <Text style={{color: Color.primaryColor}}> Resend Code</Text>
             </Text>
           </View>
 

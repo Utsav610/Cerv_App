@@ -9,8 +9,9 @@ import {
 } from 'react-native';
 import React from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Color from '../../Constants/Color';
 
-export default function OrderDetails() {
+export default function OrderDetails({navigation}) {
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -95,7 +96,11 @@ export default function OrderDetails() {
               </Text>
             </View>
             <View>
-              <TouchableOpacity style={styles.btn}>
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => {
+                  navigation.navigate('Chat');
+                }}>
                 <Text style={{color: '#FFFF'}}>Chat</Text>
               </TouchableOpacity>
             </View>
@@ -138,7 +143,7 @@ export default function OrderDetails() {
         <View style={styles.ItemContainer}>
           <View style={styles.ItemContent}>
             <Text style={styles.itemText}>Sub total</Text>
-            <Text style={styles.itemText}>-$547.10</Text>
+            <Text style={styles.itemText}>$547.10</Text>
           </View>
         </View>
         <View style={styles.ItemContainer}>
@@ -165,7 +170,7 @@ export default function OrderDetails() {
                 fontWeight: '500',
                 color: '#000',
               }}>
-              -$542.00
+              $542.00
             </Text>
           </View>
         </View>
@@ -180,7 +185,9 @@ export default function OrderDetails() {
               }}>
               Address
             </Text>
-            <Text style={{color: '#F5694E', paddingVertical: 5}}>CHANGE</Text>
+            <Text style={{color: Color.primaryColor, paddingVertical: 5}}>
+              CHANGE
+            </Text>
           </View>
           <View style={{flexDirection: 'row'}}>
             <View style={styles.homeicon}>
@@ -235,7 +242,7 @@ const styles = StyleSheet.create({
   ItemContainer: {
     paddingVertical: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#cccc',
+    borderBottomColor: Color.accentColor,
   },
   mtext: {
     paddingVertical: 3,
@@ -244,14 +251,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 70,
     padding: 6,
-    backgroundColor: '#F5694E',
+    backgroundColor: Color.primaryColor,
     borderRadius: 5,
   },
   homeicon: {
     alignItems: 'center',
     padding: 4,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: Color.accentColor,
     marginRight: 10,
   },
   AddressContainer: {

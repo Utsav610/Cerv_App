@@ -1,14 +1,14 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Color from '../../Constants/Color';
+import Color from '../../../Constants/Color';
 
 const Profile = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
-          source={require('../../assest/profile_Icon.png')}
+          source={require('../../../assest/profile_Icon.png')}
           style={styles.image}
         />
       </View>
@@ -36,20 +36,10 @@ const Profile = ({navigation}) => {
       <TouchableOpacity
         style={styles.optionContainer}
         onPress={() => {
-          navigation.navigate('My Favorites');
-        }}>
-        <FontAwesome5 name="heart" size={20} color="#931314" />
-        <Text style={styles.optionText}>My Favorites</Text>
-        <FontAwesome5 name="angle-right" size={20} color="#cccc" />
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.optionContainer}
-        onPress={() => {
           navigation.navigate('Saved Address');
         }}>
-        <FontAwesome5 name="location-dot" size={20} color="#931314" />
-        <Text style={styles.optionText}>Saved Address</Text>
+        <FontAwesome5 name="tag" size={20} color="#931314" />
+        <Text style={styles.optionText}>Discount Codes</Text>
         <FontAwesome5 name="angle-right" size={20} color="#cccc" />
       </TouchableOpacity>
 

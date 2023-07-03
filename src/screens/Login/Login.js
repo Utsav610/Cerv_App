@@ -6,10 +6,20 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import CustomButton from '../../componets/CustomeButton';
-export default function Login({navigation}) {
+export default function Login({navigation, route}) {
+  const Role = route.params.role;
+  console.log(Role);
+  const handleLogin = () => {
+    if (Role === 'Customer') {
+      navigation.navigate('Home');
+    } else if (Role === 'Caterer') {
+      navigation.navigate('CatereLogin');
+    }
+  };
+
   return (
     <ImageBackground
       source={require('../../assest/bg_image.jpeg')}
@@ -51,12 +61,7 @@ export default function Login({navigation}) {
               <Text>Forget Password ?</Text>
             </TouchableOpacity>
 
-            <CustomButton
-              title="Login"
-              onPress={() => {
-                navigation.navigate('Home');
-              }}
-            />
+            <CustomButton title="Login" onPress={handleLogin} />
           </View>
 
           <View style={styles.orContainer}>

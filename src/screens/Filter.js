@@ -13,19 +13,19 @@ export default function Filter({navigation}) {
           <View style={styles.content}>
             <View style={styles.info}>
               <Text style={styles.text}>Catere by Rating</Text>
-              <FontAwesome5 name={'filter'} size={20} color={'#931314'} />
+              <FontAwesome5 name={'circle'} size={20} color={'#931314'} />
             </View>
             <View style={styles.info}>
               <Text style={styles.text}>Catere by Price Low to High</Text>
-              <FontAwesome5 name={'filter'} size={20} color={'#931314'} />
+              <FontAwesome5 name={'circle'} size={20} color={'#931314'} />
             </View>
             <View style={styles.info}>
               <Text style={styles.text}>Catere by Price High to Low</Text>
-              <FontAwesome5 name={'filter'} size={20} color={'#931314'} />
+              <FontAwesome5 name={'circle'} size={20} color={'#931314'} />
             </View>
             <View style={styles.info}>
               <Text style={styles.text}>Catere by Distance</Text>
-              <FontAwesome5 name={'filter'} size={20} color={'#931314'} />
+              <FontAwesome5 name={'circle'} size={20} color={'#931314'} />
             </View>
           </View>
           <View>
@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 10,
     borderBottomWidth: 1,
+    borderBottomColor: '#cccc',
   },
   infoCotanier: {
     padding: 20,

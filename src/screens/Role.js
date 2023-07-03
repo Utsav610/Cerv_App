@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Color from '../Constants/Color';
 
 export default function OptionScreen({navigation}) {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -52,7 +53,9 @@ export default function OptionScreen({navigation}) {
         {selectedOption && (
           <TouchableOpacity
             style={styles.btn}
-            onPress={() => navigation.navigate('Login')}>
+            onPress={() =>
+              navigation.navigate('Login', {role: selectedOption})
+            }>
             <Text style={styles.selectedOptionButtonText}>
               I'm {selectedOption}
             </Text>
@@ -72,8 +75,8 @@ const styles = StyleSheet.create({
   },
   optionContainer: {
     flexDirection: 'column',
-    justifyContent: 'space-between', // Adjusted spacing
-    height: 200,
+    justifyContent: 'space-evenly', // Adjusted spacing
+    height: '80%',
   },
   optionButton: {
     alignItems: 'center',
@@ -84,7 +87,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   selectedOptionButton: {
-    backgroundColor: '#F5694E',
+    backgroundColor: Color.primaryColor,
   },
   selectedOptionButtonText: {
     color: 'white',
@@ -99,7 +102,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    backgroundColor: '#F5694E',
+    backgroundColor: Color.primaryColor,
     marginHorizontal: 20,
   },
   text: {

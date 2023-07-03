@@ -11,7 +11,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import CustomButton from '../../componets/CustomeButton';
 import Color from '../../Constants/Color';
 
-export default function Peronal_Infomation({navigation}) {
+export default function EditInfo({navigation}) {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -58,9 +58,9 @@ export default function Peronal_Infomation({navigation}) {
 
       <View style={styles.btnContainer}>
         <CustomButton
-          title="Edit Information"
+          title="Save"
           onPress={() => {
-            navigation.navigate('Edit information');
+            navigation.navigate('Personal information');
           }}
         />
       </View>
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderColor: Color.accentColor,
+    borderColor: '#cccc',
     borderRadius: 5,
     paddingVertical: 1,
     paddingHorizontal: 5,

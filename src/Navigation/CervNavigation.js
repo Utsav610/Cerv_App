@@ -19,6 +19,17 @@ import ChatDetails from '../screens/Chat/ChatDetails';
 import Notification from '../screens/Notification';
 import Filter from '../screens/Filter';
 import OrderDetails from '../screens/Order/OrderDetails';
+import AddNewcard from '../screens/Profile/AddNewcard';
+import OrderReceipt from '../screens/Order/OrderReceipt';
+import DiscountCode from '../screens/DiscountCode';
+import EditInfo from '../screens/Profile/EditInfo';
+import AddStoreDetails from '../screens/CatereScreens/AddStoreDetails';
+import Menu from '../screens/CatereScreens/Menu/Menu';
+import EditCategory from '../screens/CatereScreens/Menu/EditCategory';
+import CatereNavigation from './CatereNavigation';
+import AddCategory from '../screens/CatereScreens/Menu/AddCategory';
+import MealDetails from '../screens/CatereScreens/Menu/MealDetails';
+
 const Stack = createNativeStackNavigator();
 
 export default function CervNavigation() {
@@ -93,6 +104,34 @@ export default function CervNavigation() {
         />
 
         <Stack.Screen name="Order Detials" component={OrderDetails} />
+        <Stack.Screen name="Add New Card" component={AddNewcard} />
+        <Stack.Screen name="Order Receipt" component={OrderReceipt} />
+        <Stack.Screen name="View Discount Codes" component={DiscountCode} />
+        <Stack.Screen name="Edit information" component={EditInfo} />
+
+        {/* caterScreen Screen */}
+        <Stack.Screen
+          name="CatereLogin"
+          component={CatereNavigation}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name="Add Caterer Store Details"
+          component={AddStoreDetails}
+        />
+        <Stack.Screen
+          name="Menu"
+          component={Menu}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen name="Edit Category" component={EditCategory} />
+        <Stack.Screen name="Add Category" component={AddCategory} />
+        <Stack.Screen
+          name="Meal Details"
+          component={MealDetails}
+          options={({route}) => ({title: route.params.title})}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
