@@ -2,10 +2,13 @@ import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import Color from '../../../Constants/Color';
 
-export default function PastOrder() {
+export default function PastOrder({navigation}) {
   return (
     <View style={styles.caterOrder}>
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('Past Order Details');
+        }}>
         <View style={styles.header}>
           <Image
             source={require('../../../assest/catere.jpeg')}

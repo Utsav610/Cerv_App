@@ -49,7 +49,7 @@ export default function Order({navigation}) {
         {selectedTab === 'current' ? (
           <CurrentOrder navigation={navigation} />
         ) : (
-          <PastOrder navigation={navigation} />
+          <PastOrder />
         )}
       </View>
     </View>

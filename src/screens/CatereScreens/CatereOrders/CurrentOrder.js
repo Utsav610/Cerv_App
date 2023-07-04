@@ -7,7 +7,7 @@ export default function CurrentOrder({navigation}) {
     <View style={styles.caterOrder}>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('Order Detials');
+          navigation.navigate('catere Order Details');
         }}>
         <View style={styles.header}>
           <Image

@@ -5,7 +5,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 const DeleteModal = ({imageSource, itemTitle, onCancel, onDelete}) => {
   return (
     <View style={styles.modalContent}>
-      <Image source={imageSource} style={styles.modalImage} />
+      {imageSource && <Image source={imageSource} style={styles.modalImage} />}
       <Text style={styles.modalTitle}>{itemTitle}</Text>
       <Text style={styles.modalText}>
         Are you sure you want to delete this category?

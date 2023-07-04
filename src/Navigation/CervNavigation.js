@@ -10,25 +10,35 @@ import ForgetPassword from '../screens/ForgetPassword';
 import Role from '../screens/Role';
 import HomeNavigation from './HomeNavigation';
 import CatereDetails from '../componets/Caterer/CatereDetails';
-import Peronal_Infomation from '../screens/Profile/Peronal_Infomation';
-import Change_password from '../screens/Profile/Change_password';
-import Payment_method from '../screens/Profile/Payment_method';
-import MyFavorites from '../screens/Profile/MyFavorites';
-import SavedAddress from '../screens/Profile/SavedAddress';
-import ChatDetails from '../screens/Chat/ChatDetails';
+import Peronal_Infomation from '../screens/CustomerScreens/Profile/Peronal_Infomation';
+import Change_password from '../screens/CustomerScreens/Profile/Change_password';
+import Payment_method from '../screens/CustomerScreens/Profile/Payment_method';
+import MyFavorites from '../screens/CustomerScreens/Profile/MyFavorites';
+import SavedAddress from '../screens/CustomerScreens/Profile/SavedAddress';
+import ChatDetails from '../screens/CustomerScreens/Chat/ChatDetails';
 import Notification from '../screens/Notification';
-import Filter from '../screens/Filter';
-import OrderDetails from '../screens/Order/OrderDetails';
-import AddNewcard from '../screens/Profile/AddNewcard';
-import OrderReceipt from '../screens/Order/OrderReceipt';
+import Filter from '../screens/CustomerScreens/Filter';
+import OrderDetails from '../screens/CustomerScreens/Order/OrderDetails';
+import AddNewcard from '../screens/CustomerScreens/Profile/AddNewcard';
+import OrderReceipt from '../screens/CustomerScreens/Order/OrderReceipt';
 import DiscountCode from '../screens/DiscountCode';
-import EditInfo from '../screens/Profile/EditInfo';
+import EditInfo from '../screens/CustomerScreens/Profile/EditInfo';
 import AddStoreDetails from '../screens/CatereScreens/AddStoreDetails';
 import Menu from '../screens/CatereScreens/Menu/Menu';
 import EditCategory from '../screens/CatereScreens/Menu/EditCategory';
 import CatereNavigation from './CatereNavigation';
 import AddCategory from '../screens/CatereScreens/Menu/AddCategory';
 import MealDetails from '../screens/CatereScreens/Menu/MealDetails';
+import Product from '../screens/CatereScreens/Menu/Product/Product';
+import ProductDetails from '../screens/CatereScreens/Menu/Product/ProductDetails';
+import EditProductDetails from '../screens/CatereScreens/Menu/Product/EditProductDetails';
+import AddProduct from '../screens/CatereScreens/Menu/Product/AddProduct';
+import CatereOrderDetails from '../screens/CatereScreens/CatereOrders/CatereOrderDetails';
+import CaterePastOrderDetails from '../screens/CatereScreens/CatereOrders/CaterePastOrderDetails';
+import Invoice from '../screens/CatereScreens/CatereOrders/Invoice';
+import DiscountCodes from '../screens/CatereScreens/CatereProfile/DiscountCodes/DiscountCodes';
+import CreateDiscountCode from '../screens/CatereScreens/CatereProfile/DiscountCodes/CreateDiscountCode';
+import EditDiscountCodes from '../screens/CatereScreens/CatereProfile/DiscountCodes/EditDiscountCodes';
 
 const Stack = createNativeStackNavigator();
 
@@ -61,7 +71,7 @@ export default function CervNavigation() {
           options={{headerShown: false}}
         />
 
-        <Stack.Screen name="CatereDetails" component={CatereDetails} />
+        <Stack.Screen name="Details" component={CatereDetails} />
 
         <Stack.Screen
           name="Register"
@@ -83,7 +93,7 @@ export default function CervNavigation() {
           component={ForgetPassword}
           options={{headerShown: false}}
         />
-        <Stack.Screen name="Details" component={CatereDetails} />
+        {/* <Stack.Screen name="Details" component={CatereDetails} /> */}
 
         <Stack.Screen
           name="Personal information"
@@ -131,6 +141,28 @@ export default function CervNavigation() {
           name="Meal Details"
           component={MealDetails}
           options={({route}) => ({title: route.params.title})}
+        />
+        <Stack.Screen name="Product" component={Product} />
+        <Stack.Screen name="Product Details" component={ProductDetails} />
+        <Stack.Screen name="Edit Product" component={EditProductDetails} />
+        <Stack.Screen name="Add Product" component={AddProduct} />
+        <Stack.Screen
+          name="catere Order Details"
+          component={CatereOrderDetails}
+        />
+        <Stack.Screen
+          name="Past Order Details"
+          component={CaterePastOrderDetails}
+        />
+        <Stack.Screen name="Invoice" component={Invoice} />
+        <Stack.Screen name="Discount Codes" component={DiscountCodes} />
+        <Stack.Screen
+          name="Create Discount Codes"
+          component={CreateDiscountCode}
+        />
+        <Stack.Screen
+          name="Edit Discount Codes"
+          component={EditDiscountCodes}
         />
       </Stack.Navigator>
     </NavigationContainer>

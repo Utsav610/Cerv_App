@@ -2,12 +2,17 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Color from '../Constants/Color';
-
+import {useDispatch} from 'react-redux';
+import {updateRole} from '../store/action/action';
 export default function OptionScreen({navigation}) {
+  const dispatch = useDispatch();
+
   const [selectedOption, setSelectedOption] = useState(null);
 
   const handleOptionSelect = option => {
     setSelectedOption(option);
+    // console.log(option);
+    dispatch(updateRole(option));
   };
 
   return (

@@ -36,10 +36,20 @@ const Profile = ({navigation}) => {
       <TouchableOpacity
         style={styles.optionContainer}
         onPress={() => {
-          navigation.navigate('Discount Codes');
+          navigation.navigate('My Favorites');
         }}>
-        <FontAwesome5 name="tag" size={20} color="#931314" />
-        <Text style={styles.optionText}>Discount Codes</Text>
+        <FontAwesome5 name="heart" size={20} color="#931314" />
+        <Text style={styles.optionText}>My Favorites</Text>
+        <FontAwesome5 name="angle-right" size={20} color="#cccc" />
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.optionContainer}
+        onPress={() => {
+          navigation.navigate('Saved Address');
+        }}>
+        <FontAwesome5 name="location-dot" size={20} color="#931314" />
+        <Text style={styles.optionText}>Saved Address</Text>
         <FontAwesome5 name="angle-right" size={20} color="#cccc" />
       </TouchableOpacity>
 
@@ -53,11 +63,7 @@ const Profile = ({navigation}) => {
         <FontAwesome5 name="angle-right" size={20} color="#cccc" />
       </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.optionContainer}
-        onPress={() => {
-          navigation.navigate('Catere Order');
-        }}>
+      <TouchableOpacity style={styles.optionContainer} onPress={() => {}}>
         <FontAwesome5 name="sign-out-alt" size={20} color="#931314" />
         <Text style={styles.optionText}>Log out</Text>
       </TouchableOpacity>

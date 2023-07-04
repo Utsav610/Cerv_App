@@ -10,11 +10,14 @@ import React, {useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Color from '../../../Constants/Color';
 
-export default function MealDetails() {
+export default function MealDetails({navigation}) {
   return (
     <View style={styles.container}>
       <View style={styles.label}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Product');
+          }}>
           <View style={styles.labelContent}>
             <Text style={styles.labelText}>Noodle</Text>
           </View>

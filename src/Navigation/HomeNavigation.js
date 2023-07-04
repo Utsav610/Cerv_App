@@ -3,11 +3,11 @@ import React from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Login from '../screens/Login/Login';
-import Home from '../screens/Home';
-import Search from '../screens/Search/Search';
-import Order from '../screens/Order/Order';
-import Profile from '../screens/Profile/Profile';
-import Chat from '../screens/Chat/Chat';
+import Home from '../screens/CustomerScreens/Home';
+import Search from '../screens/CustomerScreens/Search/Search';
+import Order from '../screens/CustomerScreens/Order/Order';
+import Profile from '../screens/CustomerScreens/Profile/Profile';
+import Chat from '../screens/CustomerScreens/Chat/Chat';
 
 const Tab = createBottomTabNavigator();
 
