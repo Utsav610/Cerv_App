@@ -10,8 +10,10 @@ import CustomButton from '../../componets/CustomeButton';
 import Color from '../../Constants/Color';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import OtpInputs from 'react-native-otp-inputs';
+import {useSelector} from 'react-redux';
 
-export default function OTPScreen() {
+export default function OTPScreen({navigation}) {
+  const Role = useSelector(state => state.user.role);
   return (
     <KeyboardAwareScrollView>
       <ImageBackground
@@ -31,11 +33,25 @@ export default function OTPScreen() {
             <View style={styles.otpContainer}>
               <Text>
                 Didn't Get Code?
-                <Text style={{color: Color.primaryColor}}> Resend Code</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate('Phone Number');
+                  }}>
+                  <Text style={{color: Color.primaryColor}}> Resend Code</Text>
+                </TouchableOpacity>
               </Text>
             </View>
 
-            <CustomButton title="Verify Now" />
+            <CustomButton
+              title="Verify Now"
+              onPress={() => {
+                if (Role === 'Customer') {
+                  navigation.navigate('Login');
+                } else if (Role === 'Caterer') {
+                  navigation.navigate('Add Caterer Store Details');
+                }
+              }}
+            />
           </View>
         </View>
       </ImageBackground>

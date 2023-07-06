@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Image,
   StyleSheet,
@@ -8,9 +8,13 @@ import {
   TouchableOpacity,
   Platform,
   ScrollView,
+  FlatList,
 } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import Categories_data from '../../data/Categories_data';
+import Color from '../../Constants/Color';
+import Menu_data from '../../data/Menu_data';
 
 const CatereDetails = ({navigation}) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -18,6 +22,16 @@ const CatereDetails = ({navigation}) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [orderType, setOrderType] = useState('delivery');
+  const [selectedMenu, setSelectedMenu] = useState('Noodles');
+
+  const [filteredData, setFilteredData] = useState([]);
+
+  useEffect(() => {
+    const filteredCategories = Menu_data.filter(
+      item => item.type === selectedMenu,
+    );
+    setFilteredData(filteredCategories);
+  }, [selectedMenu]);
 
   const handleDateChange = (event, newDate) => {
     if (Platform.OS === 'android') {
@@ -47,6 +61,43 @@ const CatereDetails = ({navigation}) => {
 
   const showAndroidTimePicker = () => {
     setShowTimePicker(true);
+  };
+
+  const renderItem = ({item}) => {
+    return (
+      <>
+        <View style={styles.itemContainer}>
+          <View style={styles.itemImageContainer}>
+            <Image source={item.img} style={styles.itemImage} />
+          </View>
+          <View style={styles.itemDetailsContainer}>
+            <Text style={styles.itemName}>{item.type}</Text>
+            <Text style={styles.itemDescription}>
+              Delicious fried rice with chicken, vegetables, and special spices.
+            </Text>
+            <View style={styles.Direction}>
+              <Text style={styles.itemPrice}>{item.price}</Text>
+              <TouchableOpacity style={styles.addToCartButton}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginRight: 5,
+                  }}>
+                  <FontAwesome5
+                    name={'cart-plus'}
+                    size={15}
+                    color={'#F5694E'}
+                    style={{marginRight: 5}}
+                  />
+                  <Text style={styles.addToCartButtonText}>Add</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </>
+    );
   };
 
   return (
@@ -193,48 +244,52 @@ const CatereDetails = ({navigation}) => {
             <View>
               <Text>Menu</Text>
               <View style={styles.menuContainer}>
-                <Text style={styles.label}>Noodles</Text>
-                <Text style={styles.label}>Rice</Text>
-                <Text style={styles.label}>Szechwan</Text>
-                <Text style={styles.label}>Chow Main</Text>
-              </View>
-            </View>
-          </View>
-
-          <View style={styles.itemContainer}>
-            <View style={styles.itemImageContainer}>
-              <Image
-                source={require('../../assest/silder1.jpeg')}
-                style={styles.itemImage}
-              />
-            </View>
-            <View style={styles.itemDetailsContainer}>
-              <Text style={styles.itemName}>Chicken Fried Rice</Text>
-              <Text style={styles.itemDescription}>
-                Delicious fried rice with chicken, vegetables, and special
-                spices.
-              </Text>
-              <View style={styles.Direction}>
-                <Text style={styles.itemPrice}>$9.99</Text>
-                <TouchableOpacity style={styles.addToCartButton}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      marginRight: 5,
-                    }}>
-                    <FontAwesome5
-                      name={'cart-plus'}
-                      size={15}
-                      color={'#F5694E'}
-                      style={{marginRight: 5}}
-                    />
-                    <Text style={styles.addToCartButtonText}>Add</Text>
-                  </View>
+                <TouchableOpacity onPress={() => setSelectedMenu('Noodles')}>
+                  <Text
+                    style={[
+                      styles.label,
+                      selectedMenu === 'Noodles' && styles.selectedLabel,
+                    ]}>
+                    Noodles
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => setSelectedMenu('Rice')}>
+                  <Text
+                    style={[
+                      styles.label,
+                      selectedMenu === 'Rice' && styles.selectedLabel,
+                    ]}>
+                    Rice
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => setSelectedMenu('Szechwan')}>
+                  <Text
+                    style={[
+                      styles.label,
+                      selectedMenu === 'Szechwan' && styles.selectedLabel,
+                    ]}>
+                    Szechwan
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => setSelectedMenu('Chow Main')}>
+                  <Text
+                    style={[
+                      styles.label,
+                      selectedMenu === 'Chow Main' && styles.selectedLabel,
+                    ]}>
+                    Chow Main
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>
           </View>
+
+          <FlatList
+            keyExtractor={item => item.id.toString()}
+            data={filteredData}
+            renderItem={renderItem}
+            numColumns={1}
+          />
         </ScrollView>
       </View>
       <View style={styles.footer}>
@@ -310,7 +365,8 @@ const styles = StyleSheet.create({
   },
   radioButtonsContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    // justifyContent: 'space-around',
+    gap: 100,
   },
   radioButton: {
     flexDirection: 'row',
@@ -407,5 +463,10 @@ const styles = StyleSheet.create({
   Direction: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  selectedLabel: {
+    fontWeight: 'bold',
+    color: '#fff',
+    backgroundColor: Color.primaryColor,
   },
 });

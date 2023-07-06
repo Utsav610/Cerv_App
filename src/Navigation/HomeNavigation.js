@@ -8,6 +8,7 @@ import Search from '../screens/CustomerScreens/Search/Search';
 import Order from '../screens/CustomerScreens/Order/Order';
 import Profile from '../screens/CustomerScreens/Profile/Profile';
 import Chat from '../screens/CustomerScreens/Chat/Chat';
+import Feather from 'react-native-vector-icons/Feather';
 
 const Tab = createBottomTabNavigator();
 
@@ -21,19 +22,19 @@ function HomeNavigation() {
             iconName = 'home';
             size = focused ? 25 : 20;
           } else if (route.name === 'Search') {
-            iconName = 'searchengin';
+            iconName = 'search';
             size = focused ? 25 : 20;
           } else if (route.name === 'Order') {
             iconName = 'briefcase';
             size = focused ? 25 : 20;
           } else if (route.name === 'Chat') {
-            iconName = 'rocketchat';
+            iconName = 'message-square';
             size = focused ? 25 : 20;
           } else if (route.name === 'Profile') {
             iconName = 'user';
             size = focused ? 25 : 20;
           }
-          return <FontAwesome5 name={iconName} size={size} color={color} />;
+          return <Feather name={iconName} size={size} color={color} />;
         },
       })}
       tabBarOptions={{

@@ -25,7 +25,11 @@ export default function Menu({navigation}) {
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity>
-          <FontAwesome5 name={'circle-question'} size={25} color={'#931314'} />
+          <FontAwesome5
+            name={'circle-question'}
+            size={25}
+            color={Color.primaryColor}
+          />
         </TouchableOpacity>
       </View>
       <View style={styles.label}>

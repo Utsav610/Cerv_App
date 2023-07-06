@@ -19,7 +19,7 @@ export default function Home({navigation}) {
             <FontAwesome5
               name={'circle-question'}
               size={25}
-              color={'#931314'}
+              color={Color.primaryColor}
             />
           </TouchableOpacity>
           <TouchableOpacity

@@ -12,8 +12,10 @@ const Cater = ({onclick}) => {
         />
         <View style={styles.contentContainer}>
           <View style={styles.infoContainer}>
-            <Text style={styles.name}>Name</Text>
-            <Text style={styles.address}>Address</Text>
+            <Text style={styles.name}>St John & Thomans Catering</Text>
+            <Text style={styles.address}>
+              3200 Williams treet , Nathan Road , MA
+            </Text>
             <Text style={styles.address}>$80.00/Per Dish</Text>
             <View style={styles.ratingContainer}>
               {[1, 2, 3, 4, 5].map(index => (
@@ -57,10 +59,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
+    color: '#000',
   },
   address: {
     fontSize: 14,
     marginBottom: 5,
+    color: '#000',
   },
   heartIconContainer: {
     marginLeft: 10,

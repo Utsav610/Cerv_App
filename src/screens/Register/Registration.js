@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {
   StyleSheet,
   Text,
@@ -13,11 +14,45 @@ import CheckBox from '@react-native-community/checkbox';
 import CustomButton from '../../componets/CustomeButton';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Color from '../../Constants/Color';
+import ImagePicker from 'react-native-image-picker';
 
 export default function Registration({navigation}) {
-  const [checked, setChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+  const [imageUri, setImageUri] = useState(null);
+
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [CurrentpasswordVisible, setCurrentpasswordVisible] = useState(false);
+
   const toggleCheckbox = () => {
-    setChecked(!checked);
+    setIsChecked(!isChecked);
+  };
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+  const toggleCurrentPasswordVisibility = () => {
+    setCurrentpasswordVisible(!CurrentpasswordVisible);
+  };
+
+  const selectImage = () => {
+    ImagePicker.showImagePicker(
+      {
+        title: 'Select Profile Picture',
+        storageOptions: {
+          skipBackup: true,
+          path: 'images',
+        },
+      },
+      response => {
+        if (response.didCancel) {
+          console.log('User cancelled image picker');
+        } else if (response.error) {
+          console.log('ImagePicker Error: ', response.error);
+        } else {
+          setImageUri(response.uri);
+        }
+      },
+    );
   };
 
   return (
@@ -29,10 +64,19 @@ export default function Registration({navigation}) {
         <View style={styles.container}>
           <View style={styles.content}>
             <View style={styles.imageContainer}>
-              <Image
-                source={require('../../assest/profile_Icon.png')}
-                style={styles.image1}
-              />
+              {imageUri ? (
+                <Image source={{uri: imageUri}} style={styles.image1} />
+              ) : (
+                <Image
+                  source={require('../../assest/profile_Icon.png')}
+                  style={styles.image1}
+                />
+              )}
+              <TouchableOpacity
+                style={styles.cameraIconContainer}
+                onPress={selectImage}>
+                <FontAwesome5 name={'plus'} size={20} color={'#fff'} />
+              </TouchableOpacity>
             </View>
             <Text>Caterer Name</Text>
             <View style={styles.inputContainer}>
@@ -63,9 +107,18 @@ export default function Registration({navigation}) {
               />
               <TextInput
                 placeholder="Password"
-                secureTextEntry
+                secureTextEntry={passwordVisible}
                 style={styles.input}
               />
+              <TouchableOpacity
+                onPress={togglePasswordVisibility}
+                style={styles.eyeIconContainer}>
+                <FontAwesome5
+                  name={passwordVisible ? 'eye-slash' : 'eye'}
+                  size={20}
+                  color={'#c2c2c2'}
+                />
+              </TouchableOpacity>
             </View>
 
             <Text>Confirm Password</Text>
@@ -75,18 +128,37 @@ export default function Registration({navigation}) {
                 size={20}
                 color={Color.primaryColor}
               />
+
               <TextInput
                 placeholder="Password"
-                secureTextEntry
+                secureTextEntry={CurrentpasswordVisible}
                 style={styles.input}
               />
+              <TouchableOpacity
+                onPress={toggleCurrentPasswordVisibility}
+                style={styles.eyeIconContainer}>
+                <FontAwesome5
+                  name={CurrentpasswordVisible ? 'eye-slash' : 'eye'}
+                  size={20}
+                  color={'#c2c2c2'}
+                />
+              </TouchableOpacity>
             </View>
 
             <View style={styles.checkbox}>
-              <CheckBox onPress={toggleCheckbox} />
-              <Text styles={styles.tcCondition}>
-                I Agree to the Term & Condition
-              </Text>
+              <CheckBox value={isChecked} onValueChange={toggleCheckbox} />
+              <View style={{paddingRight: 10}}>
+                <Text style={styles.tcCondition}>
+                  I Agree to the{' '}
+                  <Text style={{color: Color.primaryColor, fontWeight: 600}}>
+                    Term & Condition
+                  </Text>{' '}
+                  and{' '}
+                  <Text style={{color: Color.primaryColor, fontWeight: 600}}>
+                    Privacy Policy
+                  </Text>
+                </Text>
+              </View>
             </View>
 
             <CustomButton
@@ -106,7 +178,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // paddingHorizontal: 20,
-    marginTop: '45%',
+    marginTop: '28%',
   },
   login: {
     fontWeight: 'bold',
@@ -145,12 +217,28 @@ const styles = StyleSheet.create({
   },
   checkbox: {
     flexDirection: 'row',
-    // margin: 10,
-    alignItems: 'center',
+    alignItems: 'flex-start',
     marginVertical: 10,
   },
   image: {
     // flex: 1,
     justifyContent: 'center',
+  },
+  eyeIconContainer: {
+    position: 'absolute',
+    right: 10,
+  },
+  tcCondition: {
+    flex: 1,
+    flexWrap: 'wrap',
+    fontSize: 17,
+  },
+  cameraIconContainer: {
+    position: 'absolute',
+    bottom: 5,
+    right: 100,
+    backgroundColor: Color.primaryColor,
+    padding: 5,
+    borderRadius: 15,
   },
 });

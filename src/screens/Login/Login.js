@@ -10,9 +10,10 @@ import {
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Color from '../../Constants/Color';
+import {useSelector} from 'react-redux';
 
 export default function Login({navigation, route}) {
-  const Role = route.params.role;
+  const Role = useSelector(state => state.user.role);
   console.log(Role);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState('');
@@ -121,7 +122,7 @@ export default function Login({navigation, route}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: '55%',
+    marginTop: '54%',
   },
   login: {
     fontSize: 25,
@@ -171,7 +172,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
     elevation: 10,
-    height: '100%',
   },
   Fpassword: {
     marginBottom: 15,

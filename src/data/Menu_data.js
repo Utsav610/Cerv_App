@@ -57,7 +57,7 @@ export default [
     type: 'Noodles',
   },
   {
-    id: 6,
+    id: 7,
     img: require('../assest/slider3.jpeg'),
     title: 'Japanese',
     description: 'Effortless AirPods experience',

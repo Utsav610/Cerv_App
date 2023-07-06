@@ -7,6 +7,7 @@ import Order from '../screens/CatereScreens/CatereOrders/Order';
 import Profile from '../screens/CatereScreens/CatereProfile/Profile';
 import Chat from '../screens/CatereScreens/CatereChat/Chat';
 import Menu from '../screens/CatereScreens/Menu/Menu';
+import Feather from 'react-native-vector-icons/Feather';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,13 +24,13 @@ function CatereNavigation() {
             iconName = 'briefcase';
             size = focused ? 25 : 20;
           } else if (route.name === 'Chat') {
-            iconName = 'rocketchat';
+            iconName = 'message-square';
             size = focused ? 25 : 20;
           } else if (route.name === 'Profile') {
             iconName = 'user';
             size = focused ? 25 : 20;
           }
-          return <FontAwesome5 name={iconName} size={size} color={color} />;
+          return <Feather name={iconName} size={size} color={color} />;
         },
       })}
       tabBarOptions={{

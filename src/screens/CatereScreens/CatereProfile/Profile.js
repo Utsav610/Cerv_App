@@ -18,7 +18,7 @@ const Profile = ({navigation}) => {
         onPress={() => {
           navigation.navigate('Personal information');
         }}>
-        <FontAwesome5 name="user" size={20} color="#931314" />
+        <FontAwesome5 name="user" size={20} color={Color.primaryColor} />
         <Text style={styles.optionText}>Personal Information</Text>
         <FontAwesome5 name="angle-right" size={20} color="#cccc" />
       </TouchableOpacity>
@@ -28,7 +28,7 @@ const Profile = ({navigation}) => {
         onPress={() => {
           navigation.navigate('Payment Method');
         }}>
-        <FontAwesome5 name="credit-card" size={20} color="#931314" />
+        <FontAwesome5 name="credit-card" size={20} color={Color.primaryColor} />
         <Text style={styles.optionText}>Payment Method</Text>
         <FontAwesome5 name="angle-right" size={20} color="#cccc" />
       </TouchableOpacity>
@@ -38,7 +38,7 @@ const Profile = ({navigation}) => {
         onPress={() => {
           navigation.navigate('Discount Codes');
         }}>
-        <FontAwesome5 name="tag" size={20} color="#931314" />
+        <FontAwesome5 name="tag" size={20} color={Color.primaryColor} />
         <Text style={styles.optionText}>Discount Codes</Text>
         <FontAwesome5 name="angle-right" size={20} color="#cccc" />
       </TouchableOpacity>
@@ -48,7 +48,7 @@ const Profile = ({navigation}) => {
         onPress={() => {
           navigation.navigate('Change Password');
         }}>
-        <FontAwesome5 name="lock" size={20} color="#931314" />
+        <FontAwesome5 name="lock" size={20} color={Color.primaryColor} />
         <Text style={styles.optionText}>Change Password</Text>
         <FontAwesome5 name="angle-right" size={20} color="#cccc" />
       </TouchableOpacity>
@@ -58,7 +58,11 @@ const Profile = ({navigation}) => {
         onPress={() => {
           navigation.navigate('Catere Order');
         }}>
-        <FontAwesome5 name="sign-out-alt" size={20} color="#931314" />
+        <FontAwesome5
+          name="sign-out-alt"
+          size={20}
+          color={Color.primaryColor}
+        />
         <Text style={styles.optionText}>Log out</Text>
       </TouchableOpacity>
     </View>

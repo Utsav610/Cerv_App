@@ -42,13 +42,17 @@ export default function CaterePersonalInfo({navigation}) {
 
         <Text style={styles.label}>Caterer Name</Text>
         <View style={styles.inputContainer}>
-          <FontAwesome5 name={'user'} size={20} color={'#931314'} />
+          <FontAwesome5 name={'user'} size={20} color={Color.primaryColor} />
           <TextInput placeholder="john" style={styles.input} />
         </View>
 
         <Text style={styles.label}>Email</Text>
         <View style={styles.inputContainer}>
-          <FontAwesome5 name={'envelope'} size={20} color={'#931314'} />
+          <FontAwesome5
+            name={'envelope'}
+            size={20}
+            color={Color.primaryColor}
+          />
           <TextInput
             placeholder="john123@gmail.com"
             style={styles.input}
@@ -58,7 +62,7 @@ export default function CaterePersonalInfo({navigation}) {
 
         <Text style={styles.label}>Phone Number</Text>
         <View style={styles.inputContainer}>
-          <FontAwesome5 name={'phone'} size={20} color={'#931314'} />
+          <FontAwesome5 name={'phone'} size={20} color={Color.primaryColor} />
           <TextInput
             placeholder="123456789"
             secureTextEntry

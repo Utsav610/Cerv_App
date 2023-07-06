@@ -13,7 +13,7 @@ import {Picker} from '@react-native-picker/picker';
 import CustomButton from '../../componets/CustomeButton';
 import Color from '../../Constants/Color';
 
-export default function AddStoreDetails() {
+export default function AddStoreDetails({navigation}) {
   const [selectedKm, setSelectedKm] = useState(5); // Default selected km
   const fees = {
     5: 10,
@@ -134,7 +134,11 @@ export default function AddStoreDetails() {
             />
           </View>
         </ScrollView>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            navigation.navigate('Login');
+          }}>
           <Text style={styles.buttonText}>Save</Text>
         </TouchableOpacity>
       </View>
