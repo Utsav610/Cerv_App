@@ -35,7 +35,7 @@ export default function OptionScreen({navigation}) {
             onPress={() => handleOptionSelect('Customer')}>
             <FontAwesome5
               name={'user'}
-              size={50}
+              size={60}
               color={selectedOption === 'Customer' ? '#ffffff' : '#CCC'}
             />
             <Text>Customer</Text>
@@ -48,7 +48,7 @@ export default function OptionScreen({navigation}) {
             onPress={() => handleOptionSelect('Caterer')}>
             <FontAwesome5
               name={'utensils'}
-              size={50}
+              size={60}
               color={selectedOption === 'Caterer' ? '#ffff' : '#CCC'}
             />
             <Text>Caterer</Text>
@@ -85,9 +85,9 @@ const styles = StyleSheet.create({
   },
   optionButton: {
     alignItems: 'center',
-    borderRadius: 50,
-    width: 100,
-    height: 100,
+    borderRadius: 75,
+    width: 140,
+    height: 140,
     backgroundColor: '#EEE',
     justifyContent: 'center',
   },
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 10,
+    borderRadius: 5,
     backgroundColor: Color.primaryColor,
     marginHorizontal: 20,
   },
@@ -117,9 +117,9 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   textContainer: {
-    margin: 15,
+    margin: 10,
   },
   subtext: {
-    fontSize: 15,
+    fontSize: 20,
   },
 });

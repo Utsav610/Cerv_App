@@ -23,7 +23,10 @@ export default function Chat({navigation}) {
             <Text>Time</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Chat Details');
+          }}>
           <View style={styles.chatContainer}>
             <View style={styles.img_msgContainer}>
               <Image
@@ -38,7 +41,10 @@ export default function Chat({navigation}) {
             <Text>Time</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Chat Details');
+          }}>
           <View style={styles.chatContainer}>
             <View style={styles.img_msgContainer}>
               <Image

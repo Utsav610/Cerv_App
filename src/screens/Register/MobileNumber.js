@@ -9,38 +9,41 @@ import {
 import React from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import CustomButton from '../../componets/CustomeButton';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 export default function MobileNumber({navigation}) {
   return (
-    <ImageBackground
-      source={require('../../assest/bg_image.jpeg')}
-      resizeMode="cover"
-      style={styles.image}>
-      <View style={styles.container}>
-        <View style={styles.content}>
-          <View style={styles.textconatiner}>
-            <Text>We'll send you a verification code.</Text>
-            <Text>Just enter your phone number below</Text>
-          </View>
-          <Text>Phone Number</Text>
-          <View style={styles.inputContainer}>
-            <FontAwesome5 name={'phone'} size={20} color={'#931314'} />
-            <Text>{' +91 |'}</Text>
-            <TextInput
-              placeholder="1234567890"
-              style={styles.input}
-              keyboardType="numeric"
+    <KeyboardAwareScrollView>
+      <ImageBackground
+        source={require('../../assest/bg_image.jpeg')}
+        resizeMode="cover"
+        style={styles.image}>
+        <View style={styles.container}>
+          <View style={styles.content}>
+            <View style={styles.textconatiner}>
+              <Text>We'll send you a verification code.</Text>
+              <Text>Just enter your phone number below</Text>
+            </View>
+            <Text>Phone Number</Text>
+            <View style={styles.inputContainer}>
+              <FontAwesome5 name={'phone'} size={20} color={'#931314'} />
+              <Text>{' +91 |'}</Text>
+              <TextInput
+                placeholder="1234567890"
+                style={styles.input}
+                keyboardType="numeric"
+              />
+            </View>
+            <CustomButton
+              title="Send Code"
+              onPress={() => {
+                navigation.navigate('Otp Verify');
+              }}
             />
           </View>
-          <CustomButton
-            title="Send Code"
-            onPress={() => {
-              navigation.navigate('Otp Verify');
-            }}
-          />
         </View>
-      </View>
-    </ImageBackground>
+      </ImageBackground>
+    </KeyboardAwareScrollView>
   );
 }
 

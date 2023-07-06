@@ -26,7 +26,11 @@ export default function MobileNumber({navigation}) {
           </View>
           <Text>Email</Text>
           <View style={styles.inputContainer}>
-            <FontAwesome5 name={'envelope'} size={20} color={'#931314'} />
+            <FontAwesome5
+              name={'envelope'}
+              size={20}
+              color={Color.primaryColor}
+            />
 
             <TextInput placeholder="john123@gmail.com" style={styles.input} />
           </View>

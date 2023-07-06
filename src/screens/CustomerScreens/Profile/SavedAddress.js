@@ -1,9 +1,15 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Color from '../../../Constants/Color';
 
 export default function SavedAddress() {
+  const [selectedAddress, setSelectedAddress] = useState('Home');
+
+  const handleCircleIconPress = address => {
+    setSelectedAddress(address);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.addressContainer}>
@@ -13,7 +19,12 @@ export default function SavedAddress() {
             374 William S Canning Blvd, Fall River MA 2721
           </Text>
         </View>
-        <TouchableOpacity style={styles.cameraIconContainer}>
+        <TouchableOpacity
+          style={[
+            styles.cameraIconContainer,
+            selectedAddress === 'Home' && styles.selectedIcon,
+          ]}
+          onPress={() => handleCircleIconPress('Home')}>
           <FontAwesome5 name="circle" size={20} color="#ccc" />
         </TouchableOpacity>
       </View>
@@ -24,7 +35,12 @@ export default function SavedAddress() {
             374 William S Canning Blvd, Fall River MA 2721
           </Text>
         </View>
-        <TouchableOpacity style={styles.cameraIconContainer}>
+        <TouchableOpacity
+          style={[
+            styles.cameraIconContainer,
+            selectedAddress === 'Farm' && styles.selectedIcon,
+          ]}
+          onPress={() => handleCircleIconPress('Farm')}>
           <FontAwesome5 name="circle" size={20} color="#ccc" />
         </TouchableOpacity>
       </View>
@@ -35,7 +51,12 @@ export default function SavedAddress() {
             374 William S Canning Blvd, Fall River MA 2721
           </Text>
         </View>
-        <TouchableOpacity style={styles.cameraIconContainer}>
+        <TouchableOpacity
+          style={[
+            styles.cameraIconContainer,
+            selectedAddress === 'Garden' && styles.selectedIcon,
+          ]}
+          onPress={() => handleCircleIconPress('Garden')}>
           <FontAwesome5 name="circle" size={20} color="#ccc" />
         </TouchableOpacity>
       </View>
@@ -46,7 +67,12 @@ export default function SavedAddress() {
             374 William S Canning Blvd, Fall River MA 2721
           </Text>
         </View>
-        <TouchableOpacity style={styles.cameraIconContainer}>
+        <TouchableOpacity
+          style={[
+            styles.cameraIconContainer,
+            selectedAddress === 'Farm House' && styles.selectedIcon,
+          ]}
+          onPress={() => handleCircleIconPress('Farm House')}>
           <FontAwesome5 name="circle" size={20} color="#ccc" />
         </TouchableOpacity>
       </View>
@@ -81,5 +107,8 @@ const styles = StyleSheet.create({
   },
   cameraIconContainer: {
     marginLeft: 'auto',
+  },
+  selectedIcon: {
+    backgroundColor: 'green',
   },
 });

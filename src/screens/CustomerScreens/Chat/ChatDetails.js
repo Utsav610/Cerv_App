@@ -1,15 +1,23 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {useSelector} from 'react-redux';
+import {GiftedChat} from 'react-native-gifted-chat';
 export default function ChatDetails() {
-  const role = useSelector(state => state.user.role);
-  console.log(role);
+  const [messages, setMessages] = useState([]);
+
+  const onSend = (newMessages = []) => {
+    setMessages(previousMessages =>
+      GiftedChat.append(previousMessages, newMessages),
+    );
+  };
+
   return (
-    <View>
-      <Text>ChatDetails a</Text>
-      <Text>{role}</Text>
-    </View>
+    <GiftedChat
+      messages={messages}
+      onSend={newMessages => onSend(newMessages)}
+      user={{
+        _id: 1,
+      }}
+    />
   );
 }
-
-const styles = StyleSheet.create({});

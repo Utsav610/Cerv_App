@@ -9,6 +9,7 @@ import React from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Silder from './Slider/Silder';
 import Cater from '../../componets/Caterer/Catere';
+import Color from '../../Constants/Color';
 export default function Home({navigation}) {
   return (
     <>
@@ -25,7 +26,7 @@ export default function Home({navigation}) {
             onPress={() => {
               navigation.navigate('Notification');
             }}>
-            <FontAwesome5 name={'bell'} size={25} color={'#931314'} />
+            <FontAwesome5 name={'bell'} size={25} color={'#8e8e8e'} />
           </TouchableOpacity>
         </View>
         <View>
@@ -50,7 +51,11 @@ export default function Home({navigation}) {
               onPress={() => {
                 navigation.navigate('Filter');
               }}>
-              <FontAwesome5 name={'filter'} size={20} color={'#931314'} />
+              <FontAwesome5
+                name={'filter'}
+                size={20}
+                color={Color.primaryColor}
+              />
             </TouchableOpacity>
           </View>
           <View>

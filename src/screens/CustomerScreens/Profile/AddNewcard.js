@@ -1,7 +1,8 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, Image} from 'react-native';
+import CustomButton from '../../../componets/CustomeButton';
 
-export default function AddNewcard() {
+export default function AddNewcard({navigation}) {
   return (
     <View style={styles.container}>
       <View style={styles.cardContainer}>
@@ -39,6 +40,14 @@ export default function AddNewcard() {
       <View>
         <Text style={styles.label}>CARD HOLDER'S</Text>
         <TextInput style={styles.input} />
+      </View>
+      <View>
+        <CustomButton
+          title={'Confirm'}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        />
       </View>
     </View>
   );

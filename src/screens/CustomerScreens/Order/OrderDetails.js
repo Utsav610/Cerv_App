@@ -7,16 +7,59 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Color from '../../../Constants/Color';
+import StepIndicator from 'react-native-step-indicator';
+
+const stepIndicatorStyles = {
+  stepIndicatorSize: 25,
+  currentStepIndicatorSize: 25,
+  // separatorStrokeWidth: 2,
+  // currentStepStrokeWidth: 1,
+  stepStrokeCurrentColor: Color.primaryColor,
+  stepStrokeWidth: 1,
+  stepStrokeFinishedColor: Color.primaryColor,
+  stepStrokeUnFinishedColor: Color.primaryColor,
+  separatorFinishedColor: Color.primaryColor,
+  separatorUnFinishedColor: '#aaaaaa',
+  stepIndicatorFinishedColor: Color.primaryColor,
+  stepIndicatorUnFinishedColor: Color.primaryColor,
+  stepIndicatorCurrentColor: Color.primaryColor,
+  stepIndicatorLabelFontSize: 0,
+  currentStepIndicatorLabelFontSize: 5,
+  stepIndicatorLabelCurrentColor: Color.primaryColor,
+  stepIndicatorLabelFinishedColor: Color.primaryColor,
+  stepIndicatorLabelUnFinishedColor: '#aaaaaa',
+  labelColor: '#999999',
+  labelSize: 12,
+  currentStepLabelColor: Color.primaryColor,
+};
 
 export default function OrderDetails({navigation}) {
+  const [currentStep, setCurrentStep] = useState(1);
+
+  const stepLabels = [
+    'Order Accepted',
+    'Preparing Order',
+    'Dispatch for Delivery',
+    'Order Delivered',
+  ];
+
+  const handleStepChange = step => {
+    setCurrentStep(step);
+  };
+
   return (
     <ScrollView>
       <View style={styles.container}>
         <View>
-          <Text>Details</Text>
+          <StepIndicator
+            customStyles={stepIndicatorStyles}
+            currentPosition={currentStep}
+            labels={stepLabels}
+            stepCount={4}
+          />
         </View>
         <View style={styles.header}>
           <Image

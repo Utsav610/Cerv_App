@@ -10,9 +10,6 @@ const DiscountCodes = () => {
         <Text style={styles.discount}>40% off</Text>
         <Text style={styles.code}>NEW40</Text>
       </View>
-      <TouchableOpacity style={styles.button} onPress={() => {}}>
-        <FontAwesome5 name={'plus-circle'} size={20} color={'#ffffff'} />
-      </TouchableOpacity>
     </View>
   );
 };
@@ -60,18 +57,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 10,
     color: '#fff',
-  },
-  button: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: Color.primaryColor,
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'absolute',
-    bottom: 10,
-    right: 10,
-    elevation: 5,
   },
 });
 

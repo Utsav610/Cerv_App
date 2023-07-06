@@ -3,54 +3,43 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
 import CustomButton from '../../componets/CustomeButton';
 import Color from '../../Constants/Color';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import OtpInputs from 'react-native-otp-inputs';
+
 export default function OTPScreen() {
   return (
-    <ImageBackground
-      source={require('../../assest/bg_image.jpeg')}
-      resizeMode="cover"
-      style={styles.image}>
-      <View style={styles.container}>
-        <View style={styles.content}>
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.input}
-              maxLength={1}
+    <KeyboardAwareScrollView>
+      <ImageBackground
+        source={require('../../assest/bg_image.jpeg')}
+        resizeMode="cover"
+        style={styles.image}>
+        <View style={styles.container}>
+          <View style={styles.content}>
+            <OtpInputs
+              inputContainerStyles={styles.inputContainer}
+              inputStyles={styles.input}
+              // handleChangeInput={code => console.log(code)} // Handle OTP input change
+              numberOfInputs={4} // Number of OTP inputs to display
               keyboardType="numeric"
             />
-            <TextInput
-              style={styles.input}
-              maxLength={1}
-              keyboardType="numeric"
-            />
-            <TextInput
-              style={styles.input}
-              maxLength={1}
-              keyboardType="numeric"
-            />
-            <TextInput
-              style={styles.input}
-              maxLength={1}
-              keyboardType="numeric"
-            />
-          </View>
 
-          <View style={styles.otpContainer}>
-            <Text>
-              Didn't Get Code?{' '}
-              <Text style={{color: Color.primaryColor}}> Resend Code</Text>
-            </Text>
-          </View>
+            <View style={styles.otpContainer}>
+              <Text>
+                Didn't Get Code?
+                <Text style={{color: Color.primaryColor}}> Resend Code</Text>
+              </Text>
+            </View>
 
-          <CustomButton title="Verify Now" />
+            <CustomButton title="Verify Now" />
+          </View>
         </View>
-      </View>
-    </ImageBackground>
+      </ImageBackground>
+    </KeyboardAwareScrollView>
   );
 }
 
@@ -71,8 +60,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignSelf: 'center',
-    width: 200,
+
     marginBottom: 20,
     marginTop: 40,
   },
