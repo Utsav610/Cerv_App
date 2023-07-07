@@ -64,7 +64,11 @@ const Profile = ({navigation}) => {
         <FontAwesome5 name="angle-right" size={20} color="#cccc" />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.optionContainer} onPress={() => {}}>
+      <TouchableOpacity
+        style={styles.optionContainer}
+        onPress={() => {
+          navigation.navigate('Login');
+        }}>
         <FontAwesome5
           name="sign-out-alt"
           size={20}

@@ -10,6 +10,7 @@ import {
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import CustomButton from '../CustomeButton';
 import Color from '../../Constants/Color';
+import Feather from 'react-native-vector-icons/Feather';
 
 export default function CustomerPersonalInfo({navigation}) {
   return (
@@ -26,13 +27,13 @@ export default function CustomerPersonalInfo({navigation}) {
 
       <Text style={styles.label}>Caterer Name</Text>
       <View style={styles.inputContainer}>
-        <FontAwesome5 name={'user'} size={20} color={'#931314'} />
+        <FontAwesome5 name={'user'} size={20} color={Color.primaryColor} />
         <TextInput placeholder="john" style={styles.input} />
       </View>
 
       <Text style={styles.label}>Email</Text>
       <View style={styles.inputContainer}>
-        <FontAwesome5 name={'envelope'} size={20} color={'#931314'} />
+        <FontAwesome5 name={'envelope'} size={20} color={Color.primaryColor} />
         <TextInput
           placeholder="john123@gmail.com"
           style={styles.input}
@@ -42,7 +43,7 @@ export default function CustomerPersonalInfo({navigation}) {
 
       <Text style={styles.label}>Phone Number</Text>
       <View style={styles.inputContainer}>
-        <FontAwesome5 name={'phone'} size={20} color={'#931314'} />
+        <Feather name={'phone'} size={20} color={Color.primaryColor} />
         <TextInput
           placeholder="123456789"
           secureTextEntry
@@ -52,7 +53,7 @@ export default function CustomerPersonalInfo({navigation}) {
 
       <Text style={styles.label}> Home Postcode</Text>
       <View style={styles.inputContainer}>
-        <FontAwesome5 name={'home'} size={20} color={'#931314'} />
+        <FontAwesome5 name={'home'} size={20} color={Color.primaryColor} />
         <TextInput placeholder="123456" secureTextEntry style={styles.input} />
       </View>
 

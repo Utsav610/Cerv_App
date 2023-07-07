@@ -9,6 +9,7 @@ import {
 import React, {useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Color from '../../../Constants/Color';
+import Feather from 'react-native-vector-icons/Feather';
 
 export default function MealDetails({navigation}) {
   return (
@@ -24,7 +25,7 @@ export default function MealDetails({navigation}) {
         </TouchableOpacity>
         <View style={styles.direction}>
           <TouchableOpacity style={styles.iconContainer}>
-            <FontAwesome5 name={'edit'} size={20} color={'green'} />
+            <Feather name={'edit-2'} size={20} color={'green'} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.iconContainer}>
             <FontAwesome5 name={'trash'} size={20} color={'red'} />

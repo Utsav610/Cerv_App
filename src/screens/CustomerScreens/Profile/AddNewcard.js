@@ -1,27 +1,105 @@
-import React from 'react';
-import {StyleSheet, Text, View, TextInput, Image} from 'react-native';
+import React, {useState} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import CustomButton from '../../../componets/CustomeButton';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function AddNewcard({navigation}) {
+  const [selectedPayment, setSelectedPayment] = useState('');
+
+  const handlePaymentSelect = payment => {
+    setSelectedPayment(payment);
+  };
   return (
     <View style={styles.container}>
       <View style={styles.cardContainer}>
-        <Image
-          source={require('../../../assest/masterCard.png')}
-          style={styles.cardImage}
-        />
-        <Image
-          source={require('../../../assest/visa.png')}
-          style={styles.cardImage}
-        />
-        <Image
-          source={require('../../../assest/Rupay.png')}
-          style={styles.cardImage}
-        />
-        <Image
-          source={require('../../../assest/masterCard.png')}
-          style={styles.cardImage}
-        />
+        <TouchableOpacity
+          style={[
+            styles.cardImageContainer,
+            selectedPayment === 'masterCard' &&
+              styles.selectedCardImageContainer,
+          ]}
+          onPress={() => handlePaymentSelect('masterCard')}>
+          <Image
+            source={require('../../../assest/masterCard.png')}
+            style={styles.cardImage}
+          />
+          {selectedPayment === 'masterCard' && (
+            <Icon
+              name={'check-circle'}
+              size={25}
+              color={'green'}
+              style={styles.checkIcon}
+            />
+          )}
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[
+            styles.cardImageContainer,
+            selectedPayment === 'visa' && styles.selectedCardImageContainer,
+          ]}
+          onPress={() => handlePaymentSelect('visa')}>
+          <Image
+            source={require('../../../assest/visa.png')}
+            style={styles.cardImage}
+          />
+          {selectedPayment === 'visa' && (
+            <Icon
+              name={'check-circle'}
+              size={25}
+              color={'green'}
+              style={styles.checkIcon}
+            />
+          )}
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[
+            styles.cardImageContainer,
+            selectedPayment === 'rupay' && styles.selectedCardImageContainer,
+          ]}
+          onPress={() => handlePaymentSelect('rupay')}>
+          <Image
+            source={require('../../../assest/Rupay.png')}
+            style={styles.cardImage}
+          />
+          {selectedPayment === 'rupay' && (
+            <Icon
+              name={'check-circle'}
+              size={25}
+              color={'green'}
+              style={styles.checkIcon}
+            />
+          )}
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[
+            styles.cardImageContainer,
+            selectedPayment === 'masterCard2' &&
+              styles.selectedCardImageContainer,
+          ]}
+          onPress={() => handlePaymentSelect('masterCard2')}>
+          <Image
+            source={require('../../../assest/masterCard.png')}
+            style={styles.cardImage}
+          />
+          {selectedPayment === 'masterCard2' && (
+            <Icon
+              name={'check-circle'}
+              size={25}
+              color={'green'}
+              style={styles.checkIcon}
+            />
+          )}
+        </TouchableOpacity>
       </View>
       <View>
         <Text style={styles.label}>CARD NUMBER</Text>
@@ -60,8 +138,9 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 20,
+    // flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   cardImage: {
     width: 70,
@@ -82,5 +161,15 @@ const styles = StyleSheet.create({
   direction: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  checkIcon: {
+    position: 'absolute',
+    top: -5,
+    right: -5,
+  },
+  cardImageContainer: {
+    alignItems: 'center',
+    margin: 10,
+    position: 'relative',
   },
 });

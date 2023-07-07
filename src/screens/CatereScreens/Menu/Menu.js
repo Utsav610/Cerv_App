@@ -11,6 +11,7 @@ import React, {useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import DeleteModal from '../../../componets/DeleteModal';
 import Color from '../../../Constants/Color';
+import Feather from 'react-native-vector-icons/Feather';
 
 export default function Menu({navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -25,11 +26,7 @@ export default function Menu({navigation}) {
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity>
-          <FontAwesome5
-            name={'circle-question'}
-            size={25}
-            color={Color.primaryColor}
-          />
+          <Feather name={'help-circle'} size={25} color={Color.primaryColor} />
         </TouchableOpacity>
       </View>
       <View style={styles.label}>
@@ -51,7 +48,7 @@ export default function Menu({navigation}) {
             onPress={() => {
               navigation.navigate('Edit Category');
             }}>
-            <FontAwesome5 name={'edit'} size={20} color={'green'} />
+            <Feather name={'edit-2'} size={20} color={'green'} />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.iconContainer}

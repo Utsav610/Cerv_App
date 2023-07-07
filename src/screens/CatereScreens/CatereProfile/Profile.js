@@ -56,7 +56,7 @@ const Profile = ({navigation}) => {
       <TouchableOpacity
         style={styles.optionContainer}
         onPress={() => {
-          navigation.navigate('Catere Order');
+          navigation.navigate('Login');
         }}>
         <FontAwesome5
           name="sign-out-alt"

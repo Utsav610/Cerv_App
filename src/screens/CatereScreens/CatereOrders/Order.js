@@ -66,27 +66,33 @@ const styles = StyleSheet.create({
     borderBottomColor: Color.accentColor,
   },
   orderContainer: {
+    width: '100%',
     marginHorizontal: 10,
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
     borderWidth: 1,
     marginBottom: 10,
   },
   tabButton: {
+    width: '50%',
     padding: 10,
+    textAlign: 'center',
   },
   currentOrder: {
     backgroundColor: Color.primaryColor,
+    textAlign: 'center',
   },
   pastOrder: {
     backgroundColor: Color.primaryColor,
   },
+
   tabButtonText: {
-    color: '#000',
+    color: '#A7A7A7',
     fontSize: 16,
+    textAlign: 'center',
   },
   selectedTabButtonText: {
     color: '#FFF',
+    textAlign: 'center',
   },
   header: {
     flexDirection: 'row',

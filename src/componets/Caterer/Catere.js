@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Color from '../../Constants/Color';
 
 const Cater = ({onclick}) => {
   return (
@@ -24,7 +25,7 @@ const Cater = ({onclick}) => {
             </View>
           </View>
           <TouchableOpacity style={styles.heartIconContainer}>
-            <FontAwesome5 name="heart" size={20} color="#F5694E" />
+            <FontAwesome5 name="heart" size={25} color={'#8e8e8e'} />
           </TouchableOpacity>
         </View>
       </View>

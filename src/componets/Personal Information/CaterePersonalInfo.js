@@ -12,6 +12,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import CustomButton from '../CustomeButton';
 import Color from '../../Constants/Color';
 import {Picker} from '@react-native-picker/picker';
+import Feather from 'react-native-vector-icons/Feather';
 
 export default function CaterePersonalInfo({navigation}) {
   const [selectedKm, setSelectedKm] = useState(5); // Default selected km
@@ -62,7 +63,7 @@ export default function CaterePersonalInfo({navigation}) {
 
         <Text style={styles.label}>Phone Number</Text>
         <View style={styles.inputContainer}>
-          <FontAwesome5 name={'phone'} size={20} color={Color.primaryColor} />
+          <Feather name={'phone'} size={20} color={Color.primaryColor} />
           <TextInput
             placeholder="123456789"
             secureTextEntry

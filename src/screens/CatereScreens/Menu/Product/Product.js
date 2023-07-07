@@ -5,19 +5,69 @@ import {
   TouchableOpacity,
   Image,
   Modal,
+  FlatList,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Color from '../../../../Constants/Color';
 import DeleteModal from '../../../../componets/DeleteModal';
+import Menu_data from '../../../../data/Menu_data';
 
 export default function Product({navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
+  const [selectedMenu, setSelectedMenu] = useState('Noodles');
+
+  const [filteredData, setFilteredData] = useState([]);
+
+  useEffect(() => {
+    const filteredCategories = Menu_data.filter(
+      item => item.type === selectedMenu,
+    );
+    setFilteredData(filteredCategories);
+  }, [selectedMenu]);
 
   const handleDelete = () => {
     // Perform delete operation
 
     setModalVisible(false);
+  };
+
+  const renderItem = ({item}) => {
+    return (
+      <>
+        <View style={styles.itemContainer}>
+          <View style={styles.itemImageContainer}>
+            <Image
+              source={require('../../../../assest/silder1.jpeg')}
+              style={styles.itemImage}
+            />
+          </View>
+          <View style={styles.itemDetailsContainer}>
+            <View style={styles.direction}>
+              <Text style={styles.itemName}>{item.type}</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  setModalVisible(true);
+                }}>
+                <FontAwesome5 name={'trash'} size={15} />
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Product Details');
+              }}>
+              <Text style={styles.itemDescription}>
+                Delicious fried rice with chicken, vegetables, and special
+                spices.
+              </Text>
+              <View>
+                <Text style={styles.itemPrice}>{item.price}</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </>
+    );
   };
 
   return (
@@ -28,10 +78,42 @@ export default function Product({navigation}) {
           <Text style={styles.text}>ADD</Text>
         </View>
         <View style={styles.menuContainer}>
-          <Text style={styles.label}>Noodles</Text>
-          <Text style={styles.label}>Rice</Text>
-          <Text style={styles.label}>Szechwan</Text>
-          <Text style={styles.label}>Chow Main</Text>
+          <TouchableOpacity onPress={() => setSelectedMenu('Noodles')}>
+            <Text
+              style={[
+                styles.label,
+                selectedMenu === 'Noodles' && styles.selectedLabel,
+              ]}>
+              Noodles
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setSelectedMenu('Rice')}>
+            <Text
+              style={[
+                styles.label,
+                selectedMenu === 'Rice' && styles.selectedLabel,
+              ]}>
+              Rice
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setSelectedMenu('Szechwan')}>
+            <Text
+              style={[
+                styles.label,
+                selectedMenu === 'Szechwan' && styles.selectedLabel,
+              ]}>
+              Szechwan
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setSelectedMenu('Chow Main')}>
+            <Text
+              style={[
+                styles.label,
+                selectedMenu === 'Chow Main' && styles.selectedLabel,
+              ]}>
+              Chow Main
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.direction}>
@@ -43,36 +125,14 @@ export default function Product({navigation}) {
           <Text style={styles.text}>ADD</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.itemContainer}>
-        <View style={styles.itemImageContainer}>
-          <Image
-            source={require('../../../../assest/silder1.jpeg')}
-            style={styles.itemImage}
-          />
-        </View>
-        <View style={styles.itemDetailsContainer}>
-          <View style={styles.direction}>
-            <Text style={styles.itemName}>Chicken Fried Rice</Text>
-            <TouchableOpacity
-              onPress={() => {
-                setModalVisible(true);
-              }}>
-              <FontAwesome5 name={'trash'} size={15} />
-            </TouchableOpacity>
-          </View>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('Product Details');
-            }}>
-            <Text style={styles.itemDescription}>
-              Delicious fried rice with chicken, vegetables, and special spices.
-            </Text>
-            <View>
-              <Text style={styles.itemPrice}>$9.99</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </View>
+
+      <FlatList
+        keyExtractor={item => item.id.toString()}
+        data={filteredData}
+        renderItem={renderItem}
+        numColumns={1}
+      />
+
       <Modal
         visible={modalVisible}
         animationType="fade"
@@ -154,5 +214,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  selectedLabel: {
+    fontWeight: 'bold',
+    color: '#fff',
+    backgroundColor: Color.primaryColor,
   },
 });

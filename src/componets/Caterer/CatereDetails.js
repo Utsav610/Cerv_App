@@ -15,6 +15,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import Categories_data from '../../data/Categories_data';
 import Color from '../../Constants/Color';
 import Menu_data from '../../data/Menu_data';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const CatereDetails = ({navigation}) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -84,10 +85,10 @@ const CatereDetails = ({navigation}) => {
                     alignItems: 'center',
                     marginRight: 5,
                   }}>
-                  <FontAwesome5
-                    name={'cart-plus'}
+                  <Icon
+                    name={'cart-outline'}
                     size={15}
-                    color={'#F5694E'}
+                    color={Color.primaryColor}
                     style={{marginRight: 5}}
                   />
                   <Text style={styles.addToCartButtonText}>Add</Text>
@@ -113,7 +114,7 @@ const CatereDetails = ({navigation}) => {
             </View>
             <View style={styles.textContainer}>
               <View>
-                <Text style={styles.text}>St John & Thomans Catering</Text>
+                <Text style={styles.name}>St John & Thomans Catering</Text>
               </View>
               <View>
                 <Text style={styles.textaddress}>
@@ -127,7 +128,7 @@ const CatereDetails = ({navigation}) => {
               </View>
             </View>
           </View>
-          <View style={styles.dateTimeContainer}>
+          <View style={{flex: 1}}>
             <Text style={styles.text}>Date and Time</Text>
             <View style={styles.dtContainer}>
               {Platform.OS === 'ios' && (
@@ -140,14 +141,14 @@ const CatereDetails = ({navigation}) => {
               {Platform.OS === 'android' && (
                 <TouchableOpacity onPress={showAndroidDatePicker}>
                   <View style={styles.inputContainer}>
+                    <Text style={styles.androidDatePickerText}>
+                      {selectedDate.toLocaleDateString()}
+                    </Text>
                     <FontAwesome5
                       name="calendar-alt"
                       size={20}
                       style={styles.icon}
                     />
-                    <Text style={styles.androidDatePickerText}>
-                      {selectedDate.toLocaleDateString()}
-                    </Text>
                   </View>
                 </TouchableOpacity>
               )}
@@ -171,14 +172,14 @@ const CatereDetails = ({navigation}) => {
                 {Platform.OS === 'android' && (
                   <TouchableOpacity onPress={showAndroidTimePicker}>
                     <View style={styles.inputContainer}>
+                      <Text style={styles.androidDatePickerText}>
+                        {selectedTime.toLocaleTimeString()}
+                      </Text>
                       <FontAwesome5
                         name="clock"
                         size={20}
                         style={styles.icon}
                       />
-                      <Text style={styles.androidDatePickerText}>
-                        {selectedTime.toLocaleTimeString()}
-                      </Text>
                     </View>
                   </TouchableOpacity>
                 )}
@@ -219,7 +220,11 @@ const CatereDetails = ({navigation}) => {
                 ]}
                 onPress={() => handleOrderTypeChange('delivery')}>
                 {orderType === 'delivery' ? (
-                  <FontAwesome5 name="check-circle" size={20} />
+                  <Icon
+                    name="circle-slice-8"
+                    size={20}
+                    color={Color.primaryColor}
+                  />
                 ) : (
                   <FontAwesome5 name="circle" size={20} />
                 )}
@@ -232,7 +237,11 @@ const CatereDetails = ({navigation}) => {
                 ]}
                 onPress={() => handleOrderTypeChange('pickup')}>
                 {orderType === 'pickup' ? (
-                  <FontAwesome5 name="check-circle" size={20} />
+                  <Icon
+                    name="circle-slice-8"
+                    size={20}
+                    color={Color.primaryColor}
+                  />
                 ) : (
                   <FontAwesome5 name="circle" size={20} />
                 )}
@@ -350,11 +359,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
     paddingVertical: 8,
   },
   icon: {
-    marginRight: 10,
+    marginLeft: 15,
+    color: Color.primaryColor,
   },
   androidDatePickerText: {
     fontSize: 16,
@@ -374,6 +384,8 @@ const styles = StyleSheet.create({
   },
   radioButtonText: {
     marginLeft: 5,
+    color: '#000',
+    fontWeight: '500',
   },
   radioButtonSelected: {
     marginVertical: 10,
@@ -381,17 +393,23 @@ const styles = StyleSheet.create({
 
   dtContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'flex-start',
+    gap: 30,
     borderBottomWidth: 1,
     paddingVertical: 10,
     borderBottomColor: '#ccc',
   },
   food_type_text: {
     fontSize: 18,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
+    fontWeight: '500',
+    color: '#000',
+    marginVertical: 5,
   },
   textaddress: {
-    marginVertical: 5,
+    fontSize: 14,
+    marginBottom: 5,
+    color: '#000',
   },
   footer: {
     height: 50,
@@ -411,6 +429,7 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
     marginHorizontal: 5,
     marginVertical: 10,
+    color: '#000',
   },
   menuContainer: {
     flexDirection: 'row',
@@ -468,5 +487,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#fff',
     backgroundColor: Color.primaryColor,
+  },
+  name: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 5,
+    color: '#000',
   },
 });

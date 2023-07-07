@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {
   ScrollView,
   StyleSheet,
@@ -10,17 +11,15 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Silder from './Slider/Silder';
 import Cater from '../../componets/Caterer/Catere';
 import Color from '../../Constants/Color';
+import Feather from 'react-native-vector-icons/Feather';
+
 export default function Home({navigation}) {
   return (
     <>
       <View style={styles.headerContainer}>
         <View style={styles.header}>
           <TouchableOpacity>
-            <FontAwesome5
-              name={'circle-question'}
-              size={25}
-              color={Color.primaryColor}
-            />
+            <Feather name={'help-circle'} size={25} color={'#8e8e8e'} />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
@@ -35,7 +34,13 @@ export default function Home({navigation}) {
               navigation.navigate('Saved Address');
             }}>
             <Text>My Event Location</Text>
-            <Text>
+            <Text
+              style={{
+                color: '#000',
+                fontWeight: '500',
+                fontFamily: 'bold',
+                fontSize: 16,
+              }}>
               374 William s Canning Blvd
               <FontAwesome5 name={'sort-down'} size={25} color={'green'} />
             </Text>
@@ -51,11 +56,7 @@ export default function Home({navigation}) {
               onPress={() => {
                 navigation.navigate('Filter');
               }}>
-              <FontAwesome5
-                name={'filter'}
-                size={20}
-                color={Color.primaryColor}
-              />
+              <Feather name={'filter'} size={20} color={'#000'} />
             </TouchableOpacity>
           </View>
           <View>
@@ -89,6 +90,7 @@ const styles = StyleSheet.create({
   filterContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginBottom: 5,
   },
   text: {
     fontWeight: 'bold',

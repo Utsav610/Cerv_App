@@ -2,6 +2,7 @@ import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Color from '../../../Constants/Color';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function SavedAddress() {
   const [selectedAddress, setSelectedAddress] = useState('Home');
@@ -25,7 +26,11 @@ export default function SavedAddress() {
             selectedAddress === 'Home' && styles.selectedIcon,
           ]}
           onPress={() => handleCircleIconPress('Home')}>
-          <FontAwesome5 name="circle" size={20} color="#ccc" />
+          {selectedAddress === 'Home' ? (
+            <Icon name="circle-slice-8" size={20} color={Color.primaryColor} />
+          ) : (
+            <FontAwesome5 name="circle" size={20} />
+          )}
         </TouchableOpacity>
       </View>
       <View style={styles.addressContainer}>
@@ -41,7 +46,11 @@ export default function SavedAddress() {
             selectedAddress === 'Farm' && styles.selectedIcon,
           ]}
           onPress={() => handleCircleIconPress('Farm')}>
-          <FontAwesome5 name="circle" size={20} color="#ccc" />
+          {selectedAddress === 'Farm' ? (
+            <Icon name="circle-slice-8" size={20} color={Color.primaryColor} />
+          ) : (
+            <FontAwesome5 name="circle" size={20} />
+          )}
         </TouchableOpacity>
       </View>
       <View style={styles.addressContainer}>
@@ -57,7 +66,11 @@ export default function SavedAddress() {
             selectedAddress === 'Garden' && styles.selectedIcon,
           ]}
           onPress={() => handleCircleIconPress('Garden')}>
-          <FontAwesome5 name="circle" size={20} color="#ccc" />
+          {selectedAddress === 'Garden' ? (
+            <Icon name="circle-slice-8" size={20} color={Color.primaryColor} />
+          ) : (
+            <FontAwesome5 name="circle" size={20} />
+          )}
         </TouchableOpacity>
       </View>
       <View style={styles.addressContainer}>
@@ -73,7 +86,11 @@ export default function SavedAddress() {
             selectedAddress === 'Farm House' && styles.selectedIcon,
           ]}
           onPress={() => handleCircleIconPress('Farm House')}>
-          <FontAwesome5 name="circle" size={20} color="#ccc" />
+          {selectedAddress === 'Farm House' ? (
+            <Icon name="circle-slice-8" size={20} color={Color.primaryColor} />
+          ) : (
+            <FontAwesome5 name="circle" size={20} />
+          )}
         </TouchableOpacity>
       </View>
     </View>
@@ -107,8 +124,5 @@ const styles = StyleSheet.create({
   },
   cameraIconContainer: {
     marginLeft: 'auto',
-  },
-  selectedIcon: {
-    backgroundColor: 'green',
   },
 });

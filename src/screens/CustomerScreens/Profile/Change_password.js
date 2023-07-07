@@ -3,10 +3,19 @@ import React, {useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 export default function Change_password() {
-  const [secureTextEntry, setSecureTextEntry] = useState(true);
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [CurrentpasswordVisible, setCurrentpasswordVisible] = useState(false);
+  const [ConformpasswordVisible, setConformpasswordVisible] = useState(false);
 
   const togglePasswordVisibility = () => {
-    setSecureTextEntry(!secureTextEntry);
+    setPasswordVisible(!passwordVisible);
+  };
+  const toggleCurrentPasswordVisibility = () => {
+    setCurrentpasswordVisible(!CurrentpasswordVisible);
+  };
+
+  const toggleConformPasswordVisibility = () => {
+    setConformpasswordVisible(!ConformpasswordVisible);
   };
 
   return (
@@ -15,9 +24,13 @@ export default function Change_password() {
         <View style={styles.passContainer}>
           <Text>Current Password</Text>
           <View style={styles.inputContainer}>
-            <TextInput placeholder="Password" style={styles.input} />
+            <TextInput
+              placeholder="Password"
+              secureTextEntry={passwordVisible}
+              style={styles.input}
+            />
             <FontAwesome5
-              name={secureTextEntry ? 'eye-slash' : 'eye'}
+              name={passwordVisible ? 'eye-slash' : 'eye'}
               size={20}
               color="#333"
               onPress={togglePasswordVisibility}
@@ -30,14 +43,14 @@ export default function Change_password() {
           <View style={styles.inputContainer}>
             <TextInput
               placeholder="Password"
-              secureTextEntry={secureTextEntry}
+              secureTextEntry={CurrentpasswordVisible}
               style={styles.input}
             />
             <FontAwesome5
-              name={secureTextEntry ? 'eye-slash' : 'eye'}
+              name={CurrentpasswordVisible ? 'eye-slash' : 'eye'}
               size={20}
               color="#333"
-              onPress={togglePasswordVisibility}
+              onPress={toggleCurrentPasswordVisibility}
               style={styles.eyeIcon}
             />
           </View>
@@ -47,14 +60,14 @@ export default function Change_password() {
           <View style={styles.inputContainer}>
             <TextInput
               placeholder="Password"
-              secureTextEntry={secureTextEntry}
+              secureTextEntry={ConformpasswordVisible}
               style={styles.input}
             />
             <FontAwesome5
-              name={secureTextEntry ? 'eye-slash' : 'eye'}
+              name={ConformpasswordVisible ? 'eye-slash' : 'eye'}
               size={20}
               color="#333"
-              onPress={togglePasswordVisibility}
+              onPress={toggleConformPasswordVisibility}
               style={styles.eyeIcon}
             />
           </View>
