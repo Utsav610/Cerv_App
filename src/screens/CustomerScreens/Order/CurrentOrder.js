@@ -22,27 +22,27 @@ export default function CurrentOrder({navigation}) {
         <View style={styles.ItemContainer}>
           <View style={styles.ItemContent}>
             <Text style={styles.itemText}>Item1</Text>
-            <Text>$271.80</Text>
+            <Text style={{color: '#000'}}>$271.80</Text>
           </View>
           <View style={styles.ItemContent}>
             <Text style={styles.itemText}>Item1</Text>
-            <Text>$271.80</Text>
+            <Text style={{color: '#000'}}>$271.80</Text>
           </View>
         </View>
         <View style={styles.ItemContent}>
           <View style={styles.orderTypeDetails}>
             <Text>Order type</Text>
-            <Text>Delivery</Text>
+            <Text style={{color: '#000'}}>Delivery</Text>
           </View>
         </View>
         <View style={styles.orderTypeDetails}>
           <Text>Order On</Text>
-          <Text>date and time</Text>
+          <Text style={{color: '#000'}}>20 Nov 2020 at 06:58 AM</Text>
         </View>
         <View style={styles.ItemContent}>
           <View>
             <Text>Amount</Text>
-            <Text>$543</Text>
+            <Text style={{color: '#000'}}>$543</Text>
           </View>
           <View>
             <TouchableOpacity style={styles.btn}>

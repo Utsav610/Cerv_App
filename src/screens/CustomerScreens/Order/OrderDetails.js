@@ -14,7 +14,7 @@ import StepIndicator from 'react-native-step-indicator';
 
 const stepIndicatorStyles = {
   stepIndicatorSize: 25,
-  currentStepIndicatorSize: 25,
+  currentStepIndicatorSize: 20,
   // separatorStrokeWidth: 2,
   // currentStepStrokeWidth: 1,
   stepStrokeCurrentColor: Color.primaryColor,
@@ -30,8 +30,8 @@ const stepIndicatorStyles = {
   currentStepIndicatorLabelFontSize: 5,
   stepIndicatorLabelCurrentColor: Color.primaryColor,
   stepIndicatorLabelFinishedColor: Color.primaryColor,
-  stepIndicatorLabelUnFinishedColor: '#aaaaaa',
-  labelColor: '#999999',
+  stepIndicatorLabelUnFinishedColor: Color.primaryColor,
+  labelColor: Color.primaryColor,
   labelSize: 12,
   currentStepLabelColor: Color.primaryColor,
 };
@@ -234,7 +234,11 @@ export default function OrderDetails({navigation}) {
           </View>
           <View style={{flexDirection: 'row'}}>
             <View style={styles.homeicon}>
-              <FontAwesome5 name={'home'} size={20} color={'#931314'} />
+              <FontAwesome5
+                name={'home'}
+                size={20}
+                color={Color.primaryColor}
+              />
             </View>
             <View>
               <Text style={{fontSize: 16}}>

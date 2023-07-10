@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Color from '../../Constants/Color';
+import StarRating from 'react-native-star-rating-widget';
 
 const Cater = ({onclick}) => {
   return (
@@ -18,11 +19,13 @@ const Cater = ({onclick}) => {
               3200 Williams treet , Nathan Road , MA
             </Text>
             <Text style={styles.address}>$80.00/Per Dish</Text>
-            <View style={styles.ratingContainer}>
-              {[1, 2, 3, 4, 5].map(index => (
-                <FontAwesome5 key={index} name="star" size={16} />
-              ))}
-            </View>
+            <StarRating
+              rating={4}
+              totalStars={5}
+              starColor="#FACC02"
+              emptyStarColor="transparent"
+              starSize={20}
+            />
           </View>
           <TouchableOpacity style={styles.heartIconContainer}>
             <FontAwesome5 name="heart" size={25} color={'#8e8e8e'} />

@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import CustomButton from '../../../componets/CustomeButton';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 export default function AddNewcard({navigation}) {
   const [selectedPayment, setSelectedPayment] = useState('');
@@ -17,117 +18,119 @@ export default function AddNewcard({navigation}) {
     setSelectedPayment(payment);
   };
   return (
-    <View style={styles.container}>
-      <View style={styles.cardContainer}>
-        <TouchableOpacity
-          style={[
-            styles.cardImageContainer,
-            selectedPayment === 'masterCard' &&
-              styles.selectedCardImageContainer,
-          ]}
-          onPress={() => handlePaymentSelect('masterCard')}>
-          <Image
-            source={require('../../../assest/masterCard.png')}
-            style={styles.cardImage}
-          />
-          {selectedPayment === 'masterCard' && (
-            <Icon
-              name={'check-circle'}
-              size={25}
-              color={'green'}
-              style={styles.checkIcon}
+    <KeyboardAwareScrollView>
+      <View style={styles.container}>
+        <View style={styles.cardContainer}>
+          <TouchableOpacity
+            style={[
+              styles.cardImageContainer,
+              selectedPayment === 'masterCard' &&
+                styles.selectedCardImageContainer,
+            ]}
+            onPress={() => handlePaymentSelect('masterCard')}>
+            <Image
+              source={require('../../../assest/masterCard.png')}
+              style={styles.cardImage}
             />
-          )}
-        </TouchableOpacity>
+            {selectedPayment === 'masterCard' && (
+              <Icon
+                name={'check-circle'}
+                size={25}
+                color={'green'}
+                style={styles.checkIcon}
+              />
+            )}
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={[
-            styles.cardImageContainer,
-            selectedPayment === 'visa' && styles.selectedCardImageContainer,
-          ]}
-          onPress={() => handlePaymentSelect('visa')}>
-          <Image
-            source={require('../../../assest/visa.png')}
-            style={styles.cardImage}
-          />
-          {selectedPayment === 'visa' && (
-            <Icon
-              name={'check-circle'}
-              size={25}
-              color={'green'}
-              style={styles.checkIcon}
+          <TouchableOpacity
+            style={[
+              styles.cardImageContainer,
+              selectedPayment === 'visa' && styles.selectedCardImageContainer,
+            ]}
+            onPress={() => handlePaymentSelect('visa')}>
+            <Image
+              source={require('../../../assest/visa.png')}
+              style={styles.cardImage}
             />
-          )}
-        </TouchableOpacity>
+            {selectedPayment === 'visa' && (
+              <Icon
+                name={'check-circle'}
+                size={25}
+                color={'green'}
+                style={styles.checkIcon}
+              />
+            )}
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={[
-            styles.cardImageContainer,
-            selectedPayment === 'rupay' && styles.selectedCardImageContainer,
-          ]}
-          onPress={() => handlePaymentSelect('rupay')}>
-          <Image
-            source={require('../../../assest/Rupay.png')}
-            style={styles.cardImage}
-          />
-          {selectedPayment === 'rupay' && (
-            <Icon
-              name={'check-circle'}
-              size={25}
-              color={'green'}
-              style={styles.checkIcon}
+          <TouchableOpacity
+            style={[
+              styles.cardImageContainer,
+              selectedPayment === 'rupay' && styles.selectedCardImageContainer,
+            ]}
+            onPress={() => handlePaymentSelect('rupay')}>
+            <Image
+              source={require('../../../assest/Rupay.png')}
+              style={styles.cardImage}
             />
-          )}
-        </TouchableOpacity>
+            {selectedPayment === 'rupay' && (
+              <Icon
+                name={'check-circle'}
+                size={25}
+                color={'green'}
+                style={styles.checkIcon}
+              />
+            )}
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={[
-            styles.cardImageContainer,
-            selectedPayment === 'masterCard2' &&
-              styles.selectedCardImageContainer,
-          ]}
-          onPress={() => handlePaymentSelect('masterCard2')}>
-          <Image
-            source={require('../../../assest/masterCard.png')}
-            style={styles.cardImage}
-          />
-          {selectedPayment === 'masterCard2' && (
-            <Icon
-              name={'check-circle'}
-              size={25}
-              color={'green'}
-              style={styles.checkIcon}
+          <TouchableOpacity
+            style={[
+              styles.cardImageContainer,
+              selectedPayment === 'masterCard2' &&
+                styles.selectedCardImageContainer,
+            ]}
+            onPress={() => handlePaymentSelect('masterCard2')}>
+            <Image
+              source={require('../../../assest/masterCard.png')}
+              style={styles.cardImage}
             />
-          )}
-        </TouchableOpacity>
-      </View>
-      <View>
-        <Text style={styles.label}>CARD NUMBER</Text>
-        <TextInput style={styles.input} />
-      </View>
-      <View style={styles.direction}>
+            {selectedPayment === 'masterCard2' && (
+              <Icon
+                name={'check-circle'}
+                size={25}
+                color={'green'}
+                style={styles.checkIcon}
+              />
+            )}
+          </TouchableOpacity>
+        </View>
         <View>
-          <Text style={styles.label}>EXPIRATION DATE</Text>
+          <Text style={styles.label}>CARD NUMBER</Text>
+          <TextInput style={styles.input} />
+        </View>
+        <View style={styles.direction}>
+          <View>
+            <Text style={styles.label}>EXPIRATION DATE</Text>
+            <TextInput style={styles.input} />
+          </View>
+          <View>
+            <Text style={styles.label}>CVV</Text>
+            <TextInput secureTextEntry style={styles.input} />
+          </View>
+        </View>
+        <View>
+          <Text style={styles.label}>CARD HOLDER'S</Text>
           <TextInput style={styles.input} />
         </View>
         <View>
-          <Text style={styles.label}>CVV</Text>
-          <TextInput secureTextEntry style={styles.input} />
+          <CustomButton
+            title={'Confirm'}
+            onPress={() => {
+              navigation.goBack();
+            }}
+          />
         </View>
       </View>
-      <View>
-        <Text style={styles.label}>CARD HOLDER'S</Text>
-        <TextInput style={styles.input} />
-      </View>
-      <View>
-        <CustomButton
-          title={'Confirm'}
-          onPress={() => {
-            navigation.goBack();
-          }}
-        />
-      </View>
-    </View>
+    </KeyboardAwareScrollView>
   );
 }
 

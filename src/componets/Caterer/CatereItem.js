@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import React from 'react';
+import Color from '../../Constants/Color';
 
 export default function CatereItem() {
   return (
@@ -36,7 +37,7 @@ export default function CatereItem() {
                 <FontAwesome5
                   name={'cart-plus'}
                   size={15}
-                  color={'#F5694E'}
+                  color={Color.primaryColor}
                   style={{marginRight: 5}}
                 />
                 <Text style={styles.addToCartButtonText}>Add</Text>

@@ -18,6 +18,8 @@ export default function Login({navigation, route}) {
   console.log(Role);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   const handleLogin = () => {
     if (Role === 'Customer') {

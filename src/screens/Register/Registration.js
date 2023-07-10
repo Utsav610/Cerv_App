@@ -61,121 +61,126 @@
 //         source={require('../../assest/bg_image.jpeg')}
 //         resizeMode="cover"
 //         style={styles.image}>
-//         {/* <KeyboardAwareScrollView> */}
-//         <View style={styles.header}></View>
-//         <View style={styles.content}>
-//           <View style={styles.imageContainer}>
-//             {imageUri ? (
-//               <Image source={{uri: imageUri}} style={styles.image1} />
-//             ) : (
-//               <Image
-//                 source={require('../../assest/profile_Icon.png')}
-//                 style={styles.image1}
-//               />
-//             )}
-//             <TouchableOpacity
-//               style={styles.cameraIconContainer}
-//               onPress={selectImage}>
-//               <FontAwesome5
-//                 name={'plus'}
-//                 size={15}
-//                 color={Color.primaryColor}
-//               />
-//             </TouchableOpacity>
-//           </View>
-//           <View>
-//             <Text>Caterer Name</Text>
-//             <View style={styles.inputContainer}>
-//               <FontAwesome5
-//                 name={'user'}
-//                 size={20}
-//                 color={Color.primaryColor}
-//               />
-//               <TextInput placeholder="john" style={styles.input} />
-//             </View>
-
-//             <Text>Email</Text>
-//             <View style={styles.inputContainer}>
-//               <FontAwesome5
-//                 name={'envelope'}
-//                 size={20}
-//                 color={Color.primaryColor}
-//               />
-//               <TextInput placeholder="john123@gmail.com" style={styles.input} />
-//             </View>
-
-//             <Text>Password</Text>
-//             <View style={styles.inputContainer}>
-//               <FontAwesome5
-//                 name={'lock'}
-//                 size={20}
-//                 color={Color.primaryColor}
-//               />
-//               <TextInput
-//                 placeholder="Password"
-//                 secureTextEntry={passwordVisible}
-//                 style={styles.input}
-//               />
+//         {/* <View style={{flex: 1}}> */}
+//         <KeyboardAwareScrollView>
+//           <View style={styles.header}></View>
+//           <View style={styles.content}>
+//             <View style={styles.imageContainer}>
+//               {imageUri ? (
+//                 <Image source={{uri: imageUri}} style={styles.image1} />
+//               ) : (
+//                 <Image
+//                   source={require('../../assest/profile_Icon.png')}
+//                   style={styles.image1}
+//                 />
+//               )}
 //               <TouchableOpacity
-//                 onPress={togglePasswordVisibility}
-//                 style={styles.eyeIconContainer}>
+//                 style={styles.cameraIconContainer}
+//                 onPress={selectImage}>
 //                 <FontAwesome5
-//                   name={passwordVisible ? 'eye-slash' : 'eye'}
-//                   size={20}
-//                   color={'#c2c2c2'}
+//                   name={'plus'}
+//                   size={15}
+//                   color={Color.primaryColor}
 //                 />
 //               </TouchableOpacity>
 //             </View>
-
-//             <Text>Confirm Password</Text>
-//             <View style={styles.inputContainer}>
-//               <FontAwesome5
-//                 name={'lock'}
-//                 size={20}
-//                 color={Color.primaryColor}
-//               />
-
-//               <TextInput
-//                 placeholder="Password"
-//                 secureTextEntry={CurrentpasswordVisible}
-//                 style={styles.input}
-//               />
-//               <TouchableOpacity
-//                 onPress={toggleCurrentPasswordVisibility}
-//                 style={styles.eyeIconContainer}>
+//             <View>
+//               <Text>Caterer Name</Text>
+//               <View style={styles.inputContainer}>
 //                 <FontAwesome5
-//                   name={CurrentpasswordVisible ? 'eye-slash' : 'eye'}
+//                   name={'user'}
 //                   size={20}
-//                   color={'#c2c2c2'}
+//                   color={Color.primaryColor}
 //                 />
-//               </TouchableOpacity>
-//             </View>
+//                 <TextInput placeholder="john" style={styles.input} />
+//               </View>
 
-//             <View style={styles.checkbox}>
-//               <CheckBox value={isChecked} onValueChange={toggleCheckbox} />
-//               <View style={{paddingRight: 10}}>
-//                 <Text style={styles.tcCondition}>
-//                   I Agree to the{' '}
-//                   <Text style={{color: Color.primaryColor, fontWeight: 600}}>
-//                     Term & Condition
-//                   </Text>{' '}
-//                   and{' '}
-//                   <Text style={{color: Color.primaryColor, fontWeight: 600}}>
-//                     Privacy Policy
+//               <Text>Email</Text>
+//               <View style={styles.inputContainer}>
+//                 <FontAwesome5
+//                   name={'envelope'}
+//                   size={20}
+//                   color={Color.primaryColor}
+//                 />
+//                 <TextInput
+//                   placeholder="john123@gmail.com"
+//                   style={styles.input}
+//                 />
+//               </View>
+
+//               <Text>Password</Text>
+//               <View style={styles.inputContainer}>
+//                 <FontAwesome5
+//                   name={'lock'}
+//                   size={20}
+//                   color={Color.primaryColor}
+//                 />
+//                 <TextInput
+//                   placeholder="Password"
+//                   secureTextEntry={passwordVisible}
+//                   style={styles.input}
+//                 />
+//                 <TouchableOpacity
+//                   onPress={togglePasswordVisibility}
+//                   style={styles.eyeIconContainer}>
+//                   <FontAwesome5
+//                     name={passwordVisible ? 'eye-slash' : 'eye'}
+//                     size={20}
+//                     color={'#c2c2c2'}
+//                   />
+//                 </TouchableOpacity>
+//               </View>
+
+//               <Text>Confirm Password</Text>
+//               <View style={styles.inputContainer}>
+//                 <FontAwesome5
+//                   name={'lock'}
+//                   size={20}
+//                   color={Color.primaryColor}
+//                 />
+
+//                 <TextInput
+//                   placeholder="Password"
+//                   secureTextEntry={CurrentpasswordVisible}
+//                   style={styles.input}
+//                 />
+//                 <TouchableOpacity
+//                   onPress={toggleCurrentPasswordVisibility}
+//                   style={styles.eyeIconContainer}>
+//                   <FontAwesome5
+//                     name={CurrentpasswordVisible ? 'eye-slash' : 'eye'}
+//                     size={20}
+//                     color={'#c2c2c2'}
+//                   />
+//                 </TouchableOpacity>
+//               </View>
+
+//               <View style={styles.checkbox}>
+//                 <CheckBox value={isChecked} onValueChange={toggleCheckbox} />
+//                 <View style={{paddingRight: 10}}>
+//                   <Text style={styles.tcCondition}>
+//                     I Agree to the{' '}
+//                     <Text style={{color: Color.primaryColor, fontWeight: 600}}>
+//                       Term & Condition
+//                     </Text>{' '}
+//                     and{' '}
+//                     <Text style={{color: Color.primaryColor, fontWeight: 600}}>
+//                       Privacy Policy
+//                     </Text>
 //                   </Text>
-//                 </Text>
+//                 </View>
 //               </View>
 //             </View>
-//           </View>
 
-//           <CustomButton
-//             title="Next"
-//             onPress={() => {
-//               navigation.navigate('Phone Number');
-//             }}
-//           />
-//         </View>
-//         {/* </KeyboardAwareScrollView> */}
+//             <CustomButton
+//               title="Next"
+//               onPress={() => {
+//                 navigation.navigate('Phone Number');
+//               }}
+//             />
+//           </View>
+//         </KeyboardAwareScrollView>
+//         {/* </View> */}
 //       </ImageBackground>
 //     </View>
 //   );

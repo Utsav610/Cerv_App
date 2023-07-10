@@ -11,51 +11,62 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import CustomButton from '../CustomeButton';
 import Color from '../../Constants/Color';
 import Feather from 'react-native-vector-icons/Feather';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 export default function CustomerPersonalInfo({navigation}) {
   return (
     <>
-      <View style={styles.imageContainer}>
-        <Image
-          source={require('../../assest/profile_Icon.png')}
-          style={styles.image1}
-        />
-        <TouchableOpacity style={styles.cameraIconContainer}>
-          <FontAwesome5 name={'camera'} size={20} color={'#fff'} />
-        </TouchableOpacity>
-      </View>
+      <KeyboardAwareScrollView>
+        <View style={styles.imageContainer}>
+          <Image
+            source={require('../../assest/profile_Icon.png')}
+            style={styles.image1}
+          />
+          <TouchableOpacity style={styles.cameraIconContainer}>
+            <FontAwesome5 name={'camera'} size={20} color={'#fff'} />
+          </TouchableOpacity>
+        </View>
 
-      <Text style={styles.label}>Caterer Name</Text>
-      <View style={styles.inputContainer}>
-        <FontAwesome5 name={'user'} size={20} color={Color.primaryColor} />
-        <TextInput placeholder="john" style={styles.input} />
-      </View>
+        <Text style={styles.label}>Caterer Name</Text>
+        <View style={styles.inputContainer}>
+          <FontAwesome5 name={'user'} size={20} color={Color.primaryColor} />
+          <TextInput placeholder="john" style={styles.input} />
+        </View>
 
-      <Text style={styles.label}>Email</Text>
-      <View style={styles.inputContainer}>
-        <FontAwesome5 name={'envelope'} size={20} color={Color.primaryColor} />
-        <TextInput
-          placeholder="john123@gmail.com"
-          style={styles.input}
-          keyboardType="email-address"
-        />
-      </View>
+        <Text style={styles.label}>Email</Text>
+        <View style={styles.inputContainer}>
+          <FontAwesome5
+            name={'envelope'}
+            size={20}
+            color={Color.primaryColor}
+          />
+          <TextInput
+            placeholder="john123@gmail.com"
+            style={styles.input}
+            keyboardType="email-address"
+          />
+        </View>
 
-      <Text style={styles.label}>Phone Number</Text>
-      <View style={styles.inputContainer}>
-        <Feather name={'phone'} size={20} color={Color.primaryColor} />
-        <TextInput
-          placeholder="123456789"
-          secureTextEntry
-          style={styles.input}
-        />
-      </View>
+        <Text style={styles.label}>Phone Number</Text>
+        <View style={styles.inputContainer}>
+          <Feather name={'phone'} size={20} color={Color.primaryColor} />
+          <TextInput
+            placeholder="123456789"
+            secureTextEntry
+            style={styles.input}
+          />
+        </View>
 
-      <Text style={styles.label}> Home Postcode</Text>
-      <View style={styles.inputContainer}>
-        <FontAwesome5 name={'home'} size={20} color={Color.primaryColor} />
-        <TextInput placeholder="123456" secureTextEntry style={styles.input} />
-      </View>
+        <Text style={styles.label}> Home Postcode</Text>
+        <View style={styles.inputContainer}>
+          <FontAwesome5 name={'home'} size={20} color={Color.primaryColor} />
+          <TextInput
+            placeholder="123456"
+            secureTextEntry
+            style={styles.input}
+          />
+        </View>
+      </KeyboardAwareScrollView>
 
       <View style={styles.btnContainer}>
         <CustomButton

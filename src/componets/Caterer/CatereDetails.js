@@ -16,6 +16,7 @@ import Categories_data from '../../data/Categories_data';
 import Color from '../../Constants/Color';
 import Menu_data from '../../data/Menu_data';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import StarRating from 'react-native-star-rating-widget';
 
 const CatereDetails = ({navigation}) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -64,6 +65,19 @@ const CatereDetails = ({navigation}) => {
     setShowTimePicker(true);
   };
 
+  const [quantity, setQuantity] = useState(0);
+
+  const handleAddToCart = id => {
+    // console.log('item id' + id);
+    setQuantity(quantity + 1);
+  };
+
+  const handleRemoveFromCart = () => {
+    if (quantity > 0) {
+      setQuantity(quantity - 1);
+    }
+  };
+
   const renderItem = ({item}) => {
     return (
       <>
@@ -78,7 +92,50 @@ const CatereDetails = ({navigation}) => {
             </Text>
             <View style={styles.Direction}>
               <Text style={styles.itemPrice}>{item.price}</Text>
-              <TouchableOpacity style={styles.addToCartButton}>
+              <View style={styles.addToCartButton} onPress={handleAddToCart}>
+                {quantity < 1 ? (
+                  <TouchableOpacity
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      marginRight: 5,
+                    }}
+                    onPress={handleAddToCart}>
+                    <Icon
+                      name={'cart-outline'}
+                      size={15}
+                      color={Color.primaryColor}
+                      style={{marginRight: 5}}
+                    />
+                    <Text style={styles.addToCartButtonText}>Add</Text>
+                  </TouchableOpacity>
+                ) : (
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      marginRight: 5,
+                    }}>
+                    <TouchableOpacity onPress={handleRemoveFromCart}>
+                      <Text style={[styles.quantityButton, {color: 'red'}]}>
+                        -
+                      </Text>
+                    </TouchableOpacity>
+                    <Text style={styles.quantity}>{quantity}</Text>
+                    <TouchableOpacity
+                      onPress={() => {
+                        handleAddToCart(item.id);
+                      }}>
+                      <Text style={[styles.quantityButton, {color: 'green'}]}>
+                        +
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                )}
+              </View>
+              {/* <TouchableOpacity
+                style={styles.addToCartButton}
+                onPress={HandleAddtoCart}>
                 <View
                   style={{
                     flexDirection: 'row',
@@ -93,7 +150,7 @@ const CatereDetails = ({navigation}) => {
                   />
                   <Text style={styles.addToCartButtonText}>Add</Text>
                 </View>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
           </View>
         </View>
@@ -121,11 +178,13 @@ const CatereDetails = ({navigation}) => {
                   3200 Williams treet , Nathan Road , MA
                 </Text>
               </View>
-              <View style={styles.ratingContainer}>
-                {[1, 2, 3, 4, 5].map(index => (
-                  <FontAwesome5 key={index} name="star" size={16} />
-                ))}
-              </View>
+              <StarRating
+                rating={4}
+                totalStars={5}
+                starColor="#FACC02"
+                emptyStarColor="transparent"
+                starSize={20}
+              />
             </View>
           </View>
           <View style={{flex: 1}}>
@@ -493,5 +552,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 5,
     color: '#000',
+  },
+  quantityButton: {
+    fontSize: 16,
+    marginHorizontal: 5,
+    paddingHorizontal: 5,
   },
 });

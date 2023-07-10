@@ -10,6 +10,8 @@ import React from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import CustomButton from '../../componets/CustomeButton';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import Color from '../../Constants/Color';
+import Feather from 'react-native-vector-icons/Feather';
 
 export default function MobileNumber({navigation}) {
   return (
@@ -26,7 +28,7 @@ export default function MobileNumber({navigation}) {
             </View>
             <Text>Phone Number</Text>
             <View style={styles.inputContainer}>
-              <FontAwesome5 name={'phone'} size={20} color={'#931314'} />
+              <Feather name={'phone'} size={20} color={Color.primaryColor} />
               <Text>{' +91 |'}</Text>
               <TextInput
                 placeholder="1234567890"

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Modal} from 'react-native';
 import Color from '../../../../Constants/Color';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
+import Feather from 'react-native-vector-icons/Feather';
 const DiscountCodes = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -38,11 +38,11 @@ const DiscountCodes = ({navigation}) => {
               <Text style={styles.optionText}>Edit</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.option} onPress={closeModal}>
-              <FontAwesome5 name={'trash'} size={20} color={'#333'} />
+              <Feather name={'trash-2'} size={20} color={'#333'} />
               <Text style={styles.optionText}>Delete</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.option} onPress={closeModal}>
-              <FontAwesome5 name={'share'} size={20} color={'#333'} />
+              <Feather name={'share-2'} size={20} color={'#333'} />
               <Text style={styles.optionText}>Share</Text>
             </TouchableOpacity>
           </View>

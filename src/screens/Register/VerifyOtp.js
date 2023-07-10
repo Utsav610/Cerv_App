@@ -25,8 +25,7 @@ export default function OTPScreen({navigation}) {
             <OtpInputs
               inputContainerStyles={styles.inputContainer}
               inputStyles={styles.input}
-              // handleChangeInput={code => console.log(code)} // Handle OTP input change
-              numberOfInputs={4} // Number of OTP inputs to display
+              numberOfInputs={4}
               keyboardType="numeric"
             />
 
@@ -37,7 +36,7 @@ export default function OTPScreen({navigation}) {
                   onPress={() => {
                     navigation.navigate('Phone Number');
                   }}>
-                  <Text style={{color: Color.primaryColor}}> Resend Code</Text>
+                  <Text style={{color: Color.primaryColor}}>Resend Code</Text>
                 </TouchableOpacity>
               </Text>
             </View>
@@ -76,7 +75,8 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-
+    // padding: 0,
+    // margin: 0,
     marginBottom: 20,
     marginTop: 40,
   },

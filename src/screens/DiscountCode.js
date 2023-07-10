@@ -3,14 +3,19 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Color from '../Constants/Color';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-const DiscountCodes = () => {
+const DiscountCodes = ({navigation}) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.codeContainer}>
-        <Text style={styles.discount}>40% off</Text>
-        <Text style={styles.code}>NEW40</Text>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('Order Receipt', ['NEW40']);
+      }}>
+      <View style={styles.container}>
+        <View style={styles.codeContainer}>
+          <Text style={styles.discount}>40% off</Text>
+          <Text style={styles.code}>NEW40</Text>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
