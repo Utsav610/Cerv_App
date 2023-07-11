@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {
+  FlatList,
   ScrollView,
   StyleSheet,
   Text,
@@ -12,6 +13,7 @@ import Silder from './Slider/Silder';
 import Cater from '../../componets/Caterer/Catere';
 import Color from '../../Constants/Color';
 import Feather from 'react-native-vector-icons/Feather';
+import Caterer_data from '../../data/Caterer_data';
 
 export default function Home({navigation}) {
   return (
@@ -60,8 +62,27 @@ export default function Home({navigation}) {
             </TouchableOpacity>
           </View>
           <View>
-            <Cater onclick={() => navigation.navigate('Details')} />
-            <Cater onclick={() => console.log('2')} />
+            <FlatList
+              data={Caterer_data}
+              renderItem={({item}) => (
+                <Cater
+                  name={item.name}
+                  address={item.Address}
+                  price={item.price}
+                  favaroite={item.favorite}
+                  onClick={() =>
+                    navigation.navigate('Details', {
+                      name: item.name,
+                      address: item.Address,
+                      price: item.price,
+                    })
+                  }
+                />
+              )}
+            />
+
+            {/* <Cater onclick={() => navigation.navigate('Details')} />
+            <Cater onclick={() => console.log('2')} /> */}
           </View>
         </View>
       </ScrollView>

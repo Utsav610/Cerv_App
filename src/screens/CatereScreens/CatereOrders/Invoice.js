@@ -22,7 +22,7 @@ export default function Invoice() {
         </View>
         <View style={{flexDirection: 'row'}}>
           <View style={styles.homeicon}>
-            <FontAwesome5 name={'home'} size={20} color={'#931314'} />
+            <FontAwesome5 name={'home'} size={20} color={Color.primaryColor} />
           </View>
           <View>
             <Text style={{fontSize: 16}}>

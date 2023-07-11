@@ -4,7 +4,7 @@ export default [
     img: require('../assest/silder1.jpeg'),
     title: 'Chinese',
     description: 'The future of health is on your wrist',
-    price: '$399',
+    price: '399',
     type: 'Noodles',
   },
   {
@@ -13,7 +13,7 @@ export default [
     title: 'Italian',
     description:
       'Active noise cancellation for immersive sound Active noise cancellation for immersive sound',
-    price: '$249',
+    price: '249',
     type: 'Rice',
   },
   {
@@ -21,7 +21,7 @@ export default [
     img: require('../assest/slider3.jpeg'),
     title: 'Thai',
     description: 'Effortless AirPods experience',
-    price: '$549',
+    price: '549',
     type: 'Szechwan',
   },
   {
@@ -29,7 +29,7 @@ export default [
     img: require('../assest/slider3.jpeg'),
     title: 'Indian',
     description: 'Effortless AirPods experience',
-    price: '$549',
+    price: 549,
     type: 'Rice',
   },
   {
@@ -37,7 +37,7 @@ export default [
     img: require('../assest/slider3.jpeg'),
     title: 'Mexican',
     description: 'Effortless AirPods experience',
-    price: '$549',
+    price: 549,
     type: 'Szechwan',
   },
   {
@@ -45,7 +45,7 @@ export default [
     img: require('../assest/slider3.jpeg'),
     title: 'Noodles',
     description: 'Effortless AirPods experience',
-    price: '$549',
+    price: 549,
     type: 'Chow Main',
   },
   {
@@ -53,7 +53,7 @@ export default [
     img: require('../assest/slider3.jpeg'),
     title: 'Greek',
     description: 'Effortless AirPods experience',
-    price: '$549',
+    price: 549,
     type: 'Noodles',
   },
   {
@@ -61,7 +61,7 @@ export default [
     img: require('../assest/slider3.jpeg'),
     title: 'Japanese',
     description: 'Effortless AirPods experience',
-    price: '$549',
+    price: 549,
     type: 'Noodles',
   },
 ];

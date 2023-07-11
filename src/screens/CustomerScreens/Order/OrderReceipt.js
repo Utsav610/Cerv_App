@@ -6,21 +6,52 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import CustomButton from '../../../componets/CustomeButton';
 import Color from '../../../Constants/Color';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {useDispatch, useSelector} from 'react-redux';
+import * as cartAction from '../../../store/action/action';
+import Order from '../../CatereScreens/CatereOrders/Order';
+
 export default function OrderReceipt({navigation, route}) {
   const couponCode = route?.params;
-  console.log(route.params);
+  // console.log(route);
+  // console.log(route.params);
+  const dispatch = useDispatch();
   const [appliedCoupon, setAppliedCoupon] = useState(false);
+  const [couponPrice, setCouponPrice] = useState(0);
 
   const applyCoupon = () => {
     navigation.navigate('View Discount Codes');
     // console.log('apply');
     setAppliedCoupon(true);
+    setCouponPrice(12);
   };
+
+  let selectedCard = false;
+
+  const OrderData = useSelector(state => state.cart.cartItems);
+  // console.log(OrderData);
+  const cartTotalAmount = useSelector(state => state.cart.totalAmount);
+
+  const [subtotal, setSubtotal] = useState(0);
+  const serviceCharges = 1.0;
+  const deliveryFee = 2.5;
+  const tax = 5.1;
+
+  useEffect(() => {
+    let total = 0;
+    OrderData.forEach(item => {
+      total += item.price * item.quantity;
+    });
+    setSubtotal(total);
+  }, [OrderData, appliedCoupon]);
+
+  const totalAmount =
+    subtotal + serviceCharges + deliveryFee + tax - couponPrice;
+  // console.log(OrderData);
 
   return (
     <>
@@ -67,36 +98,37 @@ export default function OrderReceipt({navigation, route}) {
               Bill Details
             </Text>
 
-            <View style={[styles.ItemContent, styles.AddPadding]}>
-              <Text style={styles.itemText}>Noodles total</Text>
-              <View style={styles.quantityContainer}>
-                <TouchableOpacity>
-                  <Text style={[styles.quantityButton, {color: 'red'}]}>-</Text>
-                </TouchableOpacity>
-                <Text style={styles.quantity}>10</Text>
-                <TouchableOpacity>
-                  <Text style={[styles.quantityButton, {color: 'green'}]}>
-                    +
-                  </Text>
-                </TouchableOpacity>
-              </View>
-              <Text style={styles.itemText}>$271.80</Text>
+            <View>
+              {OrderData &&
+                OrderData.map((item, index) => (
+                  <View
+                    style={[styles.ItemContent, styles.AddPadding]}
+                    key={index}>
+                    <Text style={styles.itemText}>{item.type} Total</Text>
+                    <View style={styles.quantityContainer}>
+                      <TouchableOpacity
+                        onPress={() =>
+                          dispatch(cartAction.removeFromCart(item.id))
+                        }>
+                        <Text style={[styles.quantityButton, {color: 'red'}]}>
+                          -
+                        </Text>
+                      </TouchableOpacity>
+                      <Text style={styles.quantity}>{item.quantity}</Text>
+                      <TouchableOpacity
+                        onPress={() => dispatch(cartAction.addToCart(item))}>
+                        <Text style={[styles.quantityButton, {color: 'green'}]}>
+                          +
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                    <Text style={styles.itemText}>
+                      ${item.price * item.quantity}
+                    </Text>
+                  </View>
+                ))}
             </View>
-            <View style={[styles.ItemContent, styles.AddPadding]}>
-              <Text style={styles.itemText}>Rice total</Text>
-              <View style={styles.quantityContainer}>
-                <TouchableOpacity>
-                  <Text style={[styles.quantityButton, {color: 'red'}]}>-</Text>
-                </TouchableOpacity>
-                <Text style={styles.quantity}>10</Text>
-                <TouchableOpacity>
-                  <Text style={[styles.quantityButton, {color: 'green'}]}>
-                    +
-                  </Text>
-                </TouchableOpacity>
-              </View>
-              <Text style={styles.itemText}>$271.80</Text>
-            </View>
+
             <View style={[styles.ItemContent, styles.AddPadding]}>
               <Text style={styles.itemText}>Service Charges</Text>
               <Text style={styles.itemText}>$1.00</Text>
@@ -107,17 +139,23 @@ export default function OrderReceipt({navigation, route}) {
             </View>
 
             {appliedCoupon ? (
-              <View style={styles.ItemContainer}>
-                <View
-                  style={[styles.ItemContent, styles.itemContentWithBorder]}>
-                  <Text style={styles.itemText}>
-                    Coupon Applied: {couponCode}
+              <View style={{paddingVertical: 10}}>
+                <View style={[styles.ItemContent]}>
+                  <Text style={[styles.itemText, styles.color]}>
+                    Code {couponCode} Applied
                   </Text>
-                  <TouchableOpacity onPress={() => setAppliedCoupon(false)}>
-                    <Text style={[styles.itemText, styles.checktext]}>
-                      REMOVE
-                    </Text>
-                  </TouchableOpacity>
+                  <View>
+                    <Text style={[styles.color, {marginLeft: 25}]}>- $12</Text>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setAppliedCoupon(false);
+                        setCouponPrice(0);
+                      }}>
+                      <Text style={[styles.itemText, styles.checktext]}>
+                        REMOVE
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             ) : (
@@ -137,13 +175,13 @@ export default function OrderReceipt({navigation, route}) {
           <View style={styles.ItemContainer}>
             <View style={styles.ItemContent}>
               <Text style={styles.itemText}>Sub total</Text>
-              <Text style={styles.itemText}>$547.10</Text>
+              <Text style={styles.itemText}>${subtotal.toFixed(2)}</Text>
             </View>
           </View>
           <View style={styles.ItemContainer}>
             <View style={styles.ItemContent}>
               <Text style={styles.itemText}>Tax</Text>
-              <Text style={styles.itemText}>-$5.10</Text>
+              <Text style={styles.itemText}>${tax.toFixed(2)}</Text>
             </View>
           </View>
           <View style={styles.ItemContainer}>
@@ -164,29 +202,48 @@ export default function OrderReceipt({navigation, route}) {
                   fontWeight: '500',
                   color: '#000',
                 }}>
-                $542.00
+                ${totalAmount.toFixed(2)}
               </Text>
             </View>
           </View>
-          <View>
+          <View style={{marginTop: 25}}>
             <View>
-              <Text style={{color: '#000', fontSize: 17}}>Add Notes</Text>
-              <TextInput
-                placeholder="Add text here..."
-                multiline
-                style={styles.textInput}
-              />
+              <View style={styles.ItemContent}>
+                <Text style={{color: '#000', fontSize: 17}}>Payment With</Text>
+                <Text style={{color: Color.primaryColor}}>CHANGE</Text>
+              </View>
+              <View>
+                <Text style={styles.card}>card1</Text>
+              </View>
+            </View>
+            <View>
+              <View>
+                <Text style={{color: '#000', fontSize: 17}}>Add Notes</Text>
+                <TextInput
+                  placeholder="Add text here..."
+                  multiline
+                  style={styles.textInput}
+                />
+              </View>
             </View>
           </View>
         </View>
       </KeyboardAwareScrollView>
       <View style={styles.container}>
-        <CustomButton
-          title={'Make Payment'}
-          onPress={() => {
-            navigation.navigate('Payment Method');
-          }}
-        />
+        {selectedCard ? (
+          <View style={styles.container}>
+            <CustomButton title={'Confirm Order'} />
+          </View>
+        ) : (
+          <View style={styles.container}>
+            <CustomButton
+              title={'Make Payment'}
+              onPress={() => {
+                navigation.navigate('Payment Method');
+              }}
+            />
+          </View>
+        )}
       </View>
     </>
   );
@@ -248,5 +305,19 @@ const styles = StyleSheet.create({
   },
   quantityButton: {
     paddingHorizontal: 8,
+  },
+  color: {
+    color: '#5663FF',
+  },
+  card: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    elevation: 5,
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: 'white',
+    padding: 10,
+    backgroundColor: '#ffff',
+    marginVertical: 10,
   },
 });

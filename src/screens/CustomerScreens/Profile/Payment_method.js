@@ -105,7 +105,12 @@ export default function Payment_method({navigation}) {
         <CustomButton
           title={'Make Payment'}
           onPress={() => {
-            navigation.navigate('Order Receipt');
+            navigation.navigate(
+              'Order Receipt',
+              // {
+              //    selectedCard: selectedCard || selectedPayment,
+              // }
+            );
           }}
         />
       </View>

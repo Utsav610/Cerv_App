@@ -11,6 +11,7 @@ import React, {useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Color from '../../../Constants/Color';
 import StepIndicator from 'react-native-step-indicator';
+import {useDispatch, useSelector} from 'react-redux';
 
 const stepIndicatorStyles = {
   stepIndicatorSize: 25,
@@ -39,6 +40,8 @@ const stepIndicatorStyles = {
 export default function OrderDetails({navigation}) {
   const [currentStep, setCurrentStep] = useState(1);
 
+  const OrderData = useSelector(state => state.cart.cartItems);
+  const cartTotalAmount = useSelector(state => state.cart.totalAmount);
   const stepLabels = [
     'Order Accepted',
     'Preparing Order',
@@ -72,20 +75,20 @@ export default function OrderDetails({navigation}) {
           </View>
         </View>
         <View style={styles.ItemContainer}>
-          <View style={styles.ItemContent}>
-            <View>
-              <Text style={styles.itemText}>Item1</Text>
-              <Text>20 Dishes</Text>
-            </View>
-            <Text style={styles.itemText}>$271.80</Text>
-          </View>
-          <View style={styles.ItemContent}>
-            <View>
-              <Text style={styles.itemText}>Item1</Text>
-              <Text>20 Dishes</Text>
-            </View>
-            <Text style={styles.itemText}>$271.80</Text>
-          </View>
+          {OrderData &&
+            OrderData.map((item, index) => (
+              <View key={index}>
+                <View style={styles.ItemContent}>
+                  <View>
+                    <Text style={styles.itemText}>{item.type}</Text>
+                    <Text>{item.quantity} Dishes</Text>
+                  </View>
+                  <Text style={styles.itemText}>
+                    {item.quantity * item.price}
+                  </Text>
+                </View>
+              </View>
+            ))}
         </View>
         <View style={styles.ItemContainer}>
           <View style={styles.orderTypeDetails}>
@@ -160,13 +163,20 @@ export default function OrderDetails({navigation}) {
             Bill Details
           </Text>
 
-          <View style={styles.ItemContent}>
-            <Text style={styles.itemText}>Noodels total(20 Dieshes)</Text>
-            <Text style={styles.itemText}>$271.80</Text>
-          </View>
-          <View style={styles.ItemContent}>
-            <Text style={styles.itemText}>Rice total(20 Dieshes)</Text>
-            <Text style={styles.itemText}>$271.80</Text>
+          <View>
+            {OrderData &&
+              OrderData.map((item, index) => (
+                <View
+                  style={[styles.ItemContent, styles.AddPadding]}
+                  key={index}>
+                  <Text style={styles.itemText}>
+                    {item.type} Total ({item.quantity} Dishes)
+                  </Text>
+                  <Text style={styles.itemText}>
+                    ${item.price * item.quantity}
+                  </Text>
+                </View>
+              ))}
           </View>
           <View style={styles.ItemContent}>
             <Text style={styles.itemText}>Service Charges</Text>
@@ -192,7 +202,7 @@ export default function OrderDetails({navigation}) {
         <View style={styles.ItemContainer}>
           <View style={styles.ItemContent}>
             <Text style={styles.itemText}>Tax</Text>
-            <Text style={styles.itemText}>-$5.10</Text>
+            <Text style={styles.itemText}>$5.10</Text>
           </View>
         </View>
         <View style={styles.ItemContainer}>

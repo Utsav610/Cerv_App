@@ -17,6 +17,8 @@ import Color from '../../Constants/Color';
 import Menu_data from '../../data/Menu_data';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import StarRating from 'react-native-star-rating-widget';
+import {useDispatch, useSelector} from 'react-redux';
+import * as cartAction from '../../store/action/action';
 
 const CatereDetails = ({navigation}) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -26,7 +28,12 @@ const CatereDetails = ({navigation}) => {
   const [orderType, setOrderType] = useState('delivery');
   const [selectedMenu, setSelectedMenu] = useState('Noodles');
 
+  const cartTotalAmount = useSelector(state => state.cart.totalAmount);
+  const qty = useSelector(state => state.cart.cartItems);
+
   const [filteredData, setFilteredData] = useState([]);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const filteredCategories = Menu_data.filter(
@@ -64,21 +71,14 @@ const CatereDetails = ({navigation}) => {
   const showAndroidTimePicker = () => {
     setShowTimePicker(true);
   };
-
-  const [quantity, setQuantity] = useState(0);
-
-  const handleAddToCart = id => {
-    // console.log('item id' + id);
-    setQuantity(quantity + 1);
-  };
-
-  const handleRemoveFromCart = () => {
-    if (quantity > 0) {
-      setQuantity(quantity - 1);
-    }
-  };
+  // const [qty, setqty] = useState(0);
 
   const renderItem = ({item}) => {
+    // const existingItem = qty.find(q => q.id === item.id);
+    // console.log(item);
+
+    const existingItem = qty ? qty.find(q => q.id === item.id) : undefined;
+    const quantity = existingItem ? existingItem.quantity : 0;
     return (
       <>
         <View style={styles.itemContainer}>
@@ -92,15 +92,38 @@ const CatereDetails = ({navigation}) => {
             </Text>
             <View style={styles.Direction}>
               <Text style={styles.itemPrice}>{item.price}</Text>
-              <View style={styles.addToCartButton} onPress={handleAddToCart}>
-                {quantity < 1 ? (
+              <View style={styles.addToCartButton}>
+                {quantity > 0 ? (
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      marginRight: 5,
+                    }}>
+                    <TouchableOpacity
+                      onPress={() =>
+                        dispatch(cartAction.removeFromCart(item.id))
+                      }>
+                      <Text style={[styles.quantityButton, {color: 'red'}]}>
+                        -
+                      </Text>
+                    </TouchableOpacity>
+                    <Text style={styles.quantity}>{quantity}</Text>
+                    <TouchableOpacity
+                      onPress={() => dispatch(cartAction.addToCart(item))}>
+                      <Text style={[styles.quantityButton, {color: 'green'}]}>
+                        +
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                ) : (
                   <TouchableOpacity
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
                       marginRight: 5,
                     }}
-                    onPress={handleAddToCart}>
+                    onPress={() => dispatch(cartAction.addToCart(item))}>
                     <Icon
                       name={'cart-outline'}
                       size={15}
@@ -109,48 +132,8 @@ const CatereDetails = ({navigation}) => {
                     />
                     <Text style={styles.addToCartButtonText}>Add</Text>
                   </TouchableOpacity>
-                ) : (
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      marginRight: 5,
-                    }}>
-                    <TouchableOpacity onPress={handleRemoveFromCart}>
-                      <Text style={[styles.quantityButton, {color: 'red'}]}>
-                        -
-                      </Text>
-                    </TouchableOpacity>
-                    <Text style={styles.quantity}>{quantity}</Text>
-                    <TouchableOpacity
-                      onPress={() => {
-                        handleAddToCart(item.id);
-                      }}>
-                      <Text style={[styles.quantityButton, {color: 'green'}]}>
-                        +
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
                 )}
               </View>
-              {/* <TouchableOpacity
-                style={styles.addToCartButton}
-                onPress={HandleAddtoCart}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    marginRight: 5,
-                  }}>
-                  <Icon
-                    name={'cart-outline'}
-                    size={15}
-                    color={Color.primaryColor}
-                    style={{marginRight: 5}}
-                  />
-                  <Text style={styles.addToCartButtonText}>Add</Text>
-                </View>
-              </TouchableOpacity> */}
             </View>
           </View>
         </View>
@@ -362,7 +345,7 @@ const CatereDetails = ({navigation}) => {
       </View>
       <View style={styles.footer}>
         <View>
-          <Text style={styles.footerText}>Item Total </Text>
+          <Text style={styles.footerText}>Item Total {cartTotalAmount}</Text>
         </View>
         <View>
           <Text style={styles.footerText}>|</Text>
