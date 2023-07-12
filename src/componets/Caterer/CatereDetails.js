@@ -62,6 +62,7 @@ const CatereDetails = ({navigation}) => {
 
   const handleOrderTypeChange = type => {
     setOrderType(type);
+    dispatch(cartAction.setOrderType(type));
   };
 
   const showAndroidDatePicker = () => {

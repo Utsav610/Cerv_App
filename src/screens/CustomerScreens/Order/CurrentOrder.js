@@ -5,6 +5,8 @@ import {useDispatch, useSelector} from 'react-redux';
 
 export default function CurrentOrder({navigation}) {
   const OrderData = useSelector(state => state.cart.cartItems);
+  const Address = useSelector(state => console.log(state.address.Address));
+  const OrderType = useSelector(state => state.cart.orderType);
   return (
     <View style={styles.caterOrder}>
       <TouchableOpacity
@@ -39,7 +41,7 @@ export default function CurrentOrder({navigation}) {
         <View style={styles.ItemContent}>
           <View style={styles.orderTypeDetails}>
             <Text>Order type</Text>
-            <Text style={{color: '#000'}}>Delivery</Text>
+            <Text style={{color: '#000'}}>{OrderType}</Text>
           </View>
         </View>
         <View style={styles.orderTypeDetails}>

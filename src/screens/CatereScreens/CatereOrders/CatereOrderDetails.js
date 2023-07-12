@@ -8,8 +8,11 @@ import {
   ScrollView,
 } from 'react-native';
 import Color from '../../../Constants/Color';
+import {useDispatch, useSelector} from 'react-redux';
 
 export default function OrderDetails({navigation}) {
+  const OrderData = useSelector(state => state.cart.cartItems);
+  const cartTotalAmount = useSelector(state => state.cart.totalAmount);
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
@@ -51,13 +54,21 @@ export default function OrderDetails({navigation}) {
         <View style={styles.itemContainer}>
           <Text style={styles.sectionTitle}>Bill Details</Text>
 
-          <View style={styles.itemContent}>
-            <Text style={styles.itemText}>Noodels total (20 Dishes)</Text>
-            <Text style={styles.itemText}>$271.80</Text>
-          </View>
-          <View style={styles.itemContent}>
-            <Text style={styles.itemText}>Rice total (20 Dishes)</Text>
-            <Text style={styles.itemText}>$271.80</Text>
+          <View style={styles.itemContainer}>
+            {OrderData &&
+              OrderData.map((item, index) => (
+                <View key={index}>
+                  <View style={styles.itemContent}>
+                    <View>
+                      <Text style={styles.itemText}>{item.type}</Text>
+                      <Text>{item.quantity} Dishes</Text>
+                    </View>
+                    <Text style={styles.itemText}>
+                      ${item.quantity * item.price}
+                    </Text>
+                  </View>
+                </View>
+              ))}
           </View>
           <View style={styles.itemContent}>
             <Text style={styles.itemText}>Service Charges</Text>
@@ -83,7 +94,7 @@ export default function OrderDetails({navigation}) {
         <View style={styles.itemContainer}>
           <View style={styles.itemContent}>
             <Text style={styles.itemText}>Tax</Text>
-            <Text style={styles.itemText}>-$5.10</Text>
+            <Text style={styles.itemText}>$5.10</Text>
           </View>
         </View>
         <View style={styles.itemContainer}>

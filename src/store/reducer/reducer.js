@@ -1,3 +1,4 @@
+import {UPDATE_ROLE} from '../action/action';
 const initialState = {
   role: '',
 };
@@ -6,7 +7,7 @@ const userReducer = (state = initialState, action) => {
   // console.log(action.type);
   // console.log('reducer' + state);
   switch (action.type) {
-    case 'UPDATE_ROLE':
+    case UPDATE_ROLE:
       return {
         ...state,
         role: action.payload,

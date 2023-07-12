@@ -41,7 +41,9 @@ export default function OrderDetails({navigation}) {
   const [currentStep, setCurrentStep] = useState(1);
 
   const OrderData = useSelector(state => state.cart.cartItems);
+  const OrderType = useSelector(state => state.cart.orderType);
   const cartTotalAmount = useSelector(state => state.cart.totalAmount);
+
   const stepLabels = [
     'Order Accepted',
     'Preparing Order',
@@ -93,7 +95,7 @@ export default function OrderDetails({navigation}) {
         <View style={styles.ItemContainer}>
           <View style={styles.orderTypeDetails}>
             <Text style={styles.mtext}>Order type</Text>
-            <Text style={styles.itemText}>Delivery</Text>
+            <Text style={styles.itemText}>{OrderType}</Text>
           </View>
           <View>
             <Text style={styles.mtext}>

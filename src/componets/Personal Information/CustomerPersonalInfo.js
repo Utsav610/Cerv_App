@@ -66,16 +66,15 @@ export default function CustomerPersonalInfo({navigation}) {
             style={styles.input}
           />
         </View>
+        <View style={styles.btnContainer}>
+          <CustomButton
+            title="Edit Information"
+            onPress={() => {
+              navigation.navigate('Edit information');
+            }}
+          />
+        </View>
       </KeyboardAwareScrollView>
-
-      <View style={styles.btnContainer}>
-        <CustomButton
-          title="Edit Information"
-          onPress={() => {
-            navigation.navigate('Edit information');
-          }}
-        />
-      </View>
     </>
   );
 }
@@ -108,8 +107,8 @@ const styles = StyleSheet.create({
     height: 100,
   },
   btnContainer: {
-    width: '100%',
-    marginTop: 'auto',
+    // width: '100%',
+    marginTop: '15%',
   },
   cameraIconContainer: {
     position: 'absolute',

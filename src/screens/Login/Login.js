@@ -223,7 +223,8 @@ import {useSelector} from 'react-redux';
 
 export default function Login({navigation, route}) {
   const Role = useSelector(state => state.user.role);
-  console.log(Role);
+
+  // console.log(Role);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState('');
 

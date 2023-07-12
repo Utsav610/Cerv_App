@@ -14,10 +14,13 @@ import Cater from '../../componets/Caterer/Catere';
 import Color from '../../Constants/Color';
 import Feather from 'react-native-vector-icons/Feather';
 import Caterer_data from '../../data/Caterer_data';
+import {useSelector} from 'react-redux';
 
 export default function Home({navigation, route}) {
   const selectedFilter = route.params;
   // console.log(selectedFilter);
+  const Adress = useSelector(state => state.address.Adress);
+  console.log(Adress);
 
   const applyFilter = (filter, data) => {
     // Apply the selected filter on the data array
@@ -72,7 +75,7 @@ export default function Home({navigation, route}) {
                 fontFamily: 'bold',
                 fontSize: 16,
               }}>
-              374 William s Canning Blvd
+              {Adress}
               <FontAwesome5 name={'sort-down'} size={25} color={'green'} />
             </Text>
           </TouchableOpacity>

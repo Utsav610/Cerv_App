@@ -3,12 +3,17 @@ import React, {useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Color from '../../../Constants/Color';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useDispatch} from 'react-redux';
+import {updateAddress} from '../../../store/action/action';
 
 export default function SavedAddress() {
   const [selectedAddress, setSelectedAddress] = useState('Home');
+  const dispatch = useDispatch();
 
   const handleCircleIconPress = address => {
     setSelectedAddress(address);
+    // console.log(address);
+    dispatch(updateAddress(address));
   };
 
   return (

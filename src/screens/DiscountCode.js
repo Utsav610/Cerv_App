@@ -1,21 +1,33 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Color from '../Constants/Color';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import {useDispatch} from 'react-redux';
+import * as cartAction from '../store/action/action';
 
 const DiscountCodes = ({navigation}) => {
+  const dispatch = useDispatch();
+
+  const handleCouponPress = code => {
+    dispatch(cartAction.storeCouponCode(code));
+    navigation.navigate('Order Receipt');
+  };
+
   return (
-    <TouchableOpacity
-      onPress={() => {
-        navigation.navigate('Order Receipt', ['NEW40']);
-      }}>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <TouchableOpacity onPress={() => handleCouponPress('NEW40')}>
         <View style={styles.codeContainer}>
           <Text style={styles.discount}>40% off</Text>
           <Text style={styles.code}>NEW40</Text>
         </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => handleCouponPress('GUJFREEDEL')}>
+        <View style={styles.codeContainer}>
+          <Text style={styles.discount}>Get 20% off</Text>
+          <Text style={styles.code}>GUJFREEDEL</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
   );
 };
 
@@ -23,7 +35,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    alignItems: 'center',
+    // alignItems: 'center',
   },
   codeContainer: {
     width: '100%',
@@ -33,21 +45,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
-  },
-  dotsContainer: {
-    position: 'absolute',
-    top: 10,
-    right: 10,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    height: 20,
-  },
-  dot: {
-    width: 5,
-    height: 5,
-    borderRadius: 2.5,
-    backgroundColor: '#fff',
+    marginBottom: 10, // Add margin-bottom to create space between the coupons
   },
   code: {
     fontSize: 20,

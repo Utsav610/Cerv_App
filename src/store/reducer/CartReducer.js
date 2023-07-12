@@ -1,12 +1,20 @@
 /* eslint-disable no-fallthrough */
-import {ADD_TO_CART, REMOVE_FROM_CART} from '../action/action';
+import {
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  STORE_COUPON_CODE,
+  SET_ORDER_TYPE,
+} from '../action/action';
 
 const initialState = {
   cartItems: [],
   totalAmount: 0,
+  couponCode: '',
+  orderType: '',
 };
 
 const cartReducer = (state = initialState, action) => {
+  console.log(action.type);
   switch (action.type) {
     case ADD_TO_CART: {
       let tempCart = [...state.cartItems];
@@ -75,6 +83,16 @@ const cartReducer = (state = initialState, action) => {
         };
       }
     }
+    case STORE_COUPON_CODE:
+      return {
+        ...state,
+        couponCode: action.payload,
+      };
+    case SET_ORDER_TYPE:
+      return {
+        ...state,
+        orderType: action.payload,
+      };
 
     default:
       return state;

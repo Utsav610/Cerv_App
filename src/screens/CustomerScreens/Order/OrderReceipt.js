@@ -16,7 +16,7 @@ import * as cartAction from '../../../store/action/action';
 import Order from '../../CatereScreens/CatereOrders/Order';
 
 export default function OrderReceipt({navigation, route}) {
-  const couponCode = route?.params;
+  const couponCode = useSelector(state => state.cart.couponCode);
   // console.log(route);
   // console.log(route.params);
   const dispatch = useDispatch();
