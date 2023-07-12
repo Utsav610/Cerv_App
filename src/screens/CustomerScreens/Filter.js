@@ -109,7 +109,7 @@ export default function Filter({navigation}) {
             <CustomButton
               title={'Apply'}
               onPress={() => {
-                navigation.navigate('Home');
+                navigation.navigate('Home', {selectedFilter: selectedFilter});
               }}
             />
           </View>

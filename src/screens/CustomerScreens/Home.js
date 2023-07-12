@@ -15,7 +15,36 @@ import Color from '../../Constants/Color';
 import Feather from 'react-native-vector-icons/Feather';
 import Caterer_data from '../../data/Caterer_data';
 
-export default function Home({navigation}) {
+export default function Home({navigation, route}) {
+  const selectedFilter = route.params;
+  // console.log(selectedFilter);
+
+  const applyFilter = (filter, data) => {
+    // Apply the selected filter on the data array
+    // console.log(filter);
+    switch (filter) {
+      case 'rating':
+        // Apply rating filter logic
+        return data; // Return the filtered data array
+
+      case 'lowToHigh':
+        // Apply low to high price filter logic
+        return data; // Return the filtered data array
+
+      case 'highToLow':
+        // Apply high to low price filter logic
+        return data; // Return the filtered data array
+
+      case 'distance':
+        // Apply distance filter logic
+        return data; // Return the filtered data array
+
+      default:
+        // No filter selected, return the original data array
+        return data;
+    }
+  };
+
   return (
     <>
       <View style={styles.headerContainer}>
@@ -62,6 +91,24 @@ export default function Home({navigation}) {
             </TouchableOpacity>
           </View>
           <View>
+            {/* <FlatList
+              data={applyFilter(selectedFilter, Caterer_data)}
+              renderItem={({item}) => (
+                <Cater
+                  name={item.name}
+                  address={item.Address}
+                  price={item.price}
+                  onClick={() =>
+                    navigation.navigate('Details', {
+                      name: item.name,
+                      address: item.Address,
+                      price: item.price,
+                    })
+                  }
+                />
+              )}
+            /> */}
+
             <FlatList
               data={Caterer_data}
               renderItem={({item}) => (
@@ -69,7 +116,6 @@ export default function Home({navigation}) {
                   name={item.name}
                   address={item.Address}
                   price={item.price}
-                  favaroite={item.favorite}
                   onClick={() =>
                     navigation.navigate('Details', {
                       name: item.name,

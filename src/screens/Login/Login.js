@@ -241,14 +241,10 @@ export default function Login({navigation, route}) {
 
   return (
     <View style={styles.container}>
-      {/* <ImageBackground
-        source={require('../../assest/bg_image.jpeg')}
-        resizeMode="cover"
-        style={styles.image}> */}
-      <KeyboardAwareScrollView>
+      <KeyboardAwareScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.header}>
           <Image
-            source={require('../../assest/bg_image.jpeg')}
+            source={require('../../assest/bg.jpeg')}
             resizeMode="cover"
             style={styles.image}
           />
@@ -290,7 +286,7 @@ export default function Login({navigation, route}) {
                 <FontAwesome5
                   name={passwordVisible ? 'eye' : 'eye-slash'}
                   size={20}
-                  color={'#c2c2c2'}
+                  color={'#000'}
                 />
               </TouchableOpacity>
             </View>
@@ -324,8 +320,9 @@ export default function Login({navigation, route}) {
             </TouchableOpacity>
           </View>
         </View>
+        {/* </KeyboardAwareScrollView> */}
+        {/* </ImageBackground> */}
       </KeyboardAwareScrollView>
-      {/* </ImageBackground> */}
     </View>
   );
 }
@@ -335,20 +332,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Color.primaryColor,
   },
+  scrollViewContent: {
+    flexGrow: 1,
+  },
   header: {
-    flex: 1,
-    // backgroundColor: Color.primaryColor,
+    height: 150,
   },
   image: {
-    // flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
+    flex: 1,
     width: '100%',
-    height: 195,
+    height: '100%',
   },
   content: {
-    width: '100%',
-    flex: 3,
+    flex: 1,
     backgroundColor: 'white',
     paddingHorizontal: 20,
     paddingTop: 20,

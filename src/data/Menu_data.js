@@ -4,7 +4,7 @@ export default [
     img: require('../assest/silder1.jpeg'),
     title: 'Chinese',
     description: 'The future of health is on your wrist',
-    price: '399',
+    price: 399,
     type: 'Noodles',
   },
   {
@@ -13,7 +13,7 @@ export default [
     title: 'Italian',
     description:
       'Active noise cancellation for immersive sound Active noise cancellation for immersive sound',
-    price: '249',
+    price: 249,
     type: 'Rice',
   },
   {
@@ -21,7 +21,7 @@ export default [
     img: require('../assest/slider3.jpeg'),
     title: 'Thai',
     description: 'Effortless AirPods experience',
-    price: '549',
+    price: 549,
     type: 'Szechwan',
   },
   {
@@ -49,7 +49,7 @@ export default [
     type: 'Chow Main',
   },
   {
-    id: 6,
+    id: 7,
     img: require('../assest/slider3.jpeg'),
     title: 'Greek',
     description: 'Effortless AirPods experience',
@@ -57,7 +57,7 @@ export default [
     type: 'Noodles',
   },
   {
-    id: 7,
+    id: 8,
     img: require('../assest/slider3.jpeg'),
     title: 'Japanese',
     description: 'Effortless AirPods experience',

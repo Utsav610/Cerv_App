@@ -6,7 +6,7 @@ import StarRating from 'react-native-star-rating-widget';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Cater = ({onClick, name, address, price, favaroite}) => {
-  console.log(favaroite);
+  // console.log(favaroite);
   return (
     <TouchableOpacity onPress={onClick}>
       <View style={styles.container}>

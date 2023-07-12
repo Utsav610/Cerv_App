@@ -17,7 +17,7 @@ export default function OTPScreen({navigation}) {
   return (
     <KeyboardAwareScrollView>
       <ImageBackground
-        source={require('../../assest/bg_image.jpeg')}
+        source={require('../../assest/bg.jpeg')}
         resizeMode="cover"
         style={styles.image}>
         <View style={styles.container}>
@@ -36,7 +36,9 @@ export default function OTPScreen({navigation}) {
                   onPress={() => {
                     navigation.navigate('Phone Number');
                   }}>
-                  <Text style={{color: Color.primaryColor}}>Resend Code</Text>
+                  <Text style={{color: Color.primaryColor, marginTop: 10}}>
+                    Resend Code
+                  </Text>
                 </TouchableOpacity>
               </Text>
             </View>
@@ -96,6 +98,8 @@ const styles = StyleSheet.create({
   otpContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center', // Add this line
     marginBottom: 20,
+    marginTop: 10,
   },
 });

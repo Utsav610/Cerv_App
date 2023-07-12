@@ -1,8 +1,10 @@
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
 import Color from '../../../Constants/Color';
+import {useDispatch, useSelector} from 'react-redux';
 
 export default function CurrentOrder({navigation}) {
+  const OrderData = useSelector(state => state.cart.cartItems);
   return (
     <View style={styles.caterOrder}>
       <TouchableOpacity
@@ -20,14 +22,19 @@ export default function CurrentOrder({navigation}) {
           </View>
         </View>
         <View style={styles.ItemContainer}>
-          <View style={styles.ItemContent}>
-            <Text style={styles.itemText}>Item1</Text>
-            <Text style={{color: '#000'}}>$271.80</Text>
-          </View>
-          <View style={styles.ItemContent}>
-            <Text style={styles.itemText}>Item1</Text>
-            <Text style={{color: '#000'}}>$271.80</Text>
-          </View>
+          {OrderData &&
+            OrderData.map((item, index) => (
+              <View key={index}>
+                <View style={styles.ItemContent}>
+                  <View>
+                    <Text style={styles.itemText}>{item.type}</Text>
+                  </View>
+                  <Text style={styles.itemText}>
+                    ${item.quantity * item.price}
+                  </Text>
+                </View>
+              </View>
+            ))}
         </View>
         <View style={styles.ItemContent}>
           <View style={styles.orderTypeDetails}>
@@ -114,7 +121,7 @@ const styles = StyleSheet.create({
     borderBottomColor: Color.accentColor,
   },
   itemText: {
-    fontWeight: 'bold',
+    fontWeight: 500,
     fontSize: 15,
     color: '#000',
   },
