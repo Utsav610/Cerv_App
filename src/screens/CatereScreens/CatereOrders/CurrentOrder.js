@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     width: '45%',
     padding: 10,
-    backgroundColor: 'green',
+    backgroundColor: '#4CD964',
     borderRadius: 5,
     alignItems: 'center',
   },

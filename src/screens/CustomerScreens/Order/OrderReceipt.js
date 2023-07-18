@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Modal,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -14,27 +15,34 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useDispatch, useSelector} from 'react-redux';
 import * as cartAction from '../../../store/action/action';
 import Order from '../../CatereScreens/CatereOrders/Order';
+import {Image} from 'react-native-svg';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function OrderReceipt({navigation, route}) {
-  const couponCode = useSelector(state => state.cart.couponCode);
   // console.log(route);
   // console.log(route.params);
   const dispatch = useDispatch();
+  const Adress = useSelector(state => state.address.Adress);
   const [appliedCoupon, setAppliedCoupon] = useState(false);
   const [couponPrice, setCouponPrice] = useState(0);
+  const [orderSuccessModalVisible, setOrderSuccessModalVisible] =
+    useState(false);
 
   const applyCoupon = () => {
     navigation.navigate('View Discount Codes');
-    // console.log('apply');
+
     setAppliedCoupon(true);
     setCouponPrice(12);
   };
 
-  let selectedCard = false;
+  // let selectedCard = false;
 
   const OrderData = useSelector(state => state.cart.cartItems);
   // console.log(OrderData);
   const cartTotalAmount = useSelector(state => state.cart.totalAmount);
+  const couponCode = useSelector(state => state.cart.couponCode);
+  const selectedCard = useSelector(state => state.cart.selectedcard);
+  console.log(selectedCard);
 
   const [subtotal, setSubtotal] = useState(0);
   const serviceCharges = 1.0;
@@ -68,9 +76,14 @@ export default function OrderReceipt({navigation, route}) {
                 }}>
                 Address
               </Text>
-              <Text style={{color: Color.primaryColor, paddingVertical: 5}}>
-                CHANGE
-              </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('Saved Address');
+                }}>
+                <Text style={{color: Color.primaryColor, paddingVertical: 5}}>
+                  CHANGE
+                </Text>
+              </TouchableOpacity>
             </View>
             <View style={{flexDirection: 'row'}}>
               <View style={styles.homeicon}>
@@ -81,9 +94,7 @@ export default function OrderReceipt({navigation, route}) {
                 />
               </View>
               <View>
-                <Text style={{fontSize: 16}}>
-                  374 William S Canning Blvd , Fall
-                </Text>
+                <Text style={{fontSize: 16}}>{Adress}</Text>
               </View>
             </View>
           </View>
@@ -101,30 +112,35 @@ export default function OrderReceipt({navigation, route}) {
             <View>
               {OrderData &&
                 OrderData.map((item, index) => (
-                  <View
-                    style={[styles.ItemContent, styles.AddPadding]}
-                    key={index}>
+                  <View style={styles.manage} key={index}>
                     <Text style={styles.itemText}>{item.type} Total</Text>
-                    <View style={styles.quantityContainer}>
-                      <TouchableOpacity
-                        onPress={() =>
-                          dispatch(cartAction.removeFromCart(item.id))
-                        }>
-                        <Text style={[styles.quantityButton, {color: 'red'}]}>
-                          -
-                        </Text>
-                      </TouchableOpacity>
-                      <Text style={styles.quantity}>{item.quantity}</Text>
-                      <TouchableOpacity
-                        onPress={() => dispatch(cartAction.addToCart(item))}>
-                        <Text style={[styles.quantityButton, {color: 'green'}]}>
-                          +
-                        </Text>
-                      </TouchableOpacity>
+                    <View
+                      style={{
+                        width: '50%',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                      }}>
+                      <View style={styles.quantityContainer}>
+                        <TouchableOpacity
+                          onPress={() =>
+                            dispatch(cartAction.removeFromCart(item.id))
+                          }>
+                          <Text style={[styles.quantityButton]}>
+                            <Icon name="minus" size={20} color={'red'} />
+                          </Text>
+                        </TouchableOpacity>
+                        <Text style={styles.quantity}>{item.quantity}</Text>
+                        <TouchableOpacity
+                          onPress={() => dispatch(cartAction.addToCart(item))}>
+                          <Text style={styles.quantityButton}>
+                            <Icon name="plus" size={20} color={'green'} />
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                      <Text style={styles.itemText}>
+                        ${item.price * item.quantity}
+                      </Text>
                     </View>
-                    <Text style={styles.itemText}>
-                      ${item.price * item.quantity}
-                    </Text>
                   </View>
                 ))}
             </View>
@@ -138,7 +154,7 @@ export default function OrderReceipt({navigation, route}) {
               <Text style={styles.itemText}>$2.50</Text>
             </View>
 
-            {appliedCoupon ? (
+            {couponCode != '' ? (
               <View style={{paddingVertical: 10}}>
                 <View style={[styles.ItemContent]}>
                   <Text style={[styles.itemText, styles.color]}>
@@ -148,7 +164,7 @@ export default function OrderReceipt({navigation, route}) {
                     <Text style={[styles.color, {marginLeft: 25}]}>- $12</Text>
                     <TouchableOpacity
                       onPress={() => {
-                        setAppliedCoupon(false);
+                        dispatch(cartAction.storeCouponCode(''));
                         setCouponPrice(0);
                       }}>
                       <Text style={[styles.itemText, styles.checktext]}>
@@ -207,20 +223,30 @@ export default function OrderReceipt({navigation, route}) {
             </View>
           </View>
           <View style={{marginTop: 25}}>
-            <View>
-              <View style={styles.ItemContent}>
-                <Text style={{color: '#000', fontSize: 17}}>Payment With</Text>
-                <Text style={{color: Color.primaryColor}}>CHANGE</Text>
-              </View>
+            {selectedCard != '' && (
               <View>
-                <Text style={styles.card}>card1</Text>
+                <View style={styles.ItemContent}>
+                  <Text style={{color: '#000', fontSize: 17}}>
+                    Payment With
+                  </Text>
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate('Payment Method');
+                    }}>
+                    <Text style={{color: Color.primaryColor}}>CHANGE</Text>
+                  </TouchableOpacity>
+                </View>
+                <View>
+                  <Text style={styles.card}>{selectedCard}</Text>
+                </View>
               </View>
-            </View>
+            )}
             <View>
               <View>
                 <Text style={{color: '#000', fontSize: 17}}>Add Notes</Text>
                 <TextInput
                   placeholder="Add text here..."
+                  placeholderTextColor="#000"
                   multiline
                   style={styles.textInput}
                 />
@@ -230,10 +256,11 @@ export default function OrderReceipt({navigation, route}) {
         </View>
       </KeyboardAwareScrollView>
       <View style={styles.container}>
-        {selectedCard ? (
-          <View style={styles.container}>
-            <CustomButton title={'Confirm Order'} />
-          </View>
+        {selectedCard != '' ? (
+          <CustomButton
+            title={'Confirm Order'}
+            onPress={() => setOrderSuccessModalVisible(true)}
+          />
         ) : (
           <View style={styles.container}>
             <CustomButton
@@ -245,13 +272,41 @@ export default function OrderReceipt({navigation, route}) {
           </View>
         )}
       </View>
+      <Modal
+        visible={orderSuccessModalVisible}
+        animationType="fade"
+        transparent={true}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <View style={styles.modalImageContainer}>
+              <Image
+                source={require('../../../assest/sucess.jpeg')}
+                // resizeMode="cover"
+                style={styles.modalImage}
+              />
+            </View>
+            <Text style={styles.modalText}>
+              Your order has been successfully placed!
+            </Text>
+            <TouchableOpacity
+              style={styles.modalButton}
+              onPress={() => {
+                navigation.navigate('Order');
+              }}>
+              <Text style={styles.modalButtonText}>OK</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    paddingHorizontal: 20,
+    margin: 0,
+    paddingBottom: 10,
   },
   AddressContainer: {
     paddingVertical: 10,
@@ -283,6 +338,8 @@ const styles = StyleSheet.create({
   itemContentWithBorder: {
     borderWidth: 1,
     padding: 7,
+    borderRadius: 5,
+    borderColor: '#c2c2c2',
   },
   checktext: {
     fontWeight: '800',
@@ -291,20 +348,24 @@ const styles = StyleSheet.create({
   textInput: {
     borderWidth: 1,
     marginVertical: 10,
-    backgroundColor: '#ffff',
+    borderColor: '#ccc',
   },
   quantityContainer: {
     flexDirection: 'row',
     borderWidth: 1,
     padding: 2,
     borderColor: '#8e8e8e',
+    alignItems: 'center',
+    borderRadius: 5,
     // marginHorizontal: 20,
   },
   AddPadding: {
     paddingBottom: 10,
+    flexDirection: 'row',
   },
   quantityButton: {
-    paddingHorizontal: 8,
+    paddingHorizontal: 4,
+    alignItems: 'center',
   },
   color: {
     color: '#5663FF',
@@ -319,5 +380,51 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#ffff',
     marginVertical: 10,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    padding: 30,
+    borderRadius: 8,
+    // marginHorizontal: 10,
+  },
+  modalText: {
+    fontSize: 18,
+    fontWeight: '500',
+    marginBottom: 20,
+    // marginHorizontal:20,
+    textAlign: 'center',
+  },
+  modalButton: {
+    backgroundColor: Color.primaryColor,
+    padding: 10,
+    borderRadius: 4,
+    alignItems: 'center',
+  },
+  modalButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  modalImageContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  modalImage: {
+    width: 200,
+    height: 200,
+    resizeMode: 'contain',
+  },
+  manage: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingBottom: 10,
   },
 });

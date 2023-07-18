@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderWidth: 1,
     marginBottom: 10,
+    borderColor: Color.accentColor,
   },
   tabButton: {
     width: '50%',

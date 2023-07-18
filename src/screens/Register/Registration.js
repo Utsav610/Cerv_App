@@ -124,7 +124,7 @@ export default function Registration({navigation}) {
                 <FontAwesome5
                   name={passwordVisible ? 'eye-slash' : 'eye'}
                   size={20}
-                  color={'#c2c2c2'}
+                  color={'#000'}
                 />
               </TouchableOpacity>
             </View>
@@ -148,7 +148,7 @@ export default function Registration({navigation}) {
                 <FontAwesome5
                   name={CurrentpasswordVisible ? 'eye-slash' : 'eye'}
                   size={20}
-                  color={'#c2c2c2'}
+                  color={'#000'}
                 />
               </TouchableOpacity>
             </View>

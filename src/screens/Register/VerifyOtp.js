@@ -36,9 +36,7 @@ export default function OTPScreen({navigation}) {
                   onPress={() => {
                     navigation.navigate('Phone Number');
                   }}>
-                  <Text style={{color: Color.primaryColor, marginTop: 10}}>
-                    Resend Code
-                  </Text>
+                  <Text style={styles.text}>Resend Code</Text>
                 </TouchableOpacity>
               </Text>
             </View>
@@ -101,5 +99,9 @@ const styles = StyleSheet.create({
     alignItems: 'center', // Add this line
     marginBottom: 20,
     marginTop: 10,
+  },
+  text: {
+    color: Color.primaryColor,
+    // paddingTop: 10,
   },
 });

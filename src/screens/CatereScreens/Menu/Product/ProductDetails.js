@@ -18,13 +18,13 @@ const ProductDetails = ({navigation}) => {
         </View>
         <View style={styles.itemContainer}>
           <View>
-            <Text style={styles.text}>Delivery date and Time</Text>
+            <Text style={styles.text}>Category Name</Text>
           </View>
-          <Text style={styles.boldtext}>20 November 2020 at 06:58 AM</Text>
+          <Text style={styles.boldtext}>Noodle</Text>
         </View>
         <View style={styles.itemContainer}>
           <View>
-            <Text style={styles.text}>Name</Text>
+            <Text style={styles.text}>Category Name</Text>
           </View>
           <Text style={styles.boldtext}>House Noodle</Text>
         </View>
@@ -38,30 +38,77 @@ const ProductDetails = ({navigation}) => {
             ever since the 1500s,
           </Text>
         </View>
-        <View style={styles.direction}>
-          <Text>Size</Text>
-          <Text>Quantity</Text>
-          <Text>Price</Text>
+        <View style={[styles.manage, styles.itemContainer]}>
+          <Text style={styles.itemText}>Size</Text>
+          <View
+            style={{
+              width: '55%',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}>
+            <View style={[styles.quantityContainer]}>
+              <Text style={styles.itemText}>Quantity</Text>
+            </View>
+            <Text style={styles.itemText}>Price</Text>
+          </View>
         </View>
-        <View style={styles.itemContainer}>
+
+        <View style={[styles.manage, styles.itemContainer]}>
+          <Text style={styles.boldtext}>Regular</Text>
+          <View
+            style={{
+              width: '55%',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}>
+            <View style={[styles.quantityContainer, {width: '50%'}]}>
+              <Text style={styles.boldtext}>120</Text>
+            </View>
+            <Text style={styles.boldtext}>$12</Text>
+          </View>
+        </View>
+
+        {/* <View style={styles.itemContainer}>
           <View style={styles.direction}>
             <Text style={styles.boldtext}>Regular</Text>
-            <Text style={styles.boldtext}>200</Text>
+            <View style={styles.quantityContainer}>
+              <TouchableOpacity style={styles.quantityButton}>
+                <Text style={styles.quantityButtonText}>-</Text>
+              </TouchableOpacity>
+              <Text style={styles.boldtext}>120</Text>
+              <TouchableOpacity style={styles.quantityButton}>
+                <Text style={styles.quantityButtonText}>+</Text>
+              </TouchableOpacity>
+            </View>
             <Text style={styles.boldtext}>$350.00</Text>
           </View>
-        </View>
-        <View style={styles.itemContainer}>
-          <View style={styles.direction}>
-            <Text style={styles.boldtext}>Small</Text>
-            <Text style={styles.boldtext}>120</Text>
-            <Text style={styles.boldtext}>$350.00</Text>
+        </View> */}
+        <View style={[styles.manage, styles.itemContainer]}>
+          <Text style={styles.boldtext}>Small</Text>
+          <View
+            style={{
+              width: '55%',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}>
+            <View style={[styles.quantityContainer, {width: '50%'}]}>
+              <Text style={styles.boldtext}>120</Text>
+            </View>
+            <Text style={styles.boldtext}>$120.00</Text>
           </View>
         </View>
-        <View style={styles.itemContainer}>
-          <View style={styles.direction}>
-            <Text style={styles.boldtext}>Medium</Text>
-            <Text style={styles.boldtext}>120</Text>
-            <Text style={styles.boldtext}>$350.00</Text>
+        <View style={[styles.manage, styles.itemContainer]}>
+          <Text style={styles.boldtext}>Medium</Text>
+          <View
+            style={{
+              width: '55%',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}>
+            <View style={[styles.quantityContainer, {width: '50%'}]}>
+              <Text style={styles.boldtext}>120</Text>
+            </View>
+            <Text style={styles.boldtext}>$120.00</Text>
           </View>
         </View>
       </ScrollView>
@@ -111,5 +158,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     gap: 80,
+  },
+  manage: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingBottom: 10,
   },
 });

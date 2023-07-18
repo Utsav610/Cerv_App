@@ -3,9 +3,11 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Color from '../Constants/Color';
 import {useDispatch} from 'react-redux';
 import * as cartAction from '../store/action/action';
+import {useSelector} from 'react-redux';
 
 const DiscountCodes = ({navigation}) => {
   const dispatch = useDispatch();
+  const coupons = useSelector(state => state.coupon);
 
   const handleCouponPress = code => {
     dispatch(cartAction.storeCouponCode(code));
@@ -14,19 +16,16 @@ const DiscountCodes = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => handleCouponPress('NEW40')}>
-        <View style={styles.codeContainer}>
-          <Text style={styles.discount}>40% off</Text>
-          <Text style={styles.code}>NEW40</Text>
-        </View>
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => handleCouponPress('GUJFREEDEL')}>
-        <View style={styles.codeContainer}>
-          <Text style={styles.discount}>Get 20% off</Text>
-          <Text style={styles.code}>GUJFREEDEL</Text>
-        </View>
-      </TouchableOpacity>
+      {coupons.map(coupon => (
+        <TouchableOpacity
+          style={styles.codeContainer}
+          onPress={() => handleCouponPress(coupon.couponCode)}>
+          <View key={coupon.id}>
+            <Text style={styles.discount}>{coupon.title}</Text>
+            <Text style={styles.code}>{coupon.couponCode}</Text>
+          </View>
+        </TouchableOpacity>
+      ))}
     </View>
   );
 };
@@ -35,7 +34,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    // alignItems: 'center',
+    alignItems: 'center',
   },
   codeContainer: {
     width: '100%',
@@ -44,8 +43,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    position: 'relative',
-    marginBottom: 10, // Add margin-bottom to create space between the coupons
+
+    marginBottom: 20,
   },
   code: {
     fontSize: 20,
@@ -54,6 +53,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     borderColor: '#fff',
+    textAlign: 'center',
   },
   discount: {
     fontSize: 40,

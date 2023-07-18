@@ -43,6 +43,7 @@ export default function OrderDetails({navigation}) {
   const OrderData = useSelector(state => state.cart.cartItems);
   const OrderType = useSelector(state => state.cart.orderType);
   const cartTotalAmount = useSelector(state => state.cart.totalAmount);
+  const Adress = useSelector(state => state.address.Adress);
 
   const stepLabels = [
     'Order Accepted',
@@ -240,9 +241,14 @@ export default function OrderDetails({navigation}) {
               }}>
               Address
             </Text>
-            <Text style={{color: Color.primaryColor, paddingVertical: 5}}>
-              CHANGE
-            </Text>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Saved Address');
+              }}>
+              <Text style={{color: Color.primaryColor, paddingVertical: 5}}>
+                CHANGE
+              </Text>
+            </TouchableOpacity>
           </View>
           <View style={{flexDirection: 'row'}}>
             <View style={styles.homeicon}>
@@ -253,9 +259,7 @@ export default function OrderDetails({navigation}) {
               />
             </View>
             <View>
-              <Text style={{fontSize: 16}}>
-                374 William S Canning Blvd , Fall
-              </Text>
+              <Text style={{fontSize: 16}}>{Adress}</Text>
             </View>
           </View>
         </View>

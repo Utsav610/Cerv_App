@@ -71,6 +71,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderWidth: 1,
     marginBottom: 10,
+    borderColor: Color.accentColor,
+    borderRadius: 5,
   },
   tabButton: {
     width: '50%',
@@ -80,9 +82,15 @@ const styles = StyleSheet.create({
   currentOrder: {
     backgroundColor: Color.primaryColor,
     textAlign: 'center',
+    // borderRadius: 5,
+    borderTopLeftRadius: 5,
+    borderBottomLeftRadius: 5,
   },
   pastOrder: {
     backgroundColor: Color.primaryColor,
+    // borderRadius: 5,
+    borderTopRightRadius: 5,
+    borderBottomRightRadius: 5,
   },
 
   tabButtonText: {

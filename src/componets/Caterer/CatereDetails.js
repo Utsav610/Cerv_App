@@ -105,15 +105,15 @@ const CatereDetails = ({navigation}) => {
                       onPress={() =>
                         dispatch(cartAction.removeFromCart(item.id))
                       }>
-                      <Text style={[styles.quantityButton, {color: 'red'}]}>
-                        -
+                      <Text style={[styles.quantityButton, {marginRight: 4}]}>
+                        <Icon name="minus" size={20} color={'red'} />
                       </Text>
                     </TouchableOpacity>
                     <Text style={styles.quantity}>{quantity}</Text>
                     <TouchableOpacity
                       onPress={() => dispatch(cartAction.addToCart(item))}>
-                      <Text style={[styles.quantityButton, {color: 'green'}]}>
-                        +
+                      <Text style={styles.quantityButton}>
+                        <Icon name="plus" size={20} color={'green'} />
                       </Text>
                     </TouchableOpacity>
                   </View>
@@ -352,12 +352,18 @@ const CatereDetails = ({navigation}) => {
           <Text style={styles.footerText}>|</Text>
         </View>
         <View>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('Order Receipt');
-            }}>
-            <Text style={styles.footerText}>MAKE PAYMENT</Text>
-          </TouchableOpacity>
+          {cartTotalAmount === 0 ? (
+            <Text style={[styles.footerText, styles.disabledButtonText]}>
+              MAKE PAYMENT
+            </Text>
+          ) : (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Order Receipt');
+              }}>
+              <Text style={styles.footerText}>MAKE PAYMENT</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     </>
@@ -380,6 +386,7 @@ const styles = StyleSheet.create({
     width: '95%',
     height: 200,
     resizeMode: 'cover',
+    borderRadius: 10,
   },
   textContainer: {
     marginVertical: 5,
@@ -402,7 +409,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
     paddingVertical: 8,
   },
   icon: {
@@ -488,6 +495,7 @@ const styles = StyleSheet.create({
   },
   itemImageContainer: {
     marginRight: 10,
+    // borderRadius: 10,
   },
   itemImage: {
     width: 80,
@@ -538,8 +546,7 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   quantityButton: {
-    fontSize: 16,
-    marginHorizontal: 5,
-    paddingHorizontal: 5,
+    fontSize: 15,
+    paddingHorizontal: 2,
   },
 });

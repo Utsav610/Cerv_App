@@ -8,6 +8,9 @@ import Profile from '../screens/CatereScreens/CatereProfile/Profile';
 import Chat from '../screens/CatereScreens/CatereChat/Chat';
 import Menu from '../screens/CatereScreens/Menu/Menu';
 import Feather from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Color from '../Constants/Color';
+import {View} from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -41,12 +44,45 @@ function CatereNavigation() {
       <Tab.Screen
         name={'Menu'}
         component={Menu}
-        options={{headerShown: false}}
+        options={{
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <View style={{marginLeft: 20}}>
+              <Feather name={'help-circle'} size={30} color={'#686868'} />
+            </View>
+          ),
+        }}
       />
 
-      <Tab.Screen name={'Order'} component={Order} />
-      <Tab.Screen name={'Chat'} component={Chat} />
-      <Tab.Screen name={'Profile'} component={Profile} />
+      <Tab.Screen
+        name={'Order'}
+        component={Order}
+        options={{
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <View style={{marginLeft: 20}}>
+              <Feather name={'help-circle'} size={30} color={'#686868'} />
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={'Chat'}
+        component={Chat}
+        options={{headerTitleAlign: 'center'}}
+      />
+      <Tab.Screen
+        name={'Profile'}
+        component={Profile}
+        options={{
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <View style={{marginLeft: 20}}>
+              <Feather name={'help-circle'} size={30} color={'#686868'} />
+            </View>
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }

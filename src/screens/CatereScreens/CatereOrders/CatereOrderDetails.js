@@ -53,7 +53,6 @@ export default function OrderDetails({navigation}) {
 
         <View style={styles.itemContainer}>
           <Text style={styles.sectionTitle}>Bill Details</Text>
-
           <View style={styles.itemContainer}>
             {OrderData &&
               OrderData.map((item, index) => (
@@ -169,7 +168,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     width: '45%',
     padding: 10,
-    backgroundColor: 'green',
+    backgroundColor: '#4CD964',
     borderRadius: 5,
     alignItems: 'center',
   },

@@ -1,3 +1,4 @@
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,9 +8,9 @@ import {
   Modal,
   TextInput,
 } from 'react-native';
-import React, {useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Color from '../../../Constants/Color';
+
 export default function PastOrder() {
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -20,6 +21,7 @@ export default function PastOrder() {
   const closeModal = () => {
     setModalVisible(false);
   };
+
   return (
     <>
       <View style={styles.caterOrder}>
@@ -38,24 +40,23 @@ export default function PastOrder() {
           </View>
           <View style={styles.ItemContent}>
             <Text style={styles.itemText}>Item1</Text>
-            <Text>$271.80</Text>
+            <Text style={{color: Color.blackColor}}>$271.80</Text>
           </View>
           <View style={styles.ItemContent}>
             <Text style={styles.itemText}>Item1</Text>
-            <Text>$271.80</Text>
+            <Text style={{color: Color.blackColor}}>$271.80</Text>
           </View>
-          <View style={styles.orderTypeDetails}>
-            <Text>Order type</Text>
-            <Text>Delivery</Text>
-          </View>
+
           <View style={styles.orderTypeDetails}>
             <Text>Order On</Text>
-            <Text>date and time</Text>
+            <Text style={{color: Color.blackColor}}>
+              20 Nov 2020 at 06:58 AM
+            </Text>
           </View>
           <View style={styles.ItemContent}>
             <View>
               <Text>Amount</Text>
-              <Text>$543</Text>
+              <Text style={{color: Color.blackColor}}>$543</Text>
             </View>
           </View>
           <View>
@@ -75,32 +76,37 @@ export default function PastOrder() {
           <Text style={{color: 'blue'}}>Write a Review</Text>
         </TouchableOpacity>
       </View>
-      <Modal visible={modalVisible} onRequestClose={closeModal}>
+      <Modal
+        visible={modalVisible}
+        onRequestClose={closeModal}
+        transparent
+        animationType="fade">
         <View style={styles.modalContainer}>
-          {/* <View style={styles.content}> */}
-          <Text style={styles.modalHeader}>Give Feedback</Text>
-          <Text>Write your FeedBack to Catere</Text>
-          <View style={styles.ratingContainer}>
-            {[1, 2, 3, 4, 5].map(index => (
-              <FontAwesome5 key={index} name="star" size={16} />
-            ))}
-          </View>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Give Feedback</Text>
+            <Text style={styles.modalSubtitle}>
+              Write your Feedback to Catere
+            </Text>
+            <View style={styles.ratingContainer}>
+              {[1, 2, 3, 4, 5].map(index => (
+                <FontAwesome5 key={index} name="star" size={16} />
+              ))}
+            </View>
 
-          <TextInput
-            style={styles.input}
-            multiline
-            placeholder="Enter your review"
-          />
+            <TextInput style={styles.textInput} multiline />
 
-          <View style={styles.modalButtonsContainer}>
-            <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
-              <Text style={styles.modalButtonText}>Cancel</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.modalButton}>
-              <Text style={styles.modalButtonText}>Send Review</Text>
-            </TouchableOpacity>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity onPress={closeModal}>
+                <Text style={[styles.text, {color: '#C7C7C7'}]}>CANCEL</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={closeModal}>
+                <Text style={[styles.text, {color: Color.primaryColor}]}>
+                  SEND REVIEW
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
-          {/* </View> */}
         </View>
       </Modal>
     </>
@@ -108,36 +114,11 @@ export default function PastOrder() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
-  headerOrder: {
-    borderBottomWidth: 2,
+  caterOrder: {
+    paddingVertical: 15,
+    borderBottomWidth: 1,
+    width: '100%',
     borderBottomColor: Color.accentColor,
-  },
-  orderContainer: {
-    marginHorizontal: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    borderWidth: 1,
-    marginBottom: 10,
-  },
-  tabButton: {
-    padding: 10,
-  },
-  currentOrder: {
-    backgroundColor: Color.primaryColor,
-  },
-  pastOrder: {
-    backgroundColor: Color.primaryColor,
-  },
-  tabButtonText: {
-    color: '#000',
-    fontSize: 16,
-  },
-  selectedTabButtonText: {
-    color: '#FFF',
   },
   header: {
     flexDirection: 'row',
@@ -157,18 +138,12 @@ const styles = StyleSheet.create({
   caterTitle: {
     fontWeight: 'bold',
     fontSize: 15,
-    color: '#000',
-  },
-  caterOrder: {
-    paddingVertical: 15,
-    borderBottomWidth: 1,
-    width: '100%',
-    borderBottomColor: Color.accentColor,
+    color: Color.blackColor,
   },
   itemText: {
     fontWeight: 'bold',
     fontSize: 15,
-    color: '#000',
+    color: Color.blackColor,
   },
   orderTypeDetails: {
     marginVertical: 5,
@@ -176,67 +151,53 @@ const styles = StyleSheet.create({
   ratingContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     marginVertical: 5,
   },
   rateContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  ItemContainer: {
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: Color.accentColor,
-  },
-  btn: {
-    alignItems: 'center',
-    width: 100,
-    padding: 6,
-    backgroundColor: Color.primaryColor,
-    borderRadius: 5,
-  },
-
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    // backgroundColor: '#ffff',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Transparent background color
   },
-  modalHeader: {
+  modalContent: {
+    backgroundColor: '#ffffff', // White background color
+    borderRadius: 10,
+    padding: 20,
+    width: '90%',
+  },
+  modalTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
+    textAlign: 'center',
   },
-
-  starIcon: {
-    marginRight: 5,
-    color: 'gold',
+  modalSubtitle: {
+    fontSize: 16,
+    marginBottom: 10,
+    textAlign: 'center',
   },
-  input: {
-    width: '80%',
-    height: 100,
+  textInput: {
     borderWidth: 1,
-    borderColor: '#ccc',
-    marginBottom: 20,
-  },
-  modalButtonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  modalButton: {
-    backgroundColor: Color.primaryColor,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    marginHorizontal: 10,
+    borderColor: 'gray',
     borderRadius: 5,
+    padding: 10,
+    marginBottom: 15,
+    height: 100,
   },
-  modalButtonText: {
-    color: '#fff',
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    borderTopWidth: 1,
+    paddingTop: 10,
+    borderColor: Color.accentColor,
+  },
+  text: {
     fontWeight: 'bold',
+    fontSize: 16,
   },
-  // content: {
-  //   backgroundColor: '#ffff',
-  //   padding: 20,
-  //   borderRadius: 10,
-  // },
 });

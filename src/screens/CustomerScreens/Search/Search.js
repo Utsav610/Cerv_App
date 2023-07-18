@@ -61,13 +61,12 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '90%',
-    borderWidth: 1,
+    // borderWidth: 1,
     borderRadius: 10,
     textAlign: 'left',
     fontSize: 20,
     margin: 5,
     paddingHorizontal: 10,
-    backgroundColor: 'white',
   },
   searchContainer: {
     flexDirection: 'row',

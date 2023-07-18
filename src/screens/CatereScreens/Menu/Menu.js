@@ -6,12 +6,15 @@ import {
   TouchableOpacity,
   Image,
   Modal,
+  FlatList,
 } from 'react-native';
 import React, {useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import DeleteModal from '../../../componets/DeleteModal';
 import Color from '../../../Constants/Color';
 import Feather from 'react-native-vector-icons/Feather';
+import Cerv_Data from '../../../data/Cerv_Data';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function Menu({navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -22,31 +25,26 @@ export default function Menu({navigation}) {
     setModalVisible(false);
   };
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity>
-          <Feather name={'help-circle'} size={25} color={Color.primaryColor} />
-        </TouchableOpacity>
-      </View>
+  const renderCategory = ({item}) => (
+    <View>
       <View style={styles.label}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('Meal Details', {title: 'Noodle'});
+            navigation.navigate('Meal Details', {title: item.name});
           }}>
           <View style={styles.labelContent}>
             <Image
               source={require('../../../assest/catere.jpeg')}
               style={styles.image}
             />
-            <Text style={styles.labelText}>Noodle</Text>
+            <Text style={styles.labelText}>{item.name}</Text>
           </View>
         </TouchableOpacity>
         <View>
           <TouchableOpacity
             style={styles.iconContainer}
             onPress={() => {
-              navigation.navigate('Edit Category');
+              navigation.navigate('Edit Category', {title: item.name});
             }}>
             <Feather name={'edit-2'} size={20} color={'green'} />
           </TouchableOpacity>
@@ -54,11 +52,22 @@ export default function Menu({navigation}) {
             style={styles.iconContainer}
             onPress={() => {
               setModalVisible(true);
+              settitle(item.name);
             }}>
-            <FontAwesome5 name={'trash'} size={20} color={'red'} />
+            <Feather name={'trash-2'} size={20} color={'red'} />
           </TouchableOpacity>
         </View>
       </View>
+    </View>
+  );
+
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={Cerv_Data}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={renderCategory}
+      />
 
       <Modal
         visible={modalVisible}
@@ -68,7 +77,7 @@ export default function Menu({navigation}) {
         <View style={styles.modalContainer}>
           <DeleteModal
             imageSource={require('../../../assest/catere.jpeg')}
-            itemTitle="Noodle"
+            itemTitle={title}
             onCancel={() => setModalVisible(false)}
             onDelete={handleDelete}
           />
@@ -80,7 +89,7 @@ export default function Menu({navigation}) {
         onPress={() => {
           navigation.navigate('Add Category');
         }}>
-        <FontAwesome5 name={'plus-circle'} size={20} color={'#ffffff'} />
+        <Icon name={'plus'} size={40} color={'#ffffff'} />
       </TouchableOpacity>
     </View>
   );
@@ -104,7 +113,7 @@ const styles = StyleSheet.create({
     padding: 5,
     backgroundColor: '#ffff',
     borderRadius: 10,
-    marginVertical: 15,
+    marginVertical: 10,
   },
   labelContent: {
     flexDirection: 'row',

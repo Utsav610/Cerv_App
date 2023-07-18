@@ -220,6 +220,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Color from '../../Constants/Color';
 import {useSelector} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Login({navigation, route}) {
   const Role = useSelector(state => state.user.role);
@@ -227,13 +228,46 @@ export default function Login({navigation, route}) {
   // console.log(Role);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState('');
+  const [email, setemail] = useState('');
 
-  const handleLogin = () => {
-    if (Role === 'Customer') {
+  const handleLogin = async () => {
+    if (
+      Role === 'Customer' &&
+      validateEmail(email) &&
+      validatePassword(password)
+    ) {
+      try {
+        await AsyncStorage.setItem('isLoggedIn', 'true');
+      } catch (error) {
+        console.log('Error storing data:', error);
+      }
+
       navigation.navigate('Home');
-    } else if (Role === 'Caterer') {
+    } else if (
+      Role === 'Caterer' &&
+      validateEmail(email) &&
+      validatePassword(password)
+    ) {
+      try {
+        await AsyncStorage.setItem('isLoggedIn', 'true');
+      } catch (error) {
+        console.log('Error storing data:', error);
+      }
+
       navigation.navigate('CatereLogin');
+    } else {
+      console.log('Invalid credentials');
     }
+  };
+
+  const validateEmail = email => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  };
+
+  // Password validation function
+  const validatePassword = password => {
+    return password.length >= 6;
   };
 
   const togglePasswordVisibility = () => {
@@ -264,7 +298,11 @@ export default function Login({navigation, route}) {
                 size={20}
                 color={Color.primaryColor}
               />
-              <TextInput placeholder="john123@gmail.com" style={styles.input} />
+              <TextInput
+                placeholder="john123@gmail.com"
+                style={styles.input}
+                onChangeText={setemail}
+              />
             </View>
 
             <Text>Password</Text>
@@ -300,7 +338,10 @@ export default function Login({navigation, route}) {
               <Text style={styles.text}>Forget Password ?</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.customButton} onPress={handleLogin}>
+            <TouchableOpacity
+              style={styles.customButton}
+              onPress={handleLogin}
+              disabled={!validateEmail(email) || !validatePassword(password)}>
               <Text style={styles.customButtonText}>Login</Text>
             </TouchableOpacity>
           </View>
@@ -321,8 +362,6 @@ export default function Login({navigation, route}) {
             </TouchableOpacity>
           </View>
         </View>
-        {/* </KeyboardAwareScrollView> */}
-        {/* </ImageBackground> */}
       </KeyboardAwareScrollView>
     </View>
   );

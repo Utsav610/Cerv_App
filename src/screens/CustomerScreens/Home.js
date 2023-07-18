@@ -17,10 +17,15 @@ import Caterer_data from '../../data/Caterer_data';
 import {useSelector} from 'react-redux';
 
 export default function Home({navigation, route}) {
-  const selectedFilter = route.params;
+  let selectedFilter = '';
+
+  if (route.params && route.params.selectedFilter) {
+    selectedFilter = route.params.selectedFilter;
+  }
   // console.log(selectedFilter);
   const Adress = useSelector(state => state.address.Adress);
-  console.log(Adress);
+  // console.log(Adress);
+  // const filteredData = applyFilter(selectedFilter, Caterer_data);
 
   const applyFilter = (filter, data) => {
     // Apply the selected filter on the data array
@@ -32,11 +37,11 @@ export default function Home({navigation, route}) {
 
       case 'lowToHigh':
         // Apply low to high price filter logic
-        return data; // Return the filtered data array
+        return data.slice().sort((a, b) => a.price - b.price);
 
       case 'highToLow':
         // Apply high to low price filter logic
-        return data; // Return the filtered data array
+        return data.slice().sort((a, b) => b.price - a.price);
 
       case 'distance':
         // Apply distance filter logic
@@ -95,7 +100,7 @@ export default function Home({navigation, route}) {
           </View>
           <View>
             {/* <FlatList
-              data={applyFilter(selectedFilter, Caterer_data)}
+             data={selectedFilter ? filteredData : Caterer_data}
               renderItem={({item}) => (
                 <Cater
                   name={item.name}
@@ -119,11 +124,13 @@ export default function Home({navigation, route}) {
                   name={item.name}
                   address={item.Address}
                   price={item.price}
+                  favaroite={item.favorite}
                   onClick={() =>
                     navigation.navigate('Details', {
                       name: item.name,
                       address: item.Address,
                       price: item.price,
+                      // favaroite: item.favorite,
                     })
                   }
                 />

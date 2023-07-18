@@ -3,8 +3,17 @@ import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Color from '../../../Constants/Color';
 import Feather from 'react-native-vector-icons/Feather';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Profile = ({navigation}) => {
+  const handleLogout = async () => {
+    try {
+      await AsyncStorage.removeItem('isLoggedIn');
+      navigation.navigate('role');
+    } catch (error) {
+      console.log('Error removing data:', error);
+    }
+  };
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -64,11 +73,7 @@ const Profile = ({navigation}) => {
         <FontAwesome5 name="angle-right" size={20} color="#cccc" />
       </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.optionContainer}
-        onPress={() => {
-          navigation.navigate('Login');
-        }}>
+      <TouchableOpacity style={styles.optionContainer} onPress={handleLogout}>
         <FontAwesome5
           name="sign-out-alt"
           size={20}

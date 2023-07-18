@@ -4,13 +4,15 @@ import {
   REMOVE_FROM_CART,
   STORE_COUPON_CODE,
   SET_ORDER_TYPE,
+  SET_CARD,
 } from '../action/action';
 
 const initialState = {
   cartItems: [],
   totalAmount: 0,
   couponCode: '',
-  orderType: '',
+  orderType: 'Delivery',
+  selectedcard: '',
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -92,6 +94,12 @@ const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         orderType: action.payload,
+      };
+
+    case SET_CARD:
+      return {
+        ...state,
+        selectedcard: action.payload,
       };
 
     default:

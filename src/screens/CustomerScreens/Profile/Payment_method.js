@@ -5,18 +5,24 @@ import CustomButton from '../../../componets/CustomeButton';
 import Color from '../../../Constants/Color';
 import FontAwesome5 from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useDispatch} from 'react-redux';
+import * as cartAction from '../../../store/action/action';
 
 export default function Payment_method({navigation}) {
+  const dispatch = useDispatch();
+
   const [selectedCard, setSelectedCard] = useState('');
   const [selectedPayment, setSelectedPayment] = useState('');
 
   const handleCardSelect = card => {
     setSelectedCard(card);
+    dispatch(cartAction.setCard(card));
     setSelectedPayment('');
   };
 
   const handlePaymentSelect = payment => {
     setSelectedPayment(payment);
+    dispatch(cartAction.setCard(payment));
     setSelectedCard('');
   };
   return (

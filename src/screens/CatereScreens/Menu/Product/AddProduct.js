@@ -11,32 +11,36 @@ import {
 import Color from '../../../../Constants/Color';
 import CustomButton from '../../../../componets/CustomeButton';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const AddProduct = ({navigation}) => {
   return (
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.headerContainer}>
+          <View>
+            <Text style={[styles.text, {marginLeft: 10}]}>Category Name</Text>
+          </View>
           <View style={styles.imageContainer}>
             <Image
               source={require('../../../../assest/catere.jpeg')}
               style={styles.image}
             />
             <TouchableOpacity style={styles.closeIconContainer}>
-              <FontAwesome5 name="times" size={20} color="#FFF" />
+              <Icon name="window-close" size={20} color="#fff" />
             </TouchableOpacity>
           </View>
         </View>
 
         <View style={styles.itemContainer}>
           <View>
-            <Text style={styles.text}>Delivery date and Time</Text>
+            <Text style={styles.text}>Category Name</Text>
           </View>
-          <Text style={styles.boldtext}>20 November 2020 at 06:58 AM</Text>
+          <Text style={styles.boldtext}>Noodle</Text>
         </View>
         <View style={styles.itemContainer}>
           <View>
-            <Text style={styles.text}>Name</Text>
+            <Text style={styles.text}>Category Name</Text>
           </View>
           <Text style={styles.boldtext}>House Noodle</Text>
         </View>
@@ -50,12 +54,47 @@ const AddProduct = ({navigation}) => {
             ever since the 1500s,
           </Text>
         </View>
-        <View style={styles.direction}>
-          <Text>Size</Text>
-          <Text>Quantity</Text>
-          <Text>Price</Text>
+        <View style={[styles.manage, styles.itemContainer]}>
+          <Text style={styles.itemText}>Size</Text>
+          <View
+            style={{
+              width: '55%',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}>
+            <View style={[styles.quantityContainer]}>
+              <Text style={styles.itemText}>Quantity</Text>
+            </View>
+            <Text style={styles.itemText}>Price</Text>
+          </View>
         </View>
-        <View style={styles.itemContainer}>
+
+        <View style={[styles.manage, styles.itemContainer]}>
+          <Text style={styles.boldtext}>Regular</Text>
+          <View
+            style={{
+              width: '63%',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}>
+            <View style={[styles.quantityContainer, {width: '50%'}]}>
+              <TouchableOpacity>
+                <Text style={[styles.quantityButton]}>
+                  <Icon name="minus" size={20} color={'red'} />
+                </Text>
+              </TouchableOpacity>
+              <Text style={styles.boldtext}>1</Text>
+              <TouchableOpacity>
+                <Text style={styles.quantityButton}>
+                  <Icon name="plus" size={20} color={Color.primaryColor} />
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.boldtext}>$12</Text>
+          </View>
+        </View>
+
+        {/* <View style={styles.itemContainer}>
           <View style={styles.direction}>
             <Text style={styles.boldtext}>Regular</Text>
             <View style={styles.quantityContainer}>
@@ -69,42 +108,60 @@ const AddProduct = ({navigation}) => {
             </View>
             <Text style={styles.boldtext}>$350.00</Text>
           </View>
-        </View>
-        <View style={styles.itemContainer}>
-          <View style={styles.direction}>
-            <Text style={styles.boldtext}>Small</Text>
-            <View style={styles.quantityContainer}>
-              <TouchableOpacity style={styles.quantityButton}>
-                <Text style={styles.quantityButtonText}>-</Text>
+        </View> */}
+        <View style={[styles.manage, styles.itemContainer]}>
+          <Text style={styles.boldtext}>Small</Text>
+          <View
+            style={{
+              width: '63%',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}>
+            <View style={[styles.quantityContainer, {width: '50%'}]}>
+              <TouchableOpacity>
+                <Text style={[styles.quantityButton]}>
+                  <Icon name="minus" size={20} color={'red'} />
+                </Text>
               </TouchableOpacity>
               <Text style={styles.boldtext}>120</Text>
-              <TouchableOpacity style={styles.quantityButton}>
-                <Text style={styles.quantityButtonText}>+</Text>
+              <TouchableOpacity>
+                <Text style={styles.quantityButton}>
+                  <Icon name="plus" size={20} color={Color.primaryColor} />
+                </Text>
               </TouchableOpacity>
             </View>
-            <Text style={styles.boldtext}>$350.00</Text>
+            <Text style={styles.boldtext}>$120.00</Text>
           </View>
         </View>
-        <View style={styles.itemContainer}>
-          <View style={styles.direction}>
-            <Text style={styles.boldtext}>Medium</Text>
-            <View style={styles.quantityContainer}>
-              <TouchableOpacity style={styles.quantityButton}>
-                <Text style={styles.quantityButtonText}>-</Text>
+        <View style={[styles.manage, styles.itemContainer]}>
+          <Text style={styles.boldtext}>Medium</Text>
+          <View
+            style={{
+              width: '63%',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}>
+            <View style={[styles.quantityContainer, {width: '50%'}]}>
+              <TouchableOpacity>
+                <Text style={[styles.quantityButton]}>
+                  <Icon name="minus" size={20} color={'red'} />
+                </Text>
               </TouchableOpacity>
               <Text style={styles.boldtext}>120</Text>
-              <TouchableOpacity style={styles.quantityButton}>
-                <Text style={styles.quantityButtonText}>+</Text>
+              <TouchableOpacity>
+                <Text style={styles.quantityButton}>
+                  <Icon name="plus" size={20} color={Color.primaryColor} />
+                </Text>
               </TouchableOpacity>
             </View>
-            <Text style={styles.boldtext}>$350.00</Text>
+            <Text style={styles.boldtext}>$120.00</Text>
           </View>
         </View>
       </ScrollView>
       <CustomButton
         title={'Submit'}
         onPress={() => {
-          navigation.navigate('Product');
+          navigation.goBack();
         }}
       />
     </View>
@@ -127,6 +184,7 @@ const styles = StyleSheet.create({
     width: '95%',
     height: 200,
     resizeMode: 'cover',
+    borderRadius: 10,
   },
   text: {
     fontSize: 16,
@@ -151,10 +209,10 @@ const styles = StyleSheet.create({
   closeIconContainer: {
     position: 'absolute',
     top: 10,
-    right: 10,
+    right: 15,
     backgroundColor: Color.primaryColor,
     borderRadius: 20,
-    padding: 5,
+    padding: 3,
   },
   quantityContainer: {
     flexDirection: 'row',
@@ -169,5 +227,12 @@ const styles = StyleSheet.create({
   quantityButtonText: {
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  manage: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingBottom: 10,
   },
 });

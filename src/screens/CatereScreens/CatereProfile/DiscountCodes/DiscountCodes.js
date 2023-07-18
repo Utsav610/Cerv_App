@@ -3,9 +3,15 @@ import {View, Text, StyleSheet, TouchableOpacity, Modal} from 'react-native';
 import Color from '../../../../Constants/Color';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Feather from 'react-native-vector-icons/Feather';
+import {useDispatch, useSelector} from 'react-redux';
+import {deleteCoupon} from '../../../../store/action/action';
+
 const DiscountCodes = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
-
+  const [selectedCoupon, setSelectedCoupon] = useState(null);
+  const coupons = useSelector(state => state.coupon);
+  const dispatch = useDispatch();
+  console.log(coupons);
   const openModal = () => {
     setModalVisible(true);
   };
@@ -13,31 +19,52 @@ const DiscountCodes = ({navigation}) => {
   const closeModal = () => {
     setModalVisible(false);
   };
-  const EditHandler = () => {
-    navigation.navigate('Edit Discount Codes');
+  const EditHandler = coupon => {
+    navigation.navigate('Edit Discount Codes', {coupon});
     setModalVisible(false);
+  };
+
+  const DeleteHandler = couponCode => {
+    console.log(couponCode);
+    // dispatch(deleteCoupon(couponCode));
+    closeModal();
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.codeContainer}>
-        <TouchableOpacity style={styles.dotsContainer} onPress={openModal}>
-          <View style={styles.dot} />
-          <View style={styles.dot} />
-          <View style={styles.dot} />
-        </TouchableOpacity>
-        <Text style={styles.discount}>40% off</Text>
-        <Text style={styles.code}>NEW40</Text>
-      </View>
+      {coupons.map((coupon, index) => (
+        <React.Fragment key={index}>
+          <View style={styles.codeContainer}>
+            <TouchableOpacity
+              style={styles.dotsContainer}
+              onPress={() => {
+                setSelectedCoupon(coupon);
+                openModal();
+              }}>
+              <Feather name={'more-vertical'} size={25} color={'#ffff'} />
+            </TouchableOpacity>
+            <Text style={styles.discount}>{coupon.title}</Text>
+            <Text style={styles.code}>{coupon.couponCode}</Text>
+          </View>
+        </React.Fragment>
+      ))}
 
       <Modal visible={modalVisible} animationType="slide" transparent={true}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <TouchableOpacity style={styles.option} onPress={EditHandler}>
+            <TouchableOpacity
+              style={styles.option}
+              onPress={() => {
+                EditHandler(selectedCoupon);
+              }}>
               <FontAwesome5 name={'edit'} size={20} color={'#333'} />
               <Text style={styles.optionText}>Edit</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.option} onPress={closeModal}>
+            <TouchableOpacity
+              style={styles.option}
+              onPress={() => {
+                DeleteHandler(selectedCoupon.couponCode);
+              }}>
               <Feather name={'trash-2'} size={20} color={'#333'} />
               <Text style={styles.optionText}>Delete</Text>
             </TouchableOpacity>
@@ -48,6 +75,7 @@ const DiscountCodes = ({navigation}) => {
           </View>
         </View>
       </Modal>
+
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
@@ -73,15 +101,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
+    marginBottom: 20,
   },
   dotsContainer: {
     position: 'absolute',
     top: 10,
     right: 10,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    height: 20,
+
+    height: 30,
   },
   dot: {
     width: 5,

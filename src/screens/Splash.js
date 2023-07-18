@@ -3,12 +3,26 @@ import {View, StyleSheet, Text, Image} from 'react-native';
 // import PushNotification from 'react-native-push-notification';
 // import GlobalStyle from '../utils/GlobalStyle';
 import Color from '../Constants/Color';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Splash({navigation}) {
   useEffect(() => {
-    setTimeout(() => {
-      navigation.replace('role');
-    }, 2000);
+    const checkLoginStatus = async () => {
+      try {
+        const isLoggedIn = await AsyncStorage.getItem('isLoggedIn');
+
+        if (isLoggedIn === 'true') {
+          navigation.replace('Home');
+        } else {
+          navigation.replace('role');
+        }
+      } catch (error) {
+        console.log('Error retrieving data:', error);
+        navigation.replace('role');
+      }
+    };
+
+    checkLoginStatus();
   }, []);
 
   return (

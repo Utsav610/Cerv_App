@@ -11,6 +11,7 @@ import {
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {Picker} from '@react-native-picker/picker';
 import Color from '../../Constants/Color';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function EditCatereInfo({navigation}) {
   const [selectedKm, setSelectedKm] = useState(5);
@@ -33,6 +34,7 @@ export default function EditCatereInfo({navigation}) {
 
   const [orderType, setOrderType] = useState('delivery');
   const handleOrderTypeChange = type => {
+    // console.log(type);
     setOrderType(type);
   };
   const handleFoodCategoryChange = category => {
@@ -98,7 +100,11 @@ export default function EditCatereInfo({navigation}) {
               ]}
               onPress={() => handleOrderTypeChange('delivery')}>
               {orderType === 'delivery' ? (
-                <FontAwesome5 name="check-circle" size={20} />
+                <Icon
+                  name="circle-slice-8"
+                  size={20}
+                  color={Color.primaryColor}
+                />
               ) : (
                 <FontAwesome5 name="circle" size={20} />
               )}
@@ -111,7 +117,11 @@ export default function EditCatereInfo({navigation}) {
               ]}
               onPress={() => handleOrderTypeChange('pickup')}>
               {orderType === 'pickup' ? (
-                <FontAwesome5 name="check-circle" size={20} />
+                <Icon
+                  name="circle-slice-8"
+                  size={20}
+                  color={Color.primaryColor}
+                />
               ) : (
                 <FontAwesome5 name="circle" size={20} />
               )}
@@ -120,11 +130,15 @@ export default function EditCatereInfo({navigation}) {
             <TouchableOpacity
               style={[
                 styles.radioButton,
-                orderType === 'pickup' && styles.radioButtonSelected,
+                orderType === 'both' && styles.radioButtonSelected,
               ]}
-              onPress={() => handleOrderTypeChange('pickup')}>
-              {orderType === 'pickup' ? (
-                <FontAwesome5 name="check-circle" size={20} />
+              onPress={() => handleOrderTypeChange('both')}>
+              {orderType === 'both' ? (
+                <Icon
+                  name="circle-slice-8"
+                  size={20}
+                  color={Color.primaryColor}
+                />
               ) : (
                 <FontAwesome5 name="circle" size={20} />
               )}
@@ -225,8 +239,9 @@ const styles = StyleSheet.create({
   },
   radioButtonsContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    marginVertical: 15,
+    // justifyContent: 'space-evenly',
+    marginVertical: 10,
+    gap: 50,
   },
   radioButton: {
     flexDirection: 'row',
@@ -234,6 +249,8 @@ const styles = StyleSheet.create({
   },
   radioButtonText: {
     marginLeft: 5,
+    color: '#000',
+    fontWeight: '500',
   },
   input: {
     width: '100%',

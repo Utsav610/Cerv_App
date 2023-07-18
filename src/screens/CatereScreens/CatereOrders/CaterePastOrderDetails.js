@@ -1,12 +1,53 @@
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import Color from '../../../Constants/Color';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import StepIndicator from 'react-native-step-indicator';
+
+const stepIndicatorStyles = {
+  stepIndicatorSize: 25,
+  currentStepIndicatorSize: 20,
+  // separatorStrokeWidth: 2,
+  // currentStepStrokeWidth: 1,
+  stepStrokeCurrentColor: Color.primaryColor,
+  stepStrokeWidth: 1,
+  stepStrokeFinishedColor: Color.primaryColor,
+  stepStrokeUnFinishedColor: Color.primaryColor,
+  separatorFinishedColor: Color.primaryColor,
+  separatorUnFinishedColor: '#aaaaaa',
+  stepIndicatorFinishedColor: Color.primaryColor,
+  stepIndicatorUnFinishedColor: Color.primaryColor,
+  stepIndicatorCurrentColor: Color.primaryColor,
+  stepIndicatorLabelFontSize: 0,
+  currentStepIndicatorLabelFontSize: 5,
+  stepIndicatorLabelCurrentColor: Color.primaryColor,
+  stepIndicatorLabelFinishedColor: Color.primaryColor,
+  stepIndicatorLabelUnFinishedColor: Color.primaryColor,
+  labelColor: Color.primaryColor,
+  labelSize: 12,
+  currentStepLabelColor: Color.primaryColor,
+};
 
 export default function CaterePastOrderDetails({navigation}) {
+  const [currentStep, setCurrentStep] = useState(1);
+  const stepLabels = [
+    'Order Accepted',
+    'Preparing Order',
+    'Dispatch for Delivery',
+    'Order Delivered',
+  ];
   return (
     <>
       <View style={styles.caterOrder}>
+        <View style={{marginBottom: 5}}>
+          <StepIndicator
+            customStyles={stepIndicatorStyles}
+            currentPosition={currentStep}
+            labels={stepLabels}
+            stepCount={4}
+          />
+        </View>
+
         <View style={styles.header}>
           <Image
             source={require('../../../assest/catere.jpeg')}
@@ -80,7 +121,9 @@ export default function CaterePastOrderDetails({navigation}) {
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.buttonContainer, styles.rejectButton]}
-          onPress={() => {}}>
+          onPress={() => {
+            navigation.navigate('Order');
+          }}>
           <Text style={styles.buttonText}>Send Invoice</Text>
         </TouchableOpacity>
       </View>
@@ -104,7 +147,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 50,
-    height: 50,
+    height: 60,
     marginHorizontal: 5,
   },
   caterTitle: {
