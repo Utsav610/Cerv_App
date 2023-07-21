@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -10,15 +11,18 @@ export default function Filter({navigation}) {
 
   const handleFilterSelect = filter => {
     setSelectedFilter(filter);
+    // console.log(filter);
   };
 
   return (
     <View style={styles.container}>
-      <View style={{flex: 4, backgroundColor: 'white'}} />
+      <View style={{flex: 1, backgroundColor: 'white'}} />
 
-      <View style={{flex: 3, backgroundColor: 'white'}}>
+      <View style={{flex: 1, backgroundColor: 'white'}}>
         <View style={styles.infoCotanier}>
-          <Text style={styles.text}>Filter</Text>
+          <Text style={[styles.text, {color: '#000', fontWeight: 'bold'}]}>
+            Filter
+          </Text>
           <View style={styles.content}>
             <TouchableOpacity
               style={[
@@ -109,7 +113,7 @@ export default function Filter({navigation}) {
             <CustomButton
               title={'Apply'}
               onPress={() => {
-                navigation.navigate('Home', {selectedFilter: selectedFilter});
+                navigation.navigate('Home', selectedFilter);
               }}
             />
           </View>
@@ -137,6 +141,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     color: '#000',
+    paddingVertical: 5,
   },
   content: {
     marginBottom: 20,

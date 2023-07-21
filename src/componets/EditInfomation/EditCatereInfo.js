@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
   StyleSheet,
@@ -12,12 +13,28 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {Picker} from '@react-native-picker/picker';
 import Color from '../../Constants/Color';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useDispatch, useSelector} from 'react-redux';
+import {storeFormData, storeCatereData} from '../../store/action/action';
 
 export default function EditCatereInfo({navigation}) {
+  const dispatch = useDispatch();
+  const allData = useSelector(state => state.RegisterData);
+  const [catererName, setCatererName] = useState(allData.catererName);
+  const [email, setEmail] = useState(allData.email);
+  const [phoneNumber, setPhoneNumber] = useState(allData.phoneNumber);
   const [selectedKm, setSelectedKm] = useState(5);
   const [selectedFoodCategories, setSelectedFoodCategories] = useState([
     'chinese',
   ]);
+
+  const CatereData = useSelector(state => state.catereData);
+  // console.log(CatereData);
+
+  const [driverInfo, setDriverInfo] = useState({
+    driverName: CatereData.driverInfo.driverName,
+    driverLicenseNum: CatereData.driverInfo.driverLicenseNum,
+  });
+
   const foodCategories = ['chinese', 'indian Thali', 'Italian', 'Korean'];
   // Default selected km
   const fees = {
@@ -32,7 +49,7 @@ export default function EditCatereInfo({navigation}) {
     setSelectedKm(km);
   };
 
-  const [orderType, setOrderType] = useState('delivery');
+  const [orderType, setOrderType] = useState(CatereData.orderType);
   const handleOrderTypeChange = type => {
     // console.log(type);
     setOrderType(type);
@@ -46,6 +63,34 @@ export default function EditCatereInfo({navigation}) {
     } else {
       setSelectedFoodCategories([...selectedFoodCategories, category]);
     }
+  };
+
+  const handleDriverInputChange = (field, value) => {
+    // Update the DriverInfo state with the new value
+    setDriverInfo(prevBusinessInfo => ({
+      ...prevBusinessInfo,
+      [field]: value,
+    }));
+  };
+
+  const handleSubmit = () => {
+    const data = {
+      catererName,
+      email,
+      phoneNumber,
+    };
+
+    const Catereditdata = {
+      orderType,
+      // deliveryFee,
+      selectedKm,
+      selectedFoodCategories,
+      driverInfo,
+      // Add other necessary data properties here for Driver Info
+    };
+    dispatch(storeCatereData(Catereditdata));
+    dispatch(storeFormData(data));
+    navigation.navigate('Personal information');
   };
 
   return (
@@ -64,7 +109,14 @@ export default function EditCatereInfo({navigation}) {
         <Text style={styles.label}>Caterer Name</Text>
         <View style={styles.inputContainer}>
           <FontAwesome5 name={'user'} size={20} color={Color.primaryColor} />
-          <TextInput placeholder="john" style={styles.input1} />
+          <TextInput
+            placeholder="john"
+            style={styles.input1}
+            value={catererName}
+            onChangeText={text => {
+              setCatererName(text);
+            }}
+          />
         </View>
 
         <Text style={styles.label}>Email</Text>
@@ -77,7 +129,11 @@ export default function EditCatereInfo({navigation}) {
           <TextInput
             placeholder="john123@gmail.com"
             style={styles.input1}
+            value={email}
             keyboardType="email-address"
+            onChangeText={text => {
+              setEmail(text);
+            }}
           />
         </View>
 
@@ -86,8 +142,11 @@ export default function EditCatereInfo({navigation}) {
           <FontAwesome5 name={'phone'} size={20} color={Color.primaryColor} />
           <TextInput
             placeholder="123456789"
-            secureTextEntry
+            value={phoneNumber}
             style={styles.input1}
+            onChangeText={text => {
+              setPhoneNumber(text);
+            }}
           />
         </View>
         <View style={styles.textContainer}>
@@ -166,6 +225,11 @@ export default function EditCatereInfo({navigation}) {
         </View>
         <View>
           <Text style={styles.headerText}>Food Category</Text>
+          <View style={[styles.textContainer]}>
+            <Text style={{color: '#000', fontFamily: 'bold'}}>
+              {selectedFoodCategories}
+            </Text>
+          </View>
           {foodCategories.map(category => (
             <View key={category} style={styles.checkboxContainer}>
               <TouchableOpacity
@@ -188,9 +252,21 @@ export default function EditCatereInfo({navigation}) {
             <Text style={styles.headerText}>Driver Info</Text>
           </View>
           <Text>Driver Name</Text>
-          <TextInput style={styles.textInput} />
+          <TextInput
+            style={styles.textInput}
+            // placeholder="JOHN"
+            value={driverInfo.driverName}
+            onChangeText={text => handleDriverInputChange('driverName', text)}
+          />
           <Text>Driver License Number</Text>
-          <TextInput style={styles.textInput} />
+          <TextInput
+            style={styles.textInput}
+            // placeholder="License Number"
+            value={driverInfo.driverLicenseNum}
+            onChangeText={text =>
+              handleDriverInputChange('driverLicenseNum', text)
+            }
+          />
           <Text>Driver License Photo</Text>
           <Image
             source={require('../../assest/Driver_license.jpeg')}
@@ -201,7 +277,7 @@ export default function EditCatereInfo({navigation}) {
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          navigation.navigate('Personal information');
+          handleSubmit();
         }}>
         <Text style={styles.buttonText}>Save</Text>
       </TouchableOpacity>
@@ -260,7 +336,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginVertical: 10,
     paddingHorizontal: 10,
-    backgroundColor: 'white',
+    borderColor: Color.accentColor,
+    // backgroundColor: 'white',
   },
   text2: {
     fontSize: 16,

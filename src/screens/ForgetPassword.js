@@ -41,9 +41,9 @@ export default function MobileNumber({navigation}) {
             <TextInput placeholder="john123@gmail.com" style={styles.input} />
           </View>
           <CustomButton
-            title="Send Code"
+            title="Send Now"
             onPress={() => {
-              navigation.navigate('Otp Verify');
+              navigation.navigate('Login');
             }}
           />
         </View>

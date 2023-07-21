@@ -346,7 +346,7 @@ const CatereDetails = ({navigation}) => {
       </View>
       <View style={styles.footer}>
         <View>
-          <Text style={styles.footerText}>Item Total {cartTotalAmount}</Text>
+          <Text style={styles.footerText}>Item Total ${cartTotalAmount}</Text>
         </View>
         <View>
           <Text style={styles.footerText}>|</Text>

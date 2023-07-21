@@ -104,7 +104,11 @@ export default function OrderDetails({navigation}) {
         </View>
       </ScrollView>
       <View style={styles.orderButtons}>
-        <TouchableOpacity style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => {
+            navigation.navigate('CatereLogin');
+          }}>
           <Text style={styles.buttonText}>Accept Order</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.buttonContainer, styles.rejectButton]}>

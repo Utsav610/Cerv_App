@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 /* eslint-disable react-native/no-inline-styles */
 import {
   FlatList,
@@ -7,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Silder from './Slider/Silder';
 import Cater from '../../componets/Caterer/Catere';
@@ -17,41 +18,44 @@ import Caterer_data from '../../data/Caterer_data';
 import {useSelector} from 'react-redux';
 
 export default function Home({navigation, route}) {
-  let selectedFilter = '';
+  const [selectedFilter, setSelectedFilter] = useState('');
+  const [filteredData, setFilteredData] = useState([]);
 
-  if (route.params && route.params.selectedFilter) {
-    selectedFilter = route.params.selectedFilter;
-  }
-  // console.log(selectedFilter);
+  useEffect(() => {
+    if (route.params) {
+      setSelectedFilter(route.params);
+    }
+  }, [route.params]);
+
+  // console.log('route', route.params);
+  // console.log('filter', selectedFilter);
   const Adress = useSelector(state => state.address.Adress);
   // console.log(Adress);
-  // const filteredData = applyFilter(selectedFilter, Caterer_data);
 
-  const applyFilter = (filter, data) => {
-    // Apply the selected filter on the data array
-    // console.log(filter);
-    switch (filter) {
-      case 'rating':
-        // Apply rating filter logic
-        return data; // Return the filtered data array
+  useEffect(() => {
+    const applyFilter = (filter, data) => {
+      // console.log('apply');
+      switch (filter) {
+        case 'rating':
+          // console.log(filter);
+          return data;
 
-      case 'lowToHigh':
-        // Apply low to high price filter logic
-        return data.slice().sort((a, b) => a.price - b.price);
+        case 'lowToHigh':
+          return data.slice().sort((a, b) => a.price - b.price);
 
-      case 'highToLow':
-        // Apply high to low price filter logic
-        return data.slice().sort((a, b) => b.price - a.price);
+        case 'highToLow':
+          return data.slice().sort((a, b) => b.price - a.price);
 
-      case 'distance':
-        // Apply distance filter logic
-        return data; // Return the filtered data array
+        case 'distance':
+          return data;
 
-      default:
-        // No filter selected, return the original data array
-        return data;
-    }
-  };
+        default:
+          return data;
+      }
+    };
+
+    setFilteredData(applyFilter(selectedFilter, Caterer_data));
+  }, [selectedFilter]);
 
   return (
     <>
@@ -99,13 +103,14 @@ export default function Home({navigation, route}) {
             </TouchableOpacity>
           </View>
           <View>
-            {/* <FlatList
-             data={selectedFilter ? filteredData : Caterer_data}
+            <FlatList
+              data={selectedFilter ? filteredData : Caterer_data}
               renderItem={({item}) => (
                 <Cater
                   name={item.name}
                   address={item.Address}
                   price={item.price}
+                  favaroite={item.favorite}
                   onClick={() =>
                     navigation.navigate('Details', {
                       name: item.name,
@@ -115,9 +120,9 @@ export default function Home({navigation, route}) {
                   }
                 />
               )}
-            /> */}
+            />
 
-            <FlatList
+            {/* <FlatList
               data={Caterer_data}
               renderItem={({item}) => (
                 <Cater
@@ -135,7 +140,7 @@ export default function Home({navigation, route}) {
                   }
                 />
               )}
-            />
+            /> */}
 
             {/* <Cater onclick={() => navigation.navigate('Details')} />
             <Cater onclick={() => console.log('2')} /> */}

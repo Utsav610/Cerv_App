@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -11,8 +11,26 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import CustomButton from '../CustomeButton';
 import Color from '../../Constants/Color';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {useDispatch, useSelector} from 'react-redux';
+import {storeFormData} from '../../store/action/action';
 
 export default function EditCustomerInfo({navigation}) {
+  const dispatch = useDispatch();
+  const allData = useSelector(state => state.RegisterData);
+  const [catererName, setCatererName] = useState(allData.catererName);
+  const [email, setEmail] = useState(allData.email);
+  const [phoneNumber, setPhoneNumber] = useState(allData.phoneNumber);
+  const [homePostcode, setHomePostcode] = useState('');
+
+  const handleSubmit = () => {
+    const data = {
+      catererName,
+      email,
+      phoneNumber,
+    };
+    dispatch(storeFormData(data));
+    navigation.navigate('Personal information');
+  };
   return (
     <>
       <KeyboardAwareScrollView>
@@ -29,7 +47,14 @@ export default function EditCustomerInfo({navigation}) {
         <Text style={styles.label}>Caterer Name</Text>
         <View style={styles.inputContainer}>
           <FontAwesome5 name={'user'} size={20} color={Color.primaryColor} />
-          <TextInput placeholder="john" style={styles.input} />
+          <TextInput
+            placeholder="john"
+            style={styles.input}
+            value={catererName}
+            onChangeText={text => {
+              setCatererName(text);
+            }}
+          />
         </View>
 
         <Text style={styles.label}>Email</Text>
@@ -42,7 +67,11 @@ export default function EditCustomerInfo({navigation}) {
           <TextInput
             placeholder="john123@gmail.com"
             style={styles.input}
+            value={email}
             keyboardType="email-address"
+            onChangeText={text => {
+              setEmail(text);
+            }}
           />
         </View>
 
@@ -51,8 +80,11 @@ export default function EditCustomerInfo({navigation}) {
           <FontAwesome5 name={'phone'} size={20} color={Color.primaryColor} />
           <TextInput
             placeholder="123456789"
-            secureTextEntry
+            value={phoneNumber}
             style={styles.input}
+            onChangeText={text => {
+              setPhoneNumber(text);
+            }}
           />
         </View>
 
@@ -70,8 +102,12 @@ export default function EditCustomerInfo({navigation}) {
       <View style={styles.btnContainer}>
         <CustomButton
           title="Save"
+          // onPress={() => {
+          //   navigation.navigate('Personal information');
+          // }}
+
           onPress={() => {
-            navigation.navigate('Personal information');
+            handleSubmit();
           }}
         />
       </View>

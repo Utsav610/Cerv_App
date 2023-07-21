@@ -66,7 +66,7 @@ export default function CervNavigation() {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="Home"
+          name="Home Navigation"
           component={HomeNavigation}
           options={{headerShown: false}}
         />

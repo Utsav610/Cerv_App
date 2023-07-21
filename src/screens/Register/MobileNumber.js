@@ -7,14 +7,18 @@ import {
   ImageBackground,
   Image,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import CustomButton from '../../componets/CustomeButton';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Color from '../../Constants/Color';
 import Feather from 'react-native-vector-icons/Feather';
+import {storeMobile} from '../../store/action/action';
+import {useDispatch} from 'react-redux';
 
 export default function MobileNumber({navigation}) {
+  const dispatch = useDispatch();
+  const [number, setnumber] = useState('');
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -38,11 +42,15 @@ export default function MobileNumber({navigation}) {
               placeholder="1234567890"
               style={styles.input}
               keyboardType="numeric"
+              onChangeText={text => {
+                setnumber(text);
+              }}
             />
           </View>
           <CustomButton
             title="Send Code"
             onPress={() => {
+              dispatch(storeMobile(number));
               navigation.navigate('Otp Verify');
             }}
           />

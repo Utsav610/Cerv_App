@@ -10,9 +10,12 @@ export default function Splash({navigation}) {
     const checkLoginStatus = async () => {
       try {
         const isLoggedIn = await AsyncStorage.getItem('isLoggedIn');
+        const Role = await AsyncStorage.getItem('Role');
 
-        if (isLoggedIn === 'true') {
-          navigation.replace('Home');
+        if (isLoggedIn === 'true' && Role === 'Customer') {
+          navigation.replace('Home Navigation');
+        } else if (isLoggedIn === 'true' && Role === 'Caterer') {
+          navigation.replace('CatereLogin');
         } else {
           navigation.replace('role');
         }

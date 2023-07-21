@@ -3,6 +3,8 @@ import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Color from '../../../Constants/Color';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Feather from 'react-native-vector-icons/Feather';
 
 const Profile = ({navigation}) => {
   const handleLogout = async () => {
@@ -47,7 +49,7 @@ const Profile = ({navigation}) => {
         onPress={() => {
           navigation.navigate('Discount Codes');
         }}>
-        <FontAwesome5 name="tag" size={20} color={Color.primaryColor} />
+        <Icon name="brightness-percent" size={20} color={Color.primaryColor} />
         <Text style={styles.optionText}>Discount Codes</Text>
         <FontAwesome5 name="angle-right" size={20} color="#cccc" />
       </TouchableOpacity>
@@ -57,17 +59,13 @@ const Profile = ({navigation}) => {
         onPress={() => {
           navigation.navigate('Change Password');
         }}>
-        <FontAwesome5 name="lock" size={20} color={Color.primaryColor} />
+        <Feather name="lock" size={20} color={Color.primaryColor} />
         <Text style={styles.optionText}>Change Password</Text>
         <FontAwesome5 name="angle-right" size={20} color="#cccc" />
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.optionContainer} onPress={handleLogout}>
-        <FontAwesome5
-          name="sign-out-alt"
-          size={20}
-          color={Color.primaryColor}
-        />
+        <Feather name="log-out" size={20} color={Color.primaryColor} />
         <Text style={styles.optionText}>Log out</Text>
       </TouchableOpacity>
     </View>

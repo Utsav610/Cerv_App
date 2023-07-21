@@ -80,7 +80,12 @@ export default function OrderReceipt({navigation, route}) {
                 onPress={() => {
                   navigation.navigate('Saved Address');
                 }}>
-                <Text style={{color: Color.primaryColor, paddingVertical: 5}}>
+                <Text
+                  style={{
+                    color: Color.primaryColor,
+                    paddingVertical: 5,
+                    fontWeight: 'bold',
+                  }}>
                   CHANGE
                 </Text>
               </TouchableOpacity>
@@ -233,7 +238,10 @@ export default function OrderReceipt({navigation, route}) {
                     onPress={() => {
                       navigation.navigate('Payment Method');
                     }}>
-                    <Text style={{color: Color.primaryColor}}>CHANGE</Text>
+                    <Text
+                      style={{color: Color.primaryColor, fontWeight: 'bold'}}>
+                      CHANGE
+                    </Text>
                   </TouchableOpacity>
                 </View>
                 <View>
@@ -349,6 +357,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginVertical: 10,
     borderColor: '#ccc',
+    height: 80,
   },
   quantityContainer: {
     flexDirection: 'row',
@@ -389,35 +398,40 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     backgroundColor: '#fff',
-    padding: 30,
+    padding: 20,
     borderRadius: 8,
     // marginHorizontal: 10,
   },
   modalText: {
     fontSize: 18,
     fontWeight: '500',
-    marginBottom: 20,
+    // marginBottom: 20,
     // marginHorizontal:20,
     textAlign: 'center',
   },
   modalButton: {
-    backgroundColor: Color.primaryColor,
-    padding: 10,
+    // backgroundColor: Color.primaryColor,
+    // padding: 10,
+    marginTop: 10,
     borderRadius: 4,
     alignItems: 'center',
+    borderTopWidth: 1,
+    paddingTop: 15,
+    borderTopColor: Color.accentColor,
   },
   modalButtonText: {
-    color: '#fff',
+    // color: '#fff',
+    color: Color.primaryColor,
     fontSize: 16,
-    fontWeight: '500',
+    fontWeight: 'bold',
   },
   modalImageContainer: {
     alignItems: 'center',
     marginBottom: 20,
   },
   modalImage: {
-    width: 200,
-    height: 200,
+    width: 50,
+    height: 50,
     resizeMode: 'contain',
   },
   manage: {

@@ -12,9 +12,32 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {Picker} from '@react-native-picker/picker';
 import CustomButton from '../../componets/CustomeButton';
 import Color from '../../Constants/Color';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useDispatch} from 'react-redux';
+import {storeCatereData} from '../../store/action/action';
 
 export default function AddStoreDetails({navigation}) {
+  const dispatch = useDispatch();
+  const [businessInfo, setBusinessInfo] = useState({
+    licenseNumber: '',
+    // licensePhoto: '',
+    address: '',
+    bio: '',
+  });
+
+  const [driverInfo, setDriverInfo] = useState({
+    driverName: '',
+    driverLicenseNum: '',
+  });
+
+  // const [deliveryFee, setDeliveryFee] = useState('');
   const [selectedKm, setSelectedKm] = useState(5); // Default selected km
+  const [selectedFoodCategories, setSelectedFoodCategories] = useState([
+    'chinese',
+  ]);
+  const foodCategories = ['chinese', 'indian Thali', 'Italian', 'Korean'];
+  const [orderType, setOrderType] = useState('delivery');
+
   const fees = {
     5: 10,
     10: 15,
@@ -27,9 +50,51 @@ export default function AddStoreDetails({navigation}) {
     setSelectedKm(km);
   };
 
-  const [orderType, setOrderType] = useState('delivery');
   const handleOrderTypeChange = type => {
     setOrderType(type);
+  };
+
+  const handleInputChange = (field, value) => {
+    // Update the businessInfo state with the new value
+    setBusinessInfo(prevBusinessInfo => ({
+      ...prevBusinessInfo,
+      [field]: value,
+    }));
+  };
+
+  const handleDriverInputChange = (field, value) => {
+    // Update the DriverInfo state with the new value
+    setDriverInfo(prevBusinessInfo => ({
+      ...prevBusinessInfo,
+      [field]: value,
+    }));
+  };
+
+  const handleFoodCategoryChange = category => {
+    const isSelected = selectedFoodCategories.includes(category);
+    if (isSelected) {
+      setSelectedFoodCategories(
+        selectedFoodCategories.filter(item => item !== category),
+      );
+    } else {
+      setSelectedFoodCategories([...selectedFoodCategories, category]);
+    }
+  };
+
+  const handleSave = () => {
+    const allData = {
+      businessInfo,
+      orderType,
+      // deliveryFee,
+      selectedKm,
+      selectedFoodCategories,
+      driverInfo,
+      // Add other necessary data properties here for Driver Info
+    };
+
+    // Dispatch the action to store all data in the Redux store
+    dispatch(storeCatereData(allData));
+    // console.log(allData);
   };
 
   return (
@@ -41,7 +106,12 @@ export default function AddStoreDetails({navigation}) {
           </View>
           <View>
             <Text style={styles.label}>Business License Number</Text>
-            <TextInput style={styles.textInput} />
+            <TextInput
+              style={styles.textInput}
+              placeholder="License Number"
+              value={businessInfo.licenseNumber}
+              onChangeText={text => handleInputChange('licenseNumber', text)}
+            />
             <View>
               <Text>Business License Photo</Text>
               <Image
@@ -50,9 +120,20 @@ export default function AddStoreDetails({navigation}) {
               />
             </View>
             <Text style={styles.label}>Addres</Text>
-            <TextInput style={styles.textInput} />
+            <TextInput
+              style={styles.textInput}
+              placeholder="Address"
+              value={businessInfo.address}
+              onChangeText={text => handleInputChange('address', text)}
+            />
+
             <Text style={styles.label}>Bio</Text>
-            <TextInput style={styles.textInput} />
+            <TextInput
+              style={styles.textInput}
+              placeholder="Bio"
+              value={businessInfo.bio}
+              onChangeText={text => handleInputChange('bio', text)}
+            />
           </View>
           <View style={styles.textContainer}>
             <Text style={styles.headerText}>Order Type</Text>
@@ -64,7 +145,11 @@ export default function AddStoreDetails({navigation}) {
                 ]}
                 onPress={() => handleOrderTypeChange('delivery')}>
                 {orderType === 'delivery' ? (
-                  <FontAwesome5 name="check-circle" size={20} />
+                  <Icon
+                    name="circle-slice-8"
+                    size={20}
+                    color={Color.primaryColor}
+                  />
                 ) : (
                   <FontAwesome5 name="circle" size={20} />
                 )}
@@ -77,7 +162,11 @@ export default function AddStoreDetails({navigation}) {
                 ]}
                 onPress={() => handleOrderTypeChange('pickup')}>
                 {orderType === 'pickup' ? (
-                  <FontAwesome5 name="check-circle" size={20} />
+                  <Icon
+                    name="circle-slice-8"
+                    size={20}
+                    color={Color.primaryColor}
+                  />
                 ) : (
                   <FontAwesome5 name="circle" size={20} />
                 )}
@@ -86,11 +175,15 @@ export default function AddStoreDetails({navigation}) {
               <TouchableOpacity
                 style={[
                   styles.radioButton,
-                  orderType === 'pickup' && styles.radioButtonSelected,
+                  orderType === 'both' && styles.radioButtonSelected,
                 ]}
-                onPress={() => handleOrderTypeChange('pickup')}>
-                {orderType === 'pickup' ? (
-                  <FontAwesome5 name="check-circle" size={20} />
+                onPress={() => handleOrderTypeChange('both')}>
+                {orderType === 'both' ? (
+                  <Icon
+                    name="circle-slice-8"
+                    size={20}
+                    color={Color.primaryColor}
+                  />
                 ) : (
                   <FontAwesome5 name="circle" size={20} />
                 )}
@@ -118,15 +211,48 @@ export default function AddStoreDetails({navigation}) {
           </View>
           <View>
             <Text style={styles.headerText}>Food Category</Text>
+            <View style={[styles.textContainer]}>
+              <Text style={{color: '#000', fontFamily: 'bold'}}>
+                {selectedFoodCategories}
+              </Text>
+            </View>
+            {foodCategories.map(category => (
+              <View key={category} style={styles.checkboxContainer}>
+                <TouchableOpacity
+                  style={styles.checkbox}
+                  onPress={() => handleFoodCategoryChange(category)}>
+                  {selectedFoodCategories.includes(category) && (
+                    <FontAwesome5
+                      name="check"
+                      size={18}
+                      color={Color.primaryColor}
+                    />
+                  )}
+                </TouchableOpacity>
+                <Text>{category}</Text>
+              </View>
+            ))}
           </View>
           <View>
             <View>
               <Text style={styles.headerText}>Driver Info</Text>
             </View>
             <Text>Driver Name</Text>
-            <TextInput style={styles.textInput} />
+            <TextInput
+              style={styles.textInput}
+              placeholder="JOHN"
+              value={driverInfo.driverName}
+              onChangeText={text => handleDriverInputChange('driverName', text)}
+            />
             <Text>Driver License Number</Text>
-            <TextInput style={styles.textInput} />
+            <TextInput
+              style={styles.textInput}
+              placeholder="License Number"
+              value={driverInfo.driverLicenseNum}
+              onChangeText={text =>
+                handleDriverInputChange('driverLicenseNum', text)
+              }
+            />
             <Text>Driver License Photo</Text>
             <Image
               source={require('../../assest/Driver_license.jpeg')}
@@ -137,7 +263,7 @@ export default function AddStoreDetails({navigation}) {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            navigation.navigate('Login');
+            handleSave(), navigation.navigate('Login');
           }}>
           <Text style={styles.buttonText}>Save</Text>
         </TouchableOpacity>
@@ -176,8 +302,9 @@ const styles = StyleSheet.create({
   },
   radioButtonsContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    marginVertical: 15,
+    // justifyContent: 'space-evenly',
+    marginVertical: 10,
+    gap: 50,
   },
   radioButton: {
     flexDirection: 'row',
@@ -185,6 +312,8 @@ const styles = StyleSheet.create({
   },
   radioButtonText: {
     marginLeft: 5,
+    color: '#000',
+    fontWeight: '500',
   },
   input: {
     width: '100%',
@@ -194,7 +323,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginVertical: 10,
     paddingHorizontal: 10,
-    backgroundColor: 'white',
+    borderColor: Color.accentColor,
+    // backgroundColor: 'white',
   },
   text2: {
     fontSize: 16,
@@ -210,5 +340,20 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 20,
     color: 'white',
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 5,
+    // elevation: 10,
+  },
+  checkbox: {
+    width: 20,
+    height: 20,
+    borderWidth: 1,
+    borderRadius: 3,
+    marginRight: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

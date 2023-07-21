@@ -80,7 +80,7 @@ const EditProductDetails = ({navigation}) => {
             <View style={[styles.quantityContainer, {width: '50%'}]}>
               <TouchableOpacity>
                 <Text style={[styles.quantityButton]}>
-                  <Icon name="minus" size={20} color={'red'} />
+                  <Icon name="minus" size={20} color={Color.primaryColor} />
                 </Text>
               </TouchableOpacity>
               <Text style={styles.boldtext}>120</Text>
@@ -120,7 +120,7 @@ const EditProductDetails = ({navigation}) => {
             <View style={[styles.quantityContainer, {width: '50%'}]}>
               <TouchableOpacity>
                 <Text style={[styles.quantityButton]}>
-                  <Icon name="minus" size={20} color={'red'} />
+                  <Icon name="minus" size={20} color={Color.primaryColor} />
                 </Text>
               </TouchableOpacity>
               <Text style={styles.boldtext}>120</Text>
@@ -144,7 +144,7 @@ const EditProductDetails = ({navigation}) => {
             <View style={[styles.quantityContainer, {width: '50%'}]}>
               <TouchableOpacity>
                 <Text style={[styles.quantityButton]}>
-                  <Icon name="minus" size={20} color={'red'} />
+                  <Icon name="minus" size={20} color={Color.primaryColor} />
                 </Text>
               </TouchableOpacity>
               <Text style={styles.boldtext}>120</Text>

@@ -28,29 +28,66 @@ export default function Payment_method({navigation}) {
   return (
     <>
       <View style={styles.Container}>
-        <View style={styles.cardcontainer}>
-          <View style={styles.textContainer}>
-            <Text style={styles.text}>Saved Cards</Text>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('Add New Card');
-              }}>
-              <Text style={[styles.text, {color: '#F5694E'}]}>ADD CARD</Text>
-            </TouchableOpacity>
+        <View>
+          <View style={styles.cardcontainer}>
+            <View style={styles.textContainer}>
+              <Text style={styles.text}>Saved Cards</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('Add New Card');
+                }}>
+                <Text style={[styles.text, {color: '#F5694E'}]}>ADD CARD</Text>
+              </TouchableOpacity>
+            </View>
+            <View>
+              <TouchableOpacity
+                style={[
+                  styles.card,
+                  selectedCard === 'Card1' && styles.selectedCard,
+                ]}
+                onPress={() => handleCardSelect('Card1')}>
+                <Text>Card1</Text>
+                <TouchableOpacity style={styles.cameraIconContainer}>
+                  <Icon
+                    name={'check-circle'}
+                    size={25}
+                    color={selectedCard === 'Card1' ? 'green' : '#ccc'}
+                  />
+                </TouchableOpacity>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={[
+                  styles.card,
+                  selectedCard === 'Card2' && styles.selectedCard,
+                ]}
+                onPress={() => handleCardSelect('Card2')}>
+                <Text>Card2</Text>
+                <TouchableOpacity style={styles.cameraIconContainer}>
+                  <Icon
+                    name={'check-circle'}
+                    size={25}
+                    color={selectedCard === 'Card2' ? 'green' : '#ccc'}
+                  />
+                </TouchableOpacity>
+              </TouchableOpacity>
+            </View>
           </View>
-          <View>
+          <View style={styles.payContainer}>
+            <Text>Other Payment Method</Text>
+
             <TouchableOpacity
               style={[
                 styles.card,
-                selectedCard === 'Card1' && styles.selectedCard,
+                selectedPayment === 'Pay1' && styles.selectedCard,
               ]}
-              onPress={() => handleCardSelect('Card1')}>
-              <Text>Card1</Text>
+              onPress={() => handlePaymentSelect('Pay1')}>
+              <Text>Pay1</Text>
               <TouchableOpacity style={styles.cameraIconContainer}>
                 <Icon
                   name={'check-circle'}
                   size={25}
-                  color={selectedCard === 'Card1' ? 'green' : '#ccc'}
+                  color={selectedPayment === 'Pay1' ? 'green' : '#ccc'}
                 />
               </TouchableOpacity>
             </TouchableOpacity>
@@ -58,54 +95,19 @@ export default function Payment_method({navigation}) {
             <TouchableOpacity
               style={[
                 styles.card,
-                selectedCard === 'Card2' && styles.selectedCard,
+                selectedPayment === 'Pay2' && styles.selectedCard,
               ]}
-              onPress={() => handleCardSelect('Card2')}>
-              <Text>Card2</Text>
+              onPress={() => handlePaymentSelect('Pay2')}>
+              <Text>Pay2</Text>
               <TouchableOpacity style={styles.cameraIconContainer}>
                 <Icon
                   name={'check-circle'}
                   size={25}
-                  color={selectedCard === 'Card2' ? 'green' : '#ccc'}
+                  color={selectedPayment === 'Pay2' ? 'green' : '#ccc'}
                 />
               </TouchableOpacity>
             </TouchableOpacity>
           </View>
-        </View>
-        <View style={styles.payContainer}>
-          <Text>Other Payment Method</Text>
-
-          <TouchableOpacity
-            style={[
-              styles.card,
-              selectedPayment === 'Pay1' && styles.selectedCard,
-            ]}
-            onPress={() => handlePaymentSelect('Pay1')}>
-            <Text>Pay1</Text>
-            <TouchableOpacity style={styles.cameraIconContainer}>
-              <Icon
-                name={'check-circle'}
-                size={25}
-                color={selectedPayment === 'Pay1' ? 'green' : '#ccc'}
-              />
-            </TouchableOpacity>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[
-              styles.card,
-              selectedPayment === 'Pay2' && styles.selectedCard,
-            ]}
-            onPress={() => handlePaymentSelect('Pay2')}>
-            <Text>Pay2</Text>
-            <TouchableOpacity style={styles.cameraIconContainer}>
-              <Icon
-                name={'check-circle'}
-                size={25}
-                color={selectedPayment === 'Pay2' ? 'green' : '#ccc'}
-              />
-            </TouchableOpacity>
-          </TouchableOpacity>
         </View>
 
         <CustomButton
@@ -128,6 +130,7 @@ const styles = StyleSheet.create({
   Container: {
     flex: 1,
     padding: 25,
+    justifyContent: 'space-between',
   },
   textContainer: {
     flexDirection: 'row',

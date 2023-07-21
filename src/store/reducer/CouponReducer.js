@@ -20,10 +20,8 @@ const couponReducer = (state = initialState, action) => {
       const updatedCoupons = state.filter(
         coupon => coupon.couponCode !== action.payload,
       );
-      return {
-        ...state,
-        coupons: updatedCoupons,
-      };
+      console.log('update', updatedCoupons);
+      return updatedCoupons;
     default:
       return state;
   }

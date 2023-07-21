@@ -12,8 +12,11 @@ import CustomButton from '../CustomeButton';
 import Color from '../../Constants/Color';
 import Feather from 'react-native-vector-icons/Feather';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {useSelector} from 'react-redux';
 
 export default function CustomerPersonalInfo({navigation}) {
+  const allData = useSelector(state => state.RegisterData);
+  console.log(allData);
   return (
     <>
       <KeyboardAwareScrollView>
@@ -30,7 +33,9 @@ export default function CustomerPersonalInfo({navigation}) {
         <Text style={styles.label}>Caterer Name</Text>
         <View style={styles.inputContainer}>
           <FontAwesome5 name={'user'} size={20} color={Color.primaryColor} />
-          <TextInput placeholder="john" style={styles.input} />
+          <View style={styles.input}>
+            <Text style={styles.text}>{allData.catererName}</Text>
+          </View>
         </View>
 
         <Text style={styles.label}>Email</Text>
@@ -40,21 +45,22 @@ export default function CustomerPersonalInfo({navigation}) {
             size={20}
             color={Color.primaryColor}
           />
-          <TextInput
-            placeholder="john123@gmail.com"
-            style={styles.input}
-            keyboardType="email-address"
-          />
+          <View style={styles.input}>
+            <Text style={styles.text}>{allData.email}</Text>
+          </View>
         </View>
 
         <Text style={styles.label}>Phone Number</Text>
         <View style={styles.inputContainer}>
           <Feather name={'phone'} size={20} color={Color.primaryColor} />
-          <TextInput
+          {/* <TextInput
             placeholder="123456789"
-            secureTextEntry
             style={styles.input}
-          />
+            value={allData.phoneNumber}
+          /> */}
+          <View style={styles.input}>
+            <Text style={styles.text}>{allData.phoneNumber}</Text>
+          </View>
         </View>
 
         <Text style={styles.label}> Home Postcode</Text>
@@ -64,6 +70,7 @@ export default function CustomerPersonalInfo({navigation}) {
             placeholder="123456"
             secureTextEntry
             style={styles.input}
+            // value={allData.catererName}
           />
         </View>
         <View style={styles.btnContainer}>
@@ -94,7 +101,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   input: {
-    flex: 1,
+    paddingVertical: 10,
     marginLeft: 10,
   },
   imageContainer: {
@@ -117,5 +124,8 @@ const styles = StyleSheet.create({
     backgroundColor: Color.primaryColor,
     padding: 5,
     borderRadius: 15,
+  },
+  text: {
+    color: Color.blackColor,
   },
 });

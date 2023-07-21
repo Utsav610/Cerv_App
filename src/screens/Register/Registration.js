@@ -14,13 +14,68 @@ import CustomButton from '../../componets/CustomeButton';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Color from '../../Constants/Color';
 import ImagePicker from 'react-native-image-picker';
+import {useDispatch} from 'react-redux';
+import {storeFormData} from '../../store/action/action';
 
 export default function Registration({navigation}) {
+  const dispatch = useDispatch();
+
   const [isChecked, setIsChecked] = useState(false);
   const [imageUri, setImageUri] = useState(null);
 
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [CurrentpasswordVisible, setCurrentpasswordVisible] = useState(false);
+
+  const [catererName, setCatererName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const validateForm = () => {
+    // Check if the caterer name is not empty
+    if (catererName.trim() === '') {
+      alert('Please enter a valid caterer name.');
+      return false;
+    }
+
+    // Check if the email is in a valid format
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      alert('Please enter a valid email address.');
+      return false;
+    }
+
+    // Check if the password is at least 6 characters long
+    if (password.length < 6) {
+      alert('Password must be at least 6 characters long.');
+      return false;
+    }
+
+    // Check if the confirm password matches the password
+    if (password !== confirmPassword) {
+      alert('Passwords do not match.');
+      return false;
+    }
+
+    // All validations passed, form is valid
+    return true;
+  };
+
+  const handleSubmit = () => {
+    if (validateForm()) {
+      const allData = {
+        catererName,
+        email,
+        password,
+        confirmPassword,
+        // Add other necessary data properties here for Driver Info
+      };
+
+      // Dispatch the action to store all data in the Redux store
+      dispatch(storeFormData(allData));
+      navigation.navigate('Phone Number');
+    }
+  };
 
   const toggleCheckbox = () => {
     setIsChecked(!isChecked);
@@ -43,6 +98,7 @@ export default function Registration({navigation}) {
         },
       },
       response => {
+        console.log(response);
         if (response.didCancel) {
           console.log('User cancelled image picker');
         } else if (response.error) {
@@ -93,7 +149,12 @@ export default function Registration({navigation}) {
                 size={20}
                 color={Color.primaryColor}
               />
-              <TextInput placeholder="john" style={styles.input} />
+              <TextInput
+                placeholder="john"
+                style={styles.input}
+                value={catererName}
+                onChangeText={setCatererName}
+              />
             </View>
 
             <Text>Email</Text>
@@ -103,7 +164,12 @@ export default function Registration({navigation}) {
                 size={20}
                 color={Color.primaryColor}
               />
-              <TextInput placeholder="john123@gmail.com" style={styles.input} />
+              <TextInput
+                placeholder="john123@gmail.com"
+                style={styles.input}
+                value={email}
+                onChangeText={setEmail}
+              />
             </View>
 
             <Text>Password</Text>
@@ -117,6 +183,8 @@ export default function Registration({navigation}) {
                 placeholder="Password"
                 secureTextEntry={passwordVisible}
                 style={styles.input}
+                value={password}
+                onChangeText={setPassword}
               />
               <TouchableOpacity
                 onPress={togglePasswordVisibility}
@@ -141,6 +209,8 @@ export default function Registration({navigation}) {
                 placeholder="Password"
                 secureTextEntry={CurrentpasswordVisible}
                 style={styles.input}
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
               />
               <TouchableOpacity
                 onPress={toggleCurrentPasswordVisibility}
@@ -173,7 +243,7 @@ export default function Registration({navigation}) {
           <CustomButton
             title="Next"
             onPress={() => {
-              navigation.navigate('Phone Number');
+              handleSubmit();
             }}
           />
         </View>

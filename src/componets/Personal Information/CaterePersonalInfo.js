@@ -13,8 +13,18 @@ import CustomButton from '../CustomeButton';
 import Color from '../../Constants/Color';
 import {Picker} from '@react-native-picker/picker';
 import Feather from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useSelector} from 'react-redux';
 
 export default function CaterePersonalInfo({navigation}) {
+  const allData = useSelector(state => state.catereData);
+  const registerData = useSelector(state => state.RegisterData);
+
+  // Access individual data properties like this:
+  const businessInfo = allData.businessInfo;
+  const orderType = allData.orderType;
+  const driverInfo = allData.driverInfo;
+
   const [selectedKm, setSelectedKm] = useState(5); // Default selected km
   const fees = {
     5: 10,
@@ -44,7 +54,9 @@ export default function CaterePersonalInfo({navigation}) {
         <Text style={styles.label}>Caterer Name</Text>
         <View style={styles.inputContainer}>
           <FontAwesome5 name={'user'} size={20} color={Color.primaryColor} />
-          <TextInput placeholder="john" style={styles.input} />
+          <View style={styles.input}>
+            <Text style={styles.text}>{registerData.catererName}</Text>
+          </View>
         </View>
 
         <Text style={styles.label}>Email</Text>
@@ -54,25 +66,21 @@ export default function CaterePersonalInfo({navigation}) {
             size={20}
             color={Color.primaryColor}
           />
-          <TextInput
-            placeholder="john123@gmail.com"
-            style={styles.input}
-            keyboardType="email-address"
-          />
+          <View style={styles.input}>
+            <Text style={styles.text}>{registerData.email}</Text>
+          </View>
         </View>
 
         <Text style={styles.label}>Phone Number</Text>
         <View style={styles.inputContainer}>
           <Feather name={'phone'} size={20} color={Color.primaryColor} />
-          <TextInput
-            placeholder="123456789"
-            secureTextEntry
-            style={styles.input}
-          />
+          <View style={styles.input}>
+            <Text style={styles.text}>{registerData.phoneNumber}</Text>
+          </View>
         </View>
         <View>
           <Text style={styles.headerText}>OrderType</Text>
-          <Text style={styles.headerText}>Delivery</Text>
+          <Text style={styles.headerText}>{orderType}</Text>
         </View>
         <View>
           <Text>Distance and fee</Text>
@@ -91,7 +99,10 @@ export default function CaterePersonalInfo({navigation}) {
         </View>
         <View>
           <Text style={styles.label}>Business License Number</Text>
-          <TextInput style={styles.textInput} />
+          <TextInput
+            style={styles.textInput}
+            value={businessInfo.licenseNumber}
+          />
           <View>
             <Text>Business License Photo</Text>
             <Image
@@ -100,18 +111,21 @@ export default function CaterePersonalInfo({navigation}) {
             />
           </View>
           <Text style={styles.label}>Addres</Text>
-          <TextInput style={styles.textInput} />
+          <TextInput style={styles.textInput} value={businessInfo.address} />
           <Text style={styles.label}>Bio</Text>
-          <TextInput style={styles.textInput} />
+          <TextInput style={styles.textInput} value={businessInfo.bio} />
         </View>
         <View>
           <View>
             <Text style={styles.headerText}>Driver Info</Text>
           </View>
           <Text>Driver Name</Text>
-          <TextInput style={styles.textInput} />
+          <TextInput style={styles.textInput} value={driverInfo.driverName} />
           <Text>Driver License Number</Text>
-          <TextInput style={styles.textInput} />
+          <TextInput
+            style={styles.textInput}
+            value={driverInfo.driverLicenseNum}
+          />
           <Text>Driver License Photo</Text>
           <Image
             source={require('../../assest/Driver_license.jpeg')}
@@ -146,7 +160,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   input: {
-    flex: 1,
+    paddingVertical: 10,
     marginLeft: 10,
   },
   imageContainer: {

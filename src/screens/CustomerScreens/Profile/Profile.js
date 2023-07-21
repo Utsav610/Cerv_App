@@ -68,17 +68,13 @@ const Profile = ({navigation}) => {
         onPress={() => {
           navigation.navigate('Change Password');
         }}>
-        <FontAwesome5 name="lock" size={20} color={Color.primaryColor} />
+        <Feather name="lock" size={20} color={Color.primaryColor} />
         <Text style={styles.optionText}>Change Password</Text>
         <FontAwesome5 name="angle-right" size={20} color="#cccc" />
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.optionContainer} onPress={handleLogout}>
-        <FontAwesome5
-          name="sign-out-alt"
-          size={20}
-          color={Color.primaryColor}
-        />
+        <Feather name="log-out" size={20} color={Color.primaryColor} />
         <Text style={styles.optionText}>Log out</Text>
       </TouchableOpacity>
     </View>

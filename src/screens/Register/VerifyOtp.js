@@ -28,17 +28,18 @@ export default function OTPScreen({navigation}) {
               numberOfInputs={4}
               keyboardType="numeric"
             />
-
-            <View style={styles.otpContainer}>
-              <Text>
-                Didn't Get Code?
+            <View style={[styles.otpContainer, {flexDirection: 'row'}]}>
+              <View>
+                <Text>Did not get Code ?</Text>
+              </View>
+              <View>
                 <TouchableOpacity
                   onPress={() => {
                     navigation.navigate('Phone Number');
                   }}>
                   <Text style={styles.text}>Resend Code</Text>
                 </TouchableOpacity>
-              </Text>
+              </View>
             </View>
 
             <CustomButton
@@ -98,10 +99,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center', // Add this line
     marginBottom: 20,
-    marginTop: 10,
+    // marginTop: 10,
   },
   text: {
     color: Color.primaryColor,
-    // paddingTop: 10,
+    marginLeft: 5,
+    fontWeight: 'bold',
+    // paddingTop: 10,f
   },
 });

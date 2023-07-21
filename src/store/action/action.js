@@ -7,6 +7,9 @@ export const SET_ORDER_TYPE = 'SET_ORDER_TYPE';
 export const SET_CARD = 'SET_CARD';
 export const STORE_COUPON_DATA = 'STORE_COUPON_DATA';
 export const DELETE_COUPON = 'DELETE_COUPON';
+export const STORE_CATERE_DATA = 'STORE_CATERE_DATA';
+export const STORE_FORM_DATA = 'STORE_FORM_DATA';
+export const SET_MOBILE_NUMBER = 'SET_MOBILE_NUMBER';
 
 export const updateRole = role => {
   // console.log('role' + role);
@@ -72,3 +75,20 @@ export const deleteCoupon = couponCode => {
     payload: couponCode,
   };
 };
+
+// actions.js
+
+export const storeCatereData = data => ({
+  type: STORE_CATERE_DATA,
+  payload: data,
+});
+
+export const storeFormData = formData => ({
+  type: STORE_FORM_DATA,
+  payload: formData,
+});
+
+export const storeMobile = number => ({
+  type: SET_MOBILE_NUMBER,
+  payload: number,
+});

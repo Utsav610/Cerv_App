@@ -238,11 +238,12 @@ export default function Login({navigation, route}) {
     ) {
       try {
         await AsyncStorage.setItem('isLoggedIn', 'true');
+        await AsyncStorage.setItem('Role', Role);
       } catch (error) {
         console.log('Error storing data:', error);
       }
 
-      navigation.navigate('Home');
+      navigation.navigate('Home Navigation');
     } else if (
       Role === 'Caterer' &&
       validateEmail(email) &&
@@ -250,6 +251,7 @@ export default function Login({navigation, route}) {
     ) {
       try {
         await AsyncStorage.setItem('isLoggedIn', 'true');
+        await AsyncStorage.setItem('Role', Role);
       } catch (error) {
         console.log('Error storing data:', error);
       }

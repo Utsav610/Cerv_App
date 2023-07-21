@@ -1,10 +1,18 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Modal} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Modal,
+  ScrollView,
+} from 'react-native';
 import Color from '../../../../Constants/Color';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Feather from 'react-native-vector-icons/Feather';
 import {useDispatch, useSelector} from 'react-redux';
 import {deleteCoupon} from '../../../../store/action/action';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const DiscountCodes = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -26,28 +34,30 @@ const DiscountCodes = ({navigation}) => {
 
   const DeleteHandler = couponCode => {
     console.log(couponCode);
-    // dispatch(deleteCoupon(couponCode));
+    dispatch(deleteCoupon(couponCode));
     closeModal();
   };
 
   return (
     <View style={styles.container}>
-      {coupons.map((coupon, index) => (
-        <React.Fragment key={index}>
-          <View style={styles.codeContainer}>
-            <TouchableOpacity
-              style={styles.dotsContainer}
-              onPress={() => {
-                setSelectedCoupon(coupon);
-                openModal();
-              }}>
-              <Feather name={'more-vertical'} size={25} color={'#ffff'} />
-            </TouchableOpacity>
-            <Text style={styles.discount}>{coupon.title}</Text>
-            <Text style={styles.code}>{coupon.couponCode}</Text>
-          </View>
-        </React.Fragment>
-      ))}
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        {coupons.map((coupon, index) => (
+          <React.Fragment key={index}>
+            <View style={styles.codeContainer}>
+              <TouchableOpacity
+                style={styles.dotsContainer}
+                onPress={() => {
+                  setSelectedCoupon(coupon);
+                  openModal();
+                }}>
+                <Feather name={'more-vertical'} size={25} color={'#ffff'} />
+              </TouchableOpacity>
+              <Text style={styles.discount}>{coupon.title}</Text>
+              <Text style={styles.code}>{coupon.couponCode}</Text>
+            </View>
+          </React.Fragment>
+        ))}
+      </ScrollView>
 
       <Modal visible={modalVisible} animationType="slide" transparent={true}>
         <View style={styles.modalContainer}>
@@ -81,7 +91,7 @@ const DiscountCodes = ({navigation}) => {
         onPress={() => {
           navigation.navigate('Create Discount Codes');
         }}>
-        <FontAwesome5 name={'plus-circle'} size={20} color={'#ffffff'} />
+        <Icon name={'plus'} size={40} color={'#ffffff'} />
       </TouchableOpacity>
     </View>
   );
@@ -91,7 +101,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    alignItems: 'center',
+    // alignItems: 'center',
   },
   codeContainer: {
     width: '100%',
@@ -166,6 +176,9 @@ const styles = StyleSheet.create({
     bottom: 20,
     right: 20,
     elevation: 5,
+  },
+  scrollViewContent: {
+    // width: 500,
   },
 });
 

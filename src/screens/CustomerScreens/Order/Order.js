@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   },
   orderContainer: {
     width: '100%',
-    marginHorizontal: 10,
+    // marginHorizontal: 10,
     flexDirection: 'row',
     borderWidth: 1,
     marginBottom: 10,
