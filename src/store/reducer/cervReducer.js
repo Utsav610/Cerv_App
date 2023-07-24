@@ -3,6 +3,8 @@ import {
   UPDATE_CATEGORY_TITLE,
   DELETE_CATEGORY,
   ADD_CATEGORY,
+  DELETE_SUBCATEGORY_ITEM,
+  ADD_SUBCATEGORY,
 } from '../action/action';
 const initialState = {
   cervData: [],
@@ -42,6 +44,56 @@ const cervReducer = (state = initialState, action) => {
       return {
         ...state,
         cervData: [...state.cervData, action.payload],
+      };
+    case DELETE_SUBCATEGORY_ITEM:
+      updatedCervData = state.cervData.map(category => {
+        if (category.name === action.payload.categoryName) {
+          const updatedSubcategories = category.subcategories.map(
+            subcategory => {
+              if (subcategory.name === action.payload.subcategoryName) {
+                const updatedItems = subcategory.items.filter(
+                  item => item.name !== action.payload.itemName,
+                );
+                return {
+                  ...subcategory,
+                  items: updatedItems,
+                };
+              }
+              return subcategory;
+            },
+          );
+
+          return {
+            ...category,
+            subcategories: updatedSubcategories,
+          };
+        }
+        return category;
+      });
+
+      return {
+        ...state,
+        cervData: updatedCervData,
+      };
+    case ADD_SUBCATEGORY:
+      const newSubcategory = {
+        name: action.payload.subcategoryName,
+        items: [], // You can initialize an empty array for the new subcategory items here
+      };
+
+      updatedCervData = state.cervData.map(category => {
+        if (category.name === action.payload.title) {
+          return {
+            ...category,
+            subcategories: [...category.subcategories, newSubcategory],
+          };
+        }
+        return category;
+      });
+
+      return {
+        ...state,
+        cervData: updatedCervData,
       };
     default:
       return state;

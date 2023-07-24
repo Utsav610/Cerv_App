@@ -14,6 +14,8 @@ export const LOAD_CERV_DATA = 'LOAD_CERV_DATA';
 export const UPDATE_CATEGORY_TITLE = 'UPDATE_CATEGORY_TITLE';
 export const DELETE_CATEGORY = 'DELETE_CATEGORY';
 export const ADD_CATEGORY = 'ADD_CATEGORY';
+export const DELETE_SUBCATEGORY_ITEM = 'DELETE_SUBCATEGORY_ITEM';
+export const ADD_SUBCATEGORY = 'ADD_SUBCATEGORY';
 
 export const updateRole = role => {
   // console.log('role' + role);
@@ -116,4 +118,14 @@ export const deleteCategory = categoryName => ({
 export const addCategory = categoryData => ({
   type: ADD_CATEGORY,
   payload: categoryData,
+});
+
+export const deleteSubCategory = (categoryName, subcategoryName, itemName) => ({
+  type: DELETE_SUBCATEGORY_ITEM,
+  payload: {categoryName, subcategoryName, itemName},
+});
+
+export const addSubcategory = (subcategoryName, title) => ({
+  type: ADD_SUBCATEGORY,
+  payload: {subcategoryName, title},
 });

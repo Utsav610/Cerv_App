@@ -15,12 +15,15 @@ import Color from '../../../Constants/Color';
 import Feather from 'react-native-vector-icons/Feather';
 // import Cerv_Data from '../../../data/Cerv_Data';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {addSubcategory} from '../../../store/action/action';
 
 export default function MealDetails({navigation, route}) {
   const {title} = route.params;
   const [modalVisible, setModalVisible] = useState(false);
   const [textInputValue, setTextInputValue] = useState('');
+
+  const dispatch = useDispatch();
 
   const openModal = () => {
     setModalVisible(true);
@@ -33,8 +36,10 @@ export default function MealDetails({navigation, route}) {
 
   const handleConfirm = () => {
     // Handle the confirmed action here
-    console.log('Confirmed:', textInputValue);
+    dispatch(addSubcategory(textInputValue, title));
+    // console.log('Confirmed:', textInputValue, title);
     closeModal();
+    setTextInputValue('');
   };
 
   const handleCancel = () => {
