@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   buttonContainer: {
-    width: '45%',
+    width: '48%',
     padding: 10,
     backgroundColor: '#4CD964',
     borderRadius: 5,

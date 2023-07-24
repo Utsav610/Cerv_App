@@ -11,22 +11,22 @@ export default function CurrentOrder({navigation}) {
         }}>
         <View style={styles.header}>
           <Image
-            source={require('../../../assest/catere.jpeg')}
+            source={require('../../../assest/profile_Icon.png')}
             style={styles.image}
           />
           <View>
-            <Text style={styles.caterTitle}>St John & St Thomas Catering</Text>
-            <Text>Address</Text>
+            <Text style={styles.caterTitle}>Yohana Yusuf</Text>
+            <Text>3200 Williams Street,Nathan Road MA</Text>
             <Text>22/11/2020</Text>
           </View>
         </View>
         <View style={styles.ItemContainer}>
           <View style={styles.ItemContent}>
-            <Text style={styles.itemText}>Item1</Text>
+            <Text style={styles.itemText}>House Noodle</Text>
             <Text>$271.80</Text>
           </View>
           <View style={styles.ItemContent}>
-            <Text style={styles.itemText}>Item1</Text>
+            <Text style={styles.itemText}>Fried Rice</Text>
             <Text>$271.80</Text>
           </View>
         </View>
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   buttonContainer: {
-    width: '45%',
+    width: '48%',
     padding: 10,
     backgroundColor: '#4CD964',
     borderRadius: 5,
@@ -94,5 +94,10 @@ const styles = StyleSheet.create({
   },
   rejectButton: {
     backgroundColor: '#FF0000',
+  },
+  ItemContainer: {
+    borderBottomWidth: 1,
+    paddingVertical: 10,
+    borderBottomColor: Color.accentColor,
   },
 });

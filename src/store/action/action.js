@@ -10,6 +10,10 @@ export const DELETE_COUPON = 'DELETE_COUPON';
 export const STORE_CATERE_DATA = 'STORE_CATERE_DATA';
 export const STORE_FORM_DATA = 'STORE_FORM_DATA';
 export const SET_MOBILE_NUMBER = 'SET_MOBILE_NUMBER';
+export const LOAD_CERV_DATA = 'LOAD_CERV_DATA';
+export const UPDATE_CATEGORY_TITLE = 'UPDATE_CATEGORY_TITLE';
+export const DELETE_CATEGORY = 'DELETE_CATEGORY';
+export const ADD_CATEGORY = 'ADD_CATEGORY';
 
 export const updateRole = role => {
   // console.log('role' + role);
@@ -91,4 +95,25 @@ export const storeFormData = formData => ({
 export const storeMobile = number => ({
   type: SET_MOBILE_NUMBER,
   payload: number,
+});
+
+export const setcervData = data => ({
+  type: LOAD_CERV_DATA,
+  payload: data,
+});
+
+// cervActions.js
+export const updateCategoryTitle = (categoryName, newTitle) => ({
+  type: UPDATE_CATEGORY_TITLE,
+  payload: {categoryName, newTitle},
+});
+
+export const deleteCategory = categoryName => ({
+  type: DELETE_CATEGORY,
+  payload: categoryName,
+});
+
+export const addCategory = categoryData => ({
+  type: ADD_CATEGORY,
+  payload: categoryData,
 });

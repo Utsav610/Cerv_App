@@ -71,7 +71,7 @@ export default function Invoice({navigation}) {
         <View style={styles.itemContainer}>
           <View style={styles.itemContent}>
             <Text style={styles.itemText}>Tax</Text>
-            <Text style={styles.itemText}>-$5.10</Text>
+            <Text style={styles.itemText}>$5.10</Text>
           </View>
         </View>
         <View style={styles.itemContainer}>

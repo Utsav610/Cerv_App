@@ -224,6 +224,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Login({navigation, route}) {
   const Role = useSelector(state => state.user.role);
+  const login = useSelector(state => state.RegisterData);
+
+  const useremail = login.catererName;
+  const userpassword = login.password;
 
   // console.log(Role);
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -235,6 +239,7 @@ export default function Login({navigation, route}) {
       Role === 'Customer' &&
       validateEmail(email) &&
       validatePassword(password)
+      // && useremail === email
     ) {
       try {
         await AsyncStorage.setItem('isLoggedIn', 'true');
@@ -248,6 +253,7 @@ export default function Login({navigation, route}) {
       Role === 'Caterer' &&
       validateEmail(email) &&
       validatePassword(password)
+      // && userpassword === password
     ) {
       try {
         await AsyncStorage.setItem('isLoggedIn', 'true');

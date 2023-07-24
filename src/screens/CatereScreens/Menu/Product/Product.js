@@ -239,14 +239,17 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Color from '../../../../Constants/Color';
 import DeleteModal from '../../../../componets/DeleteModal';
 import Menu_data from '../../../../data/Menu_data';
-import Cerv_Data from '../../../../data/Cerv_Data';
+// import Cerv_Data from '../../../../data/Cerv_Data';
 import Feather from 'react-native-vector-icons/Feather';
+import {useSelector} from 'react-redux';
 
 export default function Product({navigation, route}) {
   const {subcategory} = route.params;
   const {title} = route.params;
 
-  console.log(subcategory);
+  let Cerv_Data = useSelector(state => state.cerv.cervData);
+
+  // console.log(subcategory);
 
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState(subcategory);
@@ -268,7 +271,7 @@ export default function Product({navigation, route}) {
     } else {
       setFilteredData([]);
     }
-  }, [selectedMenu, title]);
+  }, [Cerv_Data, selectedMenu, title]);
 
   const handleDelete = () => {
     setModalVisible(false);

@@ -13,8 +13,9 @@ import React, {useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Color from '../../../Constants/Color';
 import Feather from 'react-native-vector-icons/Feather';
-import Cerv_Data from '../../../data/Cerv_Data';
+// import Cerv_Data from '../../../data/Cerv_Data';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useSelector} from 'react-redux';
 
 export default function MealDetails({navigation, route}) {
   const {title} = route.params;
@@ -48,6 +49,9 @@ export default function MealDetails({navigation, route}) {
   // } else if (title === 'Szechwan') {
   //   subcategories = ['Veg', 'Non-Veg'];
   // }
+
+  const Cerv_Data = useSelector(state => state.cerv.cervData);
+  // console.log('cerv', Cerv_Data);
 
   const category = Cerv_Data.find(item => item.name === title);
   const subcategoryNames = category.subcategories.map(
@@ -98,7 +102,13 @@ export default function MealDetails({navigation, route}) {
                 <Text style={[styles.text, {color: '#C7C7C7'}]}>CANCEL</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity onPress={handleConfirm}>
+              <TouchableOpacity
+                onPress={handleConfirm}
+                style={{
+                  borderLeftWidth: 1,
+                  paddingLeft: 80,
+                  borderLeftColor: Color.accentColor,
+                }}>
                 <Text style={[styles.text, {color: Color.primaryColor}]}>
                   OK
                 </Text>
@@ -212,5 +222,9 @@ const styles = StyleSheet.create({
   text: {
     fontWeight: 'bold',
     fontSize: 16,
+  },
+  subcategoryText: {
+    color: Color.blackColor,
+    fontWeight: 'bold',
   },
 });

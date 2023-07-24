@@ -8,22 +8,32 @@ import {
   Modal,
   FlatList,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import DeleteModal from '../../../componets/DeleteModal';
 import Color from '../../../Constants/Color';
 import Feather from 'react-native-vector-icons/Feather';
 import Cerv_Data from '../../../data/Cerv_Data';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useDispatch, useSelector} from 'react-redux';
+import {setcervData, deleteCategory} from '../../../store/action/action';
 
 export default function Menu({navigation}) {
+  const dispatch = useDispatch();
+  const cervData = useSelector(state => state.cerv.cervData);
+
   const [modalVisible, setModalVisible] = useState(false);
   const [title, settitle] = useState('Noodle');
   const handleDelete = () => {
     // Perform delete operation
-
+    dispatch(deleteCategory(title));
     setModalVisible(false);
   };
+
+  useEffect(() => {
+    // Load the Cerv data when the component mounts
+    dispatch(setcervData(Cerv_Data));
+  }, [dispatch]);
 
   const renderCategory = ({item}) => (
     <View>
@@ -40,22 +50,27 @@ export default function Menu({navigation}) {
             <Text style={styles.labelText}>{item.name}</Text>
           </View>
         </TouchableOpacity>
-        <View>
-          <TouchableOpacity
-            style={styles.iconContainer}
-            onPress={() => {
-              navigation.navigate('Edit Category', {title: item.name});
-            }}>
-            <Feather name={'edit-2'} size={20} color={'green'} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.iconContainer}
-            onPress={() => {
-              setModalVisible(true);
-              settitle(item.name);
-            }}>
-            <Feather name={'trash-2'} size={20} color={'red'} />
-          </TouchableOpacity>
+        <View style={{flexDirection: 'row'}}>
+          <View>
+            <TouchableOpacity
+              style={styles.iconContainer}
+              onPress={() => {
+                navigation.navigate('Edit Category', {title: item.name});
+              }}>
+              <Feather name={'edit-2'} size={20} color={'green'} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.iconContainer}
+              onPress={() => {
+                setModalVisible(true);
+                settitle(item.name);
+              }}>
+              <Feather name={'trash-2'} size={20} color={'red'} />
+            </TouchableOpacity>
+          </View>
+          <View style={{justifyContent: 'center'}}>
+            <Feather name="chevron-right" size={20} color="#cccc" />
+          </View>
         </View>
       </View>
     </View>
@@ -64,7 +79,7 @@ export default function Menu({navigation}) {
   return (
     <View style={styles.container}>
       <FlatList
-        data={Cerv_Data}
+        data={cervData}
         keyExtractor={(item, index) => index.toString()}
         renderItem={renderCategory}
       />
@@ -133,7 +148,7 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     paddingHorizontal: 5,
     paddingVertical: 5,
-    marginRight: 10,
+    marginRight: 5,
     marginBottom: 5,
   },
   modalContainer: {

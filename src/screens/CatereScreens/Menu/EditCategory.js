@@ -9,11 +9,21 @@ import {
 import React, {useState} from 'react';
 import CustomButton from '../../../componets/CustomeButton';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {updateCategoryTitle} from '../../../store/action/action';
+import {useDispatch} from 'react-redux';
 
 export default function EditCategory({navigation, route}) {
   const {title} = route.params;
   const initialTitle = typeof title === 'string' ? title : '';
   const [Title, setTitle] = useState(initialTitle);
+
+  const dispatch = useDispatch();
+
+  const handleSave = () => {
+    // console.log();
+    dispatch(updateCategoryTitle(initialTitle, Title));
+    navigation.navigate('CatereLogin');
+  };
 
   return (
     <View style={styles.container}>
@@ -38,7 +48,7 @@ export default function EditCategory({navigation, route}) {
         <CustomButton
           title={'Save'}
           onPress={() => {
-            navigation.navigate('CatereLogin');
+            handleSave();
           }}
         />
       </View>
