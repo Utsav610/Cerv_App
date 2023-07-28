@@ -206,7 +206,7 @@
 //   },
 // });
 
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -221,25 +221,45 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Color from '../../Constants/Color';
 import {useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {BackHandler} from 'react-native';
 
 export default function Login({navigation, route}) {
   const Role = useSelector(state => state.user.role);
   const login = useSelector(state => state.RegisterData);
-
-  const useremail = login.catererName;
+  // console.log(login);
+  const useremail = login.email;
+  // console.log(useremail);
   const userpassword = login.password;
+  // console.log(userpassword);
 
   // console.log(Role);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState('');
   const [email, setemail] = useState('');
 
+  const handleBackPress = () => {
+    navigation.goBack();
+    return true;
+  };
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+
+    // Don't forget to remove the event listener when the component is unmounted
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+    };
+  });
+
+  // console.log(email);
+
   const handleLogin = async () => {
+    await fetchData();
     if (
       Role === 'Customer' &&
       validateEmail(email) &&
       validatePassword(password)
-      // && useremail === email
+      //  && useremail === email
     ) {
       try {
         await AsyncStorage.setItem('isLoggedIn', 'true');
@@ -253,7 +273,7 @@ export default function Login({navigation, route}) {
       Role === 'Caterer' &&
       validateEmail(email) &&
       validatePassword(password)
-      // && userpassword === password
+      //  && userpassword === password
     ) {
       try {
         await AsyncStorage.setItem('isLoggedIn', 'true');
@@ -280,6 +300,34 @@ export default function Login({navigation, route}) {
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
+  };
+
+  const fetchData = async () => {
+    try {
+      const url = 'https://cerv-api.herokuapp.com/users/login';
+      const requestBody = {
+        email: email,
+        password: password,
+        role: 1,
+      };
+
+      const response = await fetch(url, {
+        method: 'POST',
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
+        body: JSON.stringify(requestBody),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch data from the API');
+      }
+
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
 
   return (

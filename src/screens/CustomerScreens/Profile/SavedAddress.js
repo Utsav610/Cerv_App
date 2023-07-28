@@ -1,12 +1,27 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Color from '../../../Constants/Color';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useDispatch} from 'react-redux';
 import {updateAddress} from '../../../store/action/action';
+import {BackHandler} from 'react-native';
 
-export default function SavedAddress() {
+export default function SavedAddress({navigation}) {
+  const handleBackPress = () => {
+    navigation.goBack();
+    return true;
+  };
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+
+    // Don't forget to remove the event listener when the component is unmounted
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+    };
+  });
+
   const [selectedAddress, setSelectedAddress] = useState('Home');
   const dispatch = useDispatch();
 

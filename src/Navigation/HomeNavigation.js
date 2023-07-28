@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unstable-nested-components */
-import React from 'react';
+import React, {useEffect} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Login from '../screens/Login/Login';
@@ -9,10 +9,44 @@ import Order from '../screens/CustomerScreens/Order/Order';
 import Profile from '../screens/CustomerScreens/Profile/Profile';
 import Chat from '../screens/CustomerScreens/Chat/Chat';
 import Feather from 'react-native-vector-icons/Feather';
+import {BackHandler, Alert} from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
 function HomeNavigation() {
+  useEffect(() => {
+    // Add event listener to handle back button press
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      handleBackPress,
+    );
+
+    // Cleanup the event listener when the component unmounts
+    return () => backHandler.remove();
+  }, []);
+
+  const handleBackPress = () => {
+    // Check if the user is on the login screen
+    // You need to have some logic to determine if the user is on the login screen.
+    // For example, if your login screen has a specific route name, you can check it like this:
+
+    // If the user is on the login screen, show an alert asking if they want to quit the app
+    Alert.alert(
+      'Quit App',
+      'Are you sure you want to quit the app?',
+      [
+        {text: 'Cancel', style: 'cancel'},
+        {text: 'Quit', onPress: () => BackHandler.exitApp()},
+      ],
+      {cancelable: false},
+    );
+
+    // Return true to indicate that we've handled the back press
+    return true;
+
+    // If the user is not on the login screen, let the default back button behavior happen
+  };
+
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({

@@ -6,13 +6,28 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import CustomButton from '../../../componets/CustomeButton';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {updateCategoryTitle} from '../../../store/action/action';
 import {useDispatch} from 'react-redux';
+import {BackHandler} from 'react-native';
 
 export default function EditCategory({navigation, route}) {
+  const handleBackPress = () => {
+    navigation.goBack();
+    return true;
+  };
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+
+    // Don't forget to remove the event listener when the component is unmounted
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+    };
+  });
+
   const {title} = route.params;
   const initialTitle = typeof title === 'string' ? title : '';
   const [Title, setTitle] = useState(initialTitle);

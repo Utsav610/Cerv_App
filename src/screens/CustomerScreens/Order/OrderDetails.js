@@ -7,11 +7,12 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Color from '../../../Constants/Color';
 import StepIndicator from 'react-native-step-indicator';
 import {useDispatch, useSelector} from 'react-redux';
+import {BackHandler} from 'react-native';
 
 const stepIndicatorStyles = {
   stepIndicatorSize: 25,
@@ -38,6 +39,20 @@ const stepIndicatorStyles = {
 };
 
 export default function OrderDetails({navigation}) {
+  const handleBackPress = () => {
+    navigation.goBack();
+    return true;
+  };
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+
+    // Don't forget to remove the event listener when the component is unmounted
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+    };
+  });
+
   const [currentStep, setCurrentStep] = useState(1);
 
   const OrderData = useSelector(state => state.cart.cartItems);

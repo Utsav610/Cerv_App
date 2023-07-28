@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Feather from 'react-native-vector-icons/Feather';
 import CustomButton from '../../../componets/CustomeButton';
 import Color from '../../../Constants/Color';
@@ -7,9 +7,24 @@ import FontAwesome5 from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useDispatch} from 'react-redux';
 import * as cartAction from '../../../store/action/action';
+import {BackHandler} from 'react-native';
 
 export default function Payment_method({navigation}) {
   const dispatch = useDispatch();
+
+  const handleBackPress = () => {
+    navigation.goBack();
+    return true;
+  };
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+
+    // Don't forget to remove the event listener when the component is unmounted
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+    };
+  });
 
   const [selectedCard, setSelectedCard] = useState('');
   const [selectedPayment, setSelectedPayment] = useState('');

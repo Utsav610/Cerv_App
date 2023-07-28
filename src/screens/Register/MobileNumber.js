@@ -42,6 +42,7 @@ export default function MobileNumber({navigation}) {
               placeholder="1234567890"
               style={styles.input}
               keyboardType="numeric"
+              maxLength={10}
               onChangeText={text => {
                 setnumber(text);
               }}

@@ -1,7 +1,27 @@
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  BackHandler,
+} from 'react-native';
+import React, {useEffect} from 'react';
 
 export default function Chat({navigation}) {
+  // const handleBackPress = () => {
+  //   // navigation.goBack();
+  //   return true;
+  // };
+
+  // useEffect(() => {
+  //   BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+
+  //   // Don't forget to remove the event listener when the component is unmounted
+  //   return () => {
+  //     BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+  //   };
+  // }, []);
   return (
     <View style={styles.container}>
       <View>

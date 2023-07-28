@@ -9,7 +9,7 @@ import {
   Button,
   TextInput,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Color from '../../../Constants/Color';
 import Feather from 'react-native-vector-icons/Feather';
@@ -17,8 +17,23 @@ import Feather from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useDispatch, useSelector} from 'react-redux';
 import {addSubcategory} from '../../../store/action/action';
+import {BackHandler} from 'react-native';
 
 export default function MealDetails({navigation, route}) {
+  const handleBackPress = () => {
+    navigation.goBack();
+    return true;
+  };
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+
+    // Don't forget to remove the event listener when the component is unmounted
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+    };
+  });
+
   const {title} = route.params;
   const [modalVisible, setModalVisible] = useState(false);
   const [textInputValue, setTextInputValue] = useState('');

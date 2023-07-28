@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,8 +9,23 @@ import {
 } from 'react-native';
 import Color from '../../../Constants/Color';
 import {useDispatch, useSelector} from 'react-redux';
+import {BackHandler} from 'react-native';
 
 export default function OrderDetails({navigation}) {
+  const handleBackPress = () => {
+    navigation.goBack();
+    return true;
+  };
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+
+    // Don't forget to remove the event listener when the component is unmounted
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+    };
+  });
+
   const OrderData = useSelector(state => state.cart.cartItems);
   const cartTotalAmount = useSelector(state => state.cart.totalAmount);
   return (

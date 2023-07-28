@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
+  PermissionsAndroid,
 } from 'react-native';
 import React, {useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -88,28 +89,45 @@ export default function Registration({navigation}) {
     setCurrentpasswordVisible(!CurrentpasswordVisible);
   };
 
-  const selectImage = () => {
-    ImagePicker.showImagePicker(
-      {
-        title: 'Select Profile Picture',
-        storageOptions: {
-          skipBackup: true,
-          path: 'images',
+  const selectImage = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        {
+          title: 'Storage Permission',
+          message: 'App needs access to your storage to select images.',
+          buttonPositive: 'OK',
+          buttonNegative: 'Cancel',
         },
-      },
-      response => {
-        console.log(response);
-        if (response.didCancel) {
-          console.log('User cancelled image picker');
-        } else if (response.error) {
-          console.log('ImagePicker Error: ', response.error);
-        } else {
-          setImageUri(response.uri);
-        }
-      },
-    );
-  };
+      );
 
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        // User granted the permission
+        ImagePicker.showImagePicker(
+          {
+            title: 'Select Profile Picture',
+            storageOptions: {
+              skipBackup: true,
+              path: 'images',
+            },
+          },
+          response => {
+            if (response.didCancel) {
+              console.log('User cancelled image picker');
+            } else if (response.error) {
+              console.log('ImagePicker Error: ', response.error);
+            } else {
+              setImageUri(response.uri);
+            }
+          },
+        );
+      } else {
+        console.log('Storage permission denied');
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
   return (
     <View style={styles.container}>
       {/* <View style={{flex: 1}}> */}
