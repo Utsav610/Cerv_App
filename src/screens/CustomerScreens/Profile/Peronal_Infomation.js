@@ -1,7 +1,7 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import CustomerPersonalInfo from '../../../componets/Personal Information/CustomerPersonalInfo';
-import CaterePersonalInfo from '../../../componets/Personal Information/CaterePersonalInfo';
+import CustomerPersonalInfo from '../../../components/Personal Information/CustomerPersonalInfo';
+import CaterePersonalInfo from '../../../components/Personal Information/CatererPersonalInfo';
 import {useSelector} from 'react-redux';
 
 export default function Peronal_Infomation({navigation}) {

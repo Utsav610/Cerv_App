@@ -9,9 +9,9 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import CustomButton from '../../componets/CustomeButton';
+import CustomButton from '../../components/CustomeButton';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import Color from '../../Constants/Color';
+import Color from '../../constants/Color';
 import Feather from 'react-native-vector-icons/Feather';
 import {storeMobile} from '../../store/action/action';
 import {useDispatch} from 'react-redux';
@@ -19,6 +19,31 @@ import {useDispatch} from 'react-redux';
 export default function MobileNumber({navigation}) {
   const dispatch = useDispatch();
   const [number, setnumber] = useState('');
+
+  const validateNumber = () => {
+    const url = 'http://43.204.219.99:8080/users/generateOTP';
+    const requestBody = {
+      country_code: '+91',
+      phone_number: number,
+      channel: 'sms',
+    };
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    })
+      .then(async res => {
+        const response = await res.json();
+        if (response.status === 1) {
+          navigation.navigate('Otp Verify', {number: number});
+        }
+      })
+      .catch(err => console.log(err));
+  };
+
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -52,7 +77,7 @@ export default function MobileNumber({navigation}) {
             title="Send Code"
             onPress={() => {
               dispatch(storeMobile(number));
-              navigation.navigate('Otp Verify');
+              validateNumber();
             }}
           />
         </View>

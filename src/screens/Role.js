@@ -2,7 +2,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Color from '../Constants/Color';
+import Color from '../constants/Color';
 import {useDispatch} from 'react-redux';
 import {updateRole} from '../store/action/action';
 export default function OptionScreen({navigation}) {
@@ -21,7 +21,8 @@ export default function OptionScreen({navigation}) {
       <View style={styles.textContainer}>
         <Text style={styles.text}>Select Your Role</Text>
         <Text style={styles.subtext}>
-          How do you want to use <Text style={{color: '#FF7722'}}> CERV ?</Text>
+          How do you want to use{' '}
+          <Text style={{color: Color.primaryColor}}> CERV ?</Text>
         </Text>
       </View>
       <View style={styles.container}>
@@ -38,7 +39,11 @@ export default function OptionScreen({navigation}) {
               <FontAwesome5
                 name={'user'}
                 size={60}
-                color={selectedOption === 'Customer' ? '#ffffff' : '#CCC'}
+                color={
+                  selectedOption === 'Customer'
+                    ? Color.whiteColor
+                    : Color.accentColor
+                }
               />
             </TouchableOpacity>
             <Text style={styles.RoleText}>Customer</Text>
@@ -55,7 +60,11 @@ export default function OptionScreen({navigation}) {
               <FontAwesome5
                 name={'utensils'}
                 size={60}
-                color={selectedOption === 'Caterer' ? '#ffff' : '#CCC'}
+                color={
+                  selectedOption === 'Caterer'
+                    ? Color.whiteColor
+                    : Color.accentColor
+                }
               />
             </TouchableOpacity>
             <Text style={styles.RoleText}> Caterer</Text>
@@ -135,6 +144,6 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 20,
     fontWeight: 400,
-    color: '#8e8e8e',
+    color: Color.offGrayColor,
   },
 });

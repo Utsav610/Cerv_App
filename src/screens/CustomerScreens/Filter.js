@@ -2,8 +2,8 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import CustomButton from '../../componets/CustomeButton';
-import Color from '../../Constants/Color';
+import CustomButton from '../../components/CustomeButton';
+import Color from '../../constants/Color';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function Filter({navigation}) {
@@ -20,7 +20,11 @@ export default function Filter({navigation}) {
 
       <View style={{flex: 1, backgroundColor: 'white'}}>
         <View style={styles.infoCotanier}>
-          <Text style={[styles.text, {color: '#000', fontWeight: 'bold'}]}>
+          <Text
+            style={[
+              styles.text,
+              {color: Color.blackColor, fontWeight: 'bold'},
+            ]}>
             Filter
           </Text>
           <View style={styles.content}>
@@ -30,7 +34,7 @@ export default function Filter({navigation}) {
                 selectedFilter === 'rating' && styles.selectedFilter,
               ]}
               onPress={() => handleFilterSelect('rating')}>
-              <Text style={styles.text}>Catere by Rating</Text>
+              <Text style={styles.text}>Caterer by Rating</Text>
               {selectedFilter === 'rating' ? (
                 <Icon
                   name="circle-slice-8"
@@ -51,7 +55,7 @@ export default function Filter({navigation}) {
                 selectedFilter === 'lowToHigh' && styles.selectedFilter,
               ]}
               onPress={() => handleFilterSelect('lowToHigh')}>
-              <Text style={styles.text}>Catere by Price Low to High</Text>
+              <Text style={styles.text}>Caterer by Price Low to High</Text>
               {selectedFilter === 'lowToHigh' ? (
                 <Icon
                   name="circle-slice-8"
@@ -72,7 +76,7 @@ export default function Filter({navigation}) {
                 selectedFilter === 'highToLow' && styles.selectedFilter,
               ]}
               onPress={() => handleFilterSelect('highToLow')}>
-              <Text style={styles.text}>Catere by Price High to Low</Text>
+              <Text style={styles.text}>Caterer by Price High to Low</Text>
               {selectedFilter === 'highToLow' ? (
                 <Icon
                   name="circle-slice-8"
@@ -93,7 +97,7 @@ export default function Filter({navigation}) {
                 selectedFilter === 'distance' && styles.selectedFilter,
               ]}
               onPress={() => handleFilterSelect('distance')}>
-              <Text style={styles.text}>Catere by Distance</Text>
+              <Text style={styles.text}>Caterer by Distance</Text>
               {selectedFilter === 'distance' ? (
                 <Icon
                   name="circle-slice-8"
@@ -133,14 +137,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#cccc',
+    borderBottomColor: Color.accentColor,
   },
   infoCotanier: {
     padding: 20,
   },
   text: {
     fontSize: 20,
-    color: '#000',
+    color: Color.blackColor,
     paddingVertical: 5,
   },
   content: {

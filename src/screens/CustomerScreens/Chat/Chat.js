@@ -1,5 +1,6 @@
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
+import Images from '../../../constants/Images';
 
 export default function Chat({navigation}) {
   return (
@@ -11,10 +12,7 @@ export default function Chat({navigation}) {
           }}>
           <View style={styles.chatContainer}>
             <View style={styles.img_msgContainer}>
-              <Image
-                source={require('../../../assest/profile_Icon.png')}
-                style={styles.image}
-              />
+              <Image source={Images.PROFILE} style={styles.image} />
               <View>
                 <Text>Jonathan Morgan</Text>
                 <Text>Message</Text>
@@ -29,10 +27,7 @@ export default function Chat({navigation}) {
           }}>
           <View style={styles.chatContainer}>
             <View style={styles.img_msgContainer}>
-              <Image
-                source={require('../../../assest/profile_Icon.png')}
-                style={styles.image}
-              />
+              <Image source={Images.PROFILE} style={styles.image} />
               <View>
                 <Text>Jonathan Morgan</Text>
                 <Text>Message</Text>
@@ -47,10 +42,7 @@ export default function Chat({navigation}) {
           }}>
           <View style={styles.chatContainer}>
             <View style={styles.img_msgContainer}>
-              <Image
-                source={require('../../../assest/profile_Icon.png')}
-                style={styles.image}
-              />
+              <Image source={Images.PROFILE} style={styles.image} />
               <View>
                 <Text>Jonathan Morgan</Text>
                 <Text>Message</Text>

@@ -3,7 +3,7 @@ import {StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import CurrentOrder from './CurrentOrder';
 import PastOrder from './PastOrder';
-import Color from '../../../Constants/Color';
+import Color from '../../../constants/Color';
 export default function Order({navigation}) {
   const [selectedTab, setSelectedTab] = useState('current');
 
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   selectedTabButtonText: {
-    color: '#FFF',
+    color: Color.whiteColor,
     textAlign: 'center',
   },
   header: {
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
   caterTitle: {
     fontWeight: 'bold',
     fontSize: 15,
-    color: '#000',
+    color: Color.blackColor,
   },
   caterOrder: {
     paddingVertical: 15,
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   itemText: {
     fontWeight: 'bold',
     fontSize: 15,
-    color: '#000',
+    color: Color.blackColor,
   },
   orderTypeDetails: {
     marginVertical: 5,

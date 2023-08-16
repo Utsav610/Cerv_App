@@ -1,8 +1,8 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Feather from 'react-native-vector-icons/Feather';
-import CustomButton from '../../../componets/CustomeButton';
-import Color from '../../../Constants/Color';
+import CustomButton from '../../../components/CustomeButton';
+import Color from '../../../constants/Color';
 import FontAwesome5 from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useDispatch} from 'react-redux';
@@ -51,7 +51,9 @@ export default function Payment_method({navigation}) {
                 onPress={() => {
                   navigation.navigate('Add New Card');
                 }}>
-                <Text style={[styles.text, {color: '#F5694E'}]}>ADD CARD</Text>
+                <Text style={[styles.text, {color: Color.primaryColor}]}>
+                  ADD CARD
+                </Text>
               </TouchableOpacity>
             </View>
             <View>
@@ -66,7 +68,7 @@ export default function Payment_method({navigation}) {
                   <Icon
                     name={'check-circle'}
                     size={25}
-                    color={selectedCard === 'Card1' ? 'green' : '#ccc'}
+                    color={selectedCard === 'Card1' ? Color.greenColor : '#ccc'}
                   />
                 </TouchableOpacity>
               </TouchableOpacity>
@@ -82,7 +84,7 @@ export default function Payment_method({navigation}) {
                   <Icon
                     name={'check-circle'}
                     size={25}
-                    color={selectedCard === 'Card2' ? 'green' : '#ccc'}
+                    color={selectedCard === 'Card2' ? Color.greenColor : '#ccc'}
                   />
                 </TouchableOpacity>
               </TouchableOpacity>
@@ -102,7 +104,7 @@ export default function Payment_method({navigation}) {
                 <Icon
                   name={'check-circle'}
                   size={25}
-                  color={selectedPayment === 'Pay1' ? 'green' : '#ccc'}
+                  color={selectedPayment === 'Pay1' ? Color.greenColor : '#ccc'}
                 />
               </TouchableOpacity>
             </TouchableOpacity>
@@ -118,7 +120,7 @@ export default function Payment_method({navigation}) {
                 <Icon
                   name={'check-circle'}
                   size={25}
-                  color={selectedPayment === 'Pay2' ? 'green' : '#ccc'}
+                  color={selectedPayment === 'Pay2' ? Color.greenColor : '#ccc'}
                 />
               </TouchableOpacity>
             </TouchableOpacity>
@@ -162,13 +164,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: 'white',
     padding: 10,
-    backgroundColor: '#ffff',
+    backgroundColor: Color.whiteColor,
     marginVertical: 10,
   },
   cardcontainer: {
     paddingVertical: 15,
     borderBottomWidth: 3,
-    borderBottomColor: '#cccc',
+    borderBottomColor: Color.accentColor,
   },
   payContainer: {
     paddingVertical: 10,

@@ -16,7 +16,7 @@ const initialState = {
 };
 
 const cartReducer = (state = initialState, action) => {
-  console.log(action.type);
+  // console.log(action.type);
   switch (action.type) {
     case ADD_TO_CART: {
       let tempCart = [...state.cartItems];
@@ -31,8 +31,6 @@ const cartReducer = (state = initialState, action) => {
           ...existingItem,
           quantity: existingItem.quantity + 1,
         };
-
-        // console.log('update', updatedItem);
 
         const index = tempCart.findIndex(ci => ci.id === existingItem.id);
         tempCart[index] = updatedItem;

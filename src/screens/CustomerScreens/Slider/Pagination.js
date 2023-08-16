@@ -1,6 +1,6 @@
 import {StyleSheet, Animated, View, Dimensions} from 'react-native';
 import React from 'react';
-import Color from '../../../Constants/Color';
+import Color from '../../../constants/Color';
 
 const {width} = Dimensions.get('screen');
 
@@ -65,6 +65,6 @@ const styles = StyleSheet.create({
     backgroundColor: Color.accentColor,
   },
   dotActive: {
-    backgroundColor: '#000',
+    backgroundColor: Color.blackColor,
   },
 });

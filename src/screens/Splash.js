@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {View, StyleSheet, Text, Image} from 'react-native';
 // import PushNotification from 'react-native-push-notification';
 // import GlobalStyle from '../utils/GlobalStyle';
-import Color from '../Constants/Color';
+import Color from '../constants/Color';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Splash({navigation}) {
@@ -49,6 +49,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 40,
-    color: '#ffffff',
+    color: Color.whiteColor,
   },
 });

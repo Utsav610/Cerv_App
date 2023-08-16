@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import Color from '../Constants/Color';
+import Color from '../constants/Color';
 import {useDispatch} from 'react-redux';
 import * as cartAction from '../store/action/action';
 import {useSelector} from 'react-redux';
@@ -49,17 +49,17 @@ const styles = StyleSheet.create({
   code: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#fff',
+    color: Color.whiteColor,
     borderWidth: 1,
     padding: 10,
-    borderColor: '#fff',
+    borderColor: Color.whiteColor,
     textAlign: 'center',
   },
   discount: {
     fontSize: 40,
     fontWeight: 'bold',
     marginTop: 10,
-    color: '#fff',
+    color: Color.whiteColor,
   },
 });
 

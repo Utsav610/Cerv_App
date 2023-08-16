@@ -9,7 +9,8 @@ import {
   TextInput,
 } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Color from '../../../Constants/Color';
+import Color from '../../../constants/Color';
+import Images from '../../../constants/Images';
 
 export default function PastOrder() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -27,10 +28,7 @@ export default function PastOrder() {
       <View style={styles.caterOrder}>
         <TouchableOpacity>
           <View style={styles.header}>
-            <Image
-              source={require('../../../assest/catere.jpeg')}
-              style={styles.image}
-            />
+            <Image source={Images.CATERER} style={styles.image} />
             <View>
               <Text style={styles.caterTitle}>
                 St John & St Thomas Catering
@@ -165,7 +163,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)', // Transparent background color
   },
   modalContent: {
-    backgroundColor: '#ffffff', // White background color
+    backgroundColor: Color.whiteColor, // White background color
     borderRadius: 10,
     padding: 20,
     width: '90%',

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,14 +6,74 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
-import CustomButton from '../../componets/CustomeButton';
-import Color from '../../Constants/Color';
+import CustomButton from '../../components/CustomeButton';
+import Color from '../../constants/Color';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import OtpInputs from 'react-native-otp-inputs';
+import OtpInputs from '@twotalltotems/react-native-otp-input';
 import {useSelector} from 'react-redux';
 
-export default function OTPScreen({navigation}) {
+export default function OTPScreen({navigation, number}) {
   const Role = useSelector(state => state.user.role);
+  const registration = useSelector(state => state.RegisterData);
+  const [otp, setOtp] = useState('');
+
+  const validateOtp = () => {
+    const url = 'http://43.204.219.99:8080/users/verifyOTP';
+    const requestBody = {
+      otpValue: otp,
+      phone_number: registration.phoneNumber,
+      country_code: '+91',
+    };
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    })
+      .then(async res => {
+        const response = await res.json();
+        console.log('>>>>', response);
+        if (response.status === 1) {
+          registrationApi();
+        }
+      })
+      .catch(err => console.log(err));
+  };
+
+  const registrationApi = () => {
+    const url = 'http://43.204.219.99:8080/users/register';
+    const requestBody = {
+      email: registration.email,
+      password: registration.password,
+      name: registration.catererName,
+      role: Role === 'Customer' ? 1 : 0,
+      image: '',
+      phone_number: registration.phoneNumber,
+      country_code: '+91',
+    };
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    })
+      .then(async res => {
+        const response = await res.json();
+        console.log('>>>>', response);
+        if (response.status === 1) {
+          if (Role === 'Customer') {
+            navigation.navigate('Login');
+          } else if (Role === 'Caterer') {
+            navigation.navigate('Add Caterer Store Details');
+          }
+        }
+      })
+      .catch(err => console.log(err));
+  };
+
   return (
     <KeyboardAwareScrollView>
       <ImageBackground
@@ -23,10 +83,12 @@ export default function OTPScreen({navigation}) {
         <View style={styles.container}>
           <View style={styles.content}>
             <OtpInputs
-              inputContainerStyles={styles.inputContainer}
-              inputStyles={styles.input}
-              numberOfInputs={4}
+              style={styles.inputContainer}
+              codeInputFieldStyle={styles.input}
+              pinCount={4}
               keyboardType="numeric"
+              onCodeChanged={code => setOtp(code)}
+              value={otp}
             />
             <View style={[styles.otpContainer, {flexDirection: 'row'}]}>
               <View>
@@ -45,11 +107,7 @@ export default function OTPScreen({navigation}) {
             <CustomButton
               title="Verify Now"
               onPress={() => {
-                if (Role === 'Customer') {
-                  navigation.navigate('Login');
-                } else if (Role === 'Caterer') {
-                  navigation.navigate('Add Caterer Store Details');
-                }
+                validateOtp();
               }}
             />
           </View>

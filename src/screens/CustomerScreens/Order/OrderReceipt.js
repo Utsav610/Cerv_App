@@ -9,12 +9,12 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import CustomButton from '../../../componets/CustomeButton';
-import Color from '../../../Constants/Color';
+import CustomButton from '../../../components/CustomeButton';
+import Color from '../../../constants/Color';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useDispatch, useSelector} from 'react-redux';
 import * as cartAction from '../../../store/action/action';
-import Order from '../../CatereScreens/CatereOrders/Order';
+import Order from '../../CatererScreens/CatererOrders/Order';
 import {Image} from 'react-native-svg';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -72,7 +72,7 @@ export default function OrderReceipt({navigation, route}) {
                   paddingVertical: 5,
                   fontSize: 18,
                   fontWeight: '500',
-                  color: '#000',
+                  color: Color.blackColor,
                 }}>
                 Address
               </Text>
@@ -109,7 +109,7 @@ export default function OrderReceipt({navigation, route}) {
                 paddingVertical: 5,
                 fontSize: 18,
                 fontWeight: '500',
-                color: '#000',
+                color: Color.blackColor,
               }}>
               Bill Details
             </Text>
@@ -131,7 +131,11 @@ export default function OrderReceipt({navigation, route}) {
                             dispatch(cartAction.removeFromCart(item.id))
                           }>
                           <Text style={[styles.quantityButton]}>
-                            <Icon name="minus" size={20} color={'red'} />
+                            <Icon
+                              name="minus"
+                              size={20}
+                              color={Color.redColor}
+                            />
                           </Text>
                         </TouchableOpacity>
                         <Text style={styles.quantity}>{item.quantity}</Text>
@@ -212,7 +216,7 @@ export default function OrderReceipt({navigation, route}) {
                   paddingVertical: 5,
                   fontSize: 18,
                   fontWeight: '500',
-                  color: '#000',
+                  color: Color.blackColor,
                 }}>
                 Total
               </Text>
@@ -221,7 +225,7 @@ export default function OrderReceipt({navigation, route}) {
                   paddingVertical: 5,
                   fontSize: 18,
                   fontWeight: '500',
-                  color: '#000',
+                  color: Color.blackColor,
                 }}>
                 ${totalAmount.toFixed(2)}
               </Text>
@@ -231,7 +235,7 @@ export default function OrderReceipt({navigation, route}) {
             {selectedCard != '' && (
               <View>
                 <View style={styles.ItemContent}>
-                  <Text style={{color: '#000', fontSize: 17}}>
+                  <Text style={{color: Color.blackColor, fontSize: 17}}>
                     Payment With
                   </Text>
                   <TouchableOpacity
@@ -319,7 +323,7 @@ const styles = StyleSheet.create({
   AddressContainer: {
     paddingVertical: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#cccc',
+    borderBottomColor: Color.accentColor,
   },
   ItemContent: {
     flexDirection: 'row',
@@ -340,7 +344,7 @@ const styles = StyleSheet.create({
   itemText: {
     fontWeight: '400',
     fontSize: 15,
-    color: '#000',
+    color: Color.blackColor,
     // textAlign: 'center',
   },
   itemContentWithBorder: {
@@ -363,7 +367,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderWidth: 1,
     padding: 2,
-    borderColor: '#8e8e8e',
+    borderColor: Color.offGrayColor,
     alignItems: 'center',
     borderRadius: 5,
     // marginHorizontal: 20,
@@ -387,7 +391,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: 'white',
     padding: 10,
-    backgroundColor: '#ffff',
+    backgroundColor: Color.whiteColor,
     marginVertical: 10,
   },
   modalContainer: {
@@ -397,7 +401,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContent: {
-    backgroundColor: '#fff',
+    backgroundColor: Color.whiteColor,
     padding: 20,
     borderRadius: 8,
     // marginHorizontal: 10,
@@ -405,13 +409,10 @@ const styles = StyleSheet.create({
   modalText: {
     fontSize: 18,
     fontWeight: '500',
-    // marginBottom: 20,
-    // marginHorizontal:20,
+
     textAlign: 'center',
   },
   modalButton: {
-    // backgroundColor: Color.primaryColor,
-    // padding: 10,
     marginTop: 10,
     borderRadius: 4,
     alignItems: 'center',
@@ -420,7 +421,6 @@ const styles = StyleSheet.create({
     borderTopColor: Color.accentColor,
   },
   modalButtonText: {
-    // color: '#fff',
     color: Color.primaryColor,
     fontSize: 16,
     fontWeight: 'bold',

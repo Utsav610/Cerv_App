@@ -1,6 +1,6 @@
 import {StyleSheet, Text, View, FlatList} from 'react-native';
 import React, {useEffect} from 'react';
-import Cater from '../../../componets/Caterer/Catere';
+import Cater from '../../../components/Caterer/Caterer';
 import Caterer_data from '../../../data/Caterer_data';
 import {BackHandler} from 'react-native';
 
@@ -28,7 +28,7 @@ export default function MyFavorites({navigation}) {
               name={item.name}
               address={item.Address}
               price={item.price}
-              favaroite={item.favorite}
+              favorite={item.favorite}
             />
           )}
         />

@@ -11,7 +11,7 @@ const initialState = [
 ];
 
 const couponReducer = (state = initialState, action) => {
-  console.log('action', action);
+  // console.log('action', action);
   switch (action.type) {
     case STORE_COUPON_DATA:
       // state.push(action.payload);

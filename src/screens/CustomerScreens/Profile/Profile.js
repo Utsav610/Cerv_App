@@ -1,9 +1,10 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Color from '../../../Constants/Color';
+import Color from '../../../constants/Color';
 import Feather from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Images from '../../../constants/Images';
 
 const Profile = ({navigation}) => {
   const handleLogout = async () => {
@@ -17,10 +18,7 @@ const Profile = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image
-          source={require('../../../assest/profile_Icon.png')}
-          style={styles.image}
-        />
+        <Image source={Images.PROFILE} style={styles.image} />
       </View>
 
       <TouchableOpacity
@@ -30,7 +28,7 @@ const Profile = ({navigation}) => {
         }}>
         <FontAwesome5 name="user" size={20} color={Color.primaryColor} />
         <Text style={styles.optionText}>Personal Information</Text>
-        <FontAwesome5 name="angle-right" size={20} color="#cccc" />
+        <FontAwesome5 name="angle-right" size={20} color={Color.accentColor} />
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -40,7 +38,7 @@ const Profile = ({navigation}) => {
         }}>
         <FontAwesome5 name="credit-card" size={20} color={Color.primaryColor} />
         <Text style={styles.optionText}>Payment Method</Text>
-        <FontAwesome5 name="angle-right" size={20} color="#cccc" />
+        <FontAwesome5 name="angle-right" size={20} color={Color.accentColor} />
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -50,7 +48,7 @@ const Profile = ({navigation}) => {
         }}>
         <FontAwesome5 name="heart" size={20} color={Color.primaryColor} />
         <Text style={styles.optionText}>My Favorites</Text>
-        <FontAwesome5 name="angle-right" size={20} color="#cccc" />
+        <FontAwesome5 name="angle-right" size={20} color={Color.accentColor} />
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -60,7 +58,7 @@ const Profile = ({navigation}) => {
         }}>
         <Feather name="map-pin" size={20} color={Color.primaryColor} />
         <Text style={styles.optionText}>Saved Address</Text>
-        <FontAwesome5 name="angle-right" size={20} color="#cccc" />
+        <FontAwesome5 name="angle-right" size={20} color={Color.accentColor} />
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -70,7 +68,7 @@ const Profile = ({navigation}) => {
         }}>
         <Feather name="lock" size={20} color={Color.primaryColor} />
         <Text style={styles.optionText}>Change Password</Text>
-        <FontAwesome5 name="angle-right" size={20} color="#cccc" />
+        <FontAwesome5 name="angle-right" size={20} color={Color.accentColor} />
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.optionContainer} onPress={handleLogout}>
@@ -89,7 +87,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderBottomWidth: 1,
     borderColor: 'white',
-    backgroundColor: '#FFFF',
+    backgroundColor: Color.whiteColor,
     elevation: 5,
   },
   profileText: {

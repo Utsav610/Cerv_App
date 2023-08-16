@@ -9,8 +9,9 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Categories from '../../../componets/Categories/Categories';
+import Categories from '../../../components/Categories/Categories';
 import CategoriesData from '../../../data/Categories_data';
+import Color from '../../../constants/Color';
 
 export default function Search() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -34,7 +35,7 @@ export default function Search() {
     <>
       <View style={styles.container}>
         <View style={styles.inputContainer}>
-          <FontAwesome5 name="search" size={20} color="#000" />
+          <FontAwesome5 name="search" size={20} color="Color.blackColor" />
           <TextInput
             style={styles.input}
             placeholder="Search"
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
     margin: 10,
     borderRadius: 10,
     elevation: 10,
-    backgroundColor: '#ffff',
+    backgroundColor: Color.whiteColor,
     overflow: 'hidden',
   },
   itemContainer: {
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   title: {
-    color: '#000000',
+    color: Color.blackColor,
     fontSize: 16,
     fontWeight: 'bold',
     paddingVertical: 10,
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#000',
+    color: Color.blackColor,
     marginLeft: 10,
   },
 });

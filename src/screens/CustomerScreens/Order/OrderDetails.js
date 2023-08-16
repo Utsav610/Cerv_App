@@ -9,10 +9,11 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Color from '../../../Constants/Color';
+import Color from '../../../constants/Color';
 import StepIndicator from 'react-native-step-indicator';
 import {useDispatch, useSelector} from 'react-redux';
 import {BackHandler} from 'react-native';
+import Images from '../../../constants/Images';
 
 const stepIndicatorStyles = {
   stepIndicatorSize: 25,
@@ -83,10 +84,7 @@ export default function OrderDetails({navigation}) {
           />
         </View>
         <View style={styles.header}>
-          <Image
-            source={require('../../../assest/catere.jpeg')}
-            style={styles.image}
-          />
+          <Image source={Images.CATERER} style={styles.image} />
           <View>
             <Text style={styles.caterTitle}>St John & St Thomas Catering</Text>
             <Text>Address</Text>
@@ -140,7 +138,7 @@ export default function OrderDetails({navigation}) {
               paddingVertical: 5,
               fontSize: 16,
               fontWeight: '400',
-              color: '#000',
+              color: Color.blackColor,
             }}>
             20 November 2020 at 06:58 AM
           </Text>
@@ -154,7 +152,7 @@ export default function OrderDetails({navigation}) {
                   paddingVertical: 5,
                   fontSize: 18,
                   fontWeight: '700',
-                  color: '#000',
+                  color: Color.blackColor,
                 }}>
                 John Martyn
               </Text>
@@ -165,7 +163,7 @@ export default function OrderDetails({navigation}) {
                 onPress={() => {
                   navigation.navigate('Chat');
                 }}>
-                <Text style={{color: '#FFFF'}}>Chat</Text>
+                <Text style={{color: Color.whiteColor}}>Chat</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -176,7 +174,7 @@ export default function OrderDetails({navigation}) {
               paddingVertical: 5,
               fontSize: 18,
               fontWeight: '500',
-              color: '#000',
+              color: Color.blackColor,
             }}>
             Bill Details
           </Text>
@@ -225,37 +223,13 @@ export default function OrderDetails({navigation}) {
         </View>
         <View style={styles.ItemContainer}>
           <View style={styles.ItemContent}>
-            <Text
-              style={{
-                paddingVertical: 5,
-                fontSize: 18,
-                fontWeight: '500',
-                color: '#000',
-              }}>
-              Total
-            </Text>
-            <Text
-              style={{
-                paddingVertical: 5,
-                fontSize: 18,
-                fontWeight: '500',
-                color: '#000',
-              }}>
-              $542.00
-            </Text>
+            <Text style={styles.textInfo}>Total</Text>
+            <Text style={styles.textInfo}>$542.00</Text>
           </View>
         </View>
         <View style={styles.AddressContainer}>
           <View style={styles.ItemContent}>
-            <Text
-              style={{
-                paddingVertical: 5,
-                fontSize: 18,
-                fontWeight: '500',
-                color: '#000',
-              }}>
-              Address
-            </Text>
+            <Text style={styles.textInfo}>Address</Text>
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate('Saved Address');
@@ -293,7 +267,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingBottom: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#cccc',
+    borderBottomColor: Color.accentColor,
   },
   image: {
     width: 50,
@@ -303,7 +277,7 @@ const styles = StyleSheet.create({
   caterTitle: {
     fontWeight: 'bold',
     fontSize: 15,
-    color: '#000',
+    color: Color.blackColor,
   },
   ItemContent: {
     flexDirection: 'row',
@@ -312,7 +286,7 @@ const styles = StyleSheet.create({
   itemText: {
     fontWeight: '400',
     fontSize: 15,
-    color: '#000',
+    color: Color.blackColor,
   },
   orderTypeDetails: {
     marginVertical: 5,
@@ -341,5 +315,11 @@ const styles = StyleSheet.create({
   },
   AddressContainer: {
     marginTop: '10%',
+  },
+  textInfo: {
+    paddingVertical: 5,
+    fontSize: 18,
+    fontWeight: '500',
+    color: Color.blackColor,
   },
 });

@@ -7,9 +7,11 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import CustomButton from '../../../componets/CustomeButton';
+import CustomButton from '../../../components/CustomeButton';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import Color from '../../../constants/Color';
+import Images from '../../../constants/Images';
 
 export default function AddNewcard({navigation}) {
   const [selectedPayment, setSelectedPayment] = useState('');
@@ -29,15 +31,12 @@ export default function AddNewcard({navigation}) {
                   styles.selectedCardImageContainer,
               ]}
               onPress={() => handlePaymentSelect('masterCard')}>
-              <Image
-                source={require('../../../assest/masterCard.png')}
-                style={styles.cardImage}
-              />
+              <Image source={Images.MASTERCARD} style={styles.cardImage} />
               {selectedPayment === 'masterCard' && (
                 <Icon
                   name={'check-circle'}
                   size={25}
-                  color={'green'}
+                  color={Color.greenColor}
                   style={styles.checkIcon}
                 />
               )}
@@ -49,15 +48,12 @@ export default function AddNewcard({navigation}) {
                 selectedPayment === 'visa' && styles.selectedCardImageContainer,
               ]}
               onPress={() => handlePaymentSelect('visa')}>
-              <Image
-                source={require('../../../assest/visa.png')}
-                style={styles.cardImage}
-              />
+              <Image source={Images.VISA} style={styles.cardImage} />
               {selectedPayment === 'visa' && (
                 <Icon
                   name={'check-circle'}
                   size={25}
-                  color={'green'}
+                  color={Color.greenColor}
                   style={styles.checkIcon}
                 />
               )}
@@ -70,15 +66,12 @@ export default function AddNewcard({navigation}) {
                   styles.selectedCardImageContainer,
               ]}
               onPress={() => handlePaymentSelect('rupay')}>
-              <Image
-                source={require('../../../assest/Rupay.png')}
-                style={styles.cardImage}
-              />
+              <Image source={Images.RUPAY} style={styles.cardImage} />
               {selectedPayment === 'rupay' && (
                 <Icon
                   name={'check-circle'}
                   size={25}
-                  color={'green'}
+                  color={Color.greenColor}
                   style={styles.checkIcon}
                 />
               )}
@@ -91,15 +84,12 @@ export default function AddNewcard({navigation}) {
                   styles.selectedCardImageContainer,
               ]}
               onPress={() => handlePaymentSelect('masterCard2')}>
-              <Image
-                source={require('../../../assest/masterCard.png')}
-                style={styles.cardImage}
-              />
+              <Image source={Images.MASTERCARD} style={styles.cardImage} />
               {selectedPayment === 'masterCard2' && (
                 <Icon
                   name={'check-circle'}
                   size={25}
-                  color={'green'}
+                  color={Color.greenColor}
                   style={styles.checkIcon}
                 />
               )}

@@ -18,7 +18,6 @@ export const DELETE_SUBCATEGORY_ITEM = 'DELETE_SUBCATEGORY_ITEM';
 export const ADD_SUBCATEGORY = 'ADD_SUBCATEGORY';
 
 export const updateRole = role => {
-  // console.log('role' + role);
   return {
     type: UPDATE_ROLE,
     payload: role,
@@ -38,7 +37,6 @@ export const removeFromCart = itemId => ({
 });
 
 export const updateAddress = address => {
-  // console.log('role', address);
   return {
     type: SAVED_ADDRESS,
     payload: address,
@@ -46,7 +44,6 @@ export const updateAddress = address => {
 };
 
 export const storeCouponCode = code => {
-  // console.log('role', code);
   return {
     type: STORE_COUPON_CODE,
     payload: code,
@@ -54,7 +51,6 @@ export const storeCouponCode = code => {
 };
 
 export const setOrderType = type => {
-  // console.log('role', code);
   return {
     type: SET_ORDER_TYPE,
     payload: type,
@@ -62,7 +58,6 @@ export const setOrderType = type => {
 };
 
 export const setCard = payment => {
-  // console.log('role', code);
   return {
     type: SET_CARD,
     payload: payment,

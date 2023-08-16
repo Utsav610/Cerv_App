@@ -1,7 +1,7 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import EditCustomerInfo from '../../../componets/EditInfomation/EditCustomerInfo';
-import EditCatereInfo from '../../../componets/EditInfomation/EditCatereInfo';
+import EditCustomerInfo from '../../../components/EditInfomation/EditCustomerInfo';
+import EditCatererInfo from '../../../components/EditInfomation/EditCatererInfo';
 import {useSelector} from 'react-redux';
 
 export default function EditInfo({navigation}) {
@@ -12,7 +12,7 @@ export default function EditInfo({navigation}) {
       {role === 'Customer' ? (
         <EditCustomerInfo navigation={navigation} />
       ) : (
-        <EditCatereInfo navigation={navigation} />
+        <EditCatererInfo navigation={navigation} />
       )}
     </View>
   );

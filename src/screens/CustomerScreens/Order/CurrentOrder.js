@@ -1,7 +1,8 @@
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
-import Color from '../../../Constants/Color';
+import Color from '../../../constants/Color';
 import {useDispatch, useSelector} from 'react-redux';
+import Images from '../../../constants/Images';
 
 export default function CurrentOrder({navigation}) {
   const OrderData = useSelector(state => state.cart.cartItems);
@@ -14,10 +15,7 @@ export default function CurrentOrder({navigation}) {
           navigation.navigate('Order Detials');
         }}>
         <View style={styles.header}>
-          <Image
-            source={require('../../../assest/catere.jpeg')}
-            style={styles.image}
-          />
+          <Image source={Images.CATERER} style={styles.image} />
           <View>
             <Text style={styles.caterTitle}>St John & St Thomas Catering</Text>
             <Text>Address</Text>
@@ -41,21 +39,21 @@ export default function CurrentOrder({navigation}) {
         <View style={styles.ItemContent}>
           <View style={styles.orderTypeDetails}>
             <Text>Order type</Text>
-            <Text style={{color: '#000'}}>{OrderType}</Text>
+            <Text style={{color: Color.blackColor}}>{OrderType}</Text>
           </View>
         </View>
         <View style={styles.orderTypeDetails}>
           <Text>Order On</Text>
-          <Text style={{color: '#000'}}>20 Nov 2020 at 06:58 AM</Text>
+          <Text style={{color: Color.blackColor}}>20 Nov 2020 at 06:58 AM</Text>
         </View>
         <View style={styles.ItemContent}>
           <View>
             <Text>Amount</Text>
-            <Text style={{color: '#000'}}>$543</Text>
+            <Text style={{color: Color.blackColor}}>$543</Text>
           </View>
           <View>
             <TouchableOpacity style={styles.btn}>
-              <Text style={{color: '#FFFF'}}>Cancel Order</Text>
+              <Text style={{color: Color.whiteColor}}>Cancel Order</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -90,7 +88,7 @@ const styles = StyleSheet.create({
     backgroundColor: Color.primaryColor,
   },
   tabButtonText: {
-    color: '#000',
+    color: Color.blackColor,
     fontSize: 16,
   },
   selectedTabButtonText: {
@@ -114,7 +112,7 @@ const styles = StyleSheet.create({
   caterTitle: {
     fontWeight: 'bold',
     fontSize: 15,
-    color: '#000',
+    color: Color.blackColor,
   },
   caterOrder: {
     paddingVertical: 15,
@@ -125,7 +123,7 @@ const styles = StyleSheet.create({
   itemText: {
     fontWeight: 500,
     fontSize: 15,
-    color: '#000',
+    color: Color.blackColor,
   },
   orderTypeDetails: {
     marginVertical: 5,
@@ -142,7 +140,7 @@ const styles = StyleSheet.create({
   ItemContainer: {
     paddingVertical: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#cccc',
+    borderBottomColor: Color.accentColor,
   },
   btn: {
     alignItems: 'center',

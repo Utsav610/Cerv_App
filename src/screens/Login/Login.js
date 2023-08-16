@@ -1,210 +1,4 @@
 // /* eslint-disable react-native/no-inline-styles */
-// import React, {useState} from 'react';
-// import {
-//   StyleSheet,
-//   Text,
-//   View,
-//   TextInput,
-//   TouchableOpacity,
-//   ImageBackground,
-// } from 'react-native';
-// import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-// import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-// import Color from '../../Constants/Color';
-// import {useSelector} from 'react-redux';
-
-// export default function Login({navigation, route}) {
-//   const Role = useSelector(state => state.user.role);
-//   console.log(Role);
-//   const [passwordVisible, setPasswordVisible] = useState(false);
-//   const [password, setPassword] = useState('');
-//   const [emailError, setEmailError] = useState('');
-//   const [passwordError, setPasswordError] = useState('');
-
-//   const handleLogin = () => {
-//     if (Role === 'Customer') {
-//       navigation.navigate('Home');
-//     } else if (Role === 'Caterer') {
-//       navigation.navigate('CatereLogin');
-//     }
-//   };
-
-//   const togglePasswordVisibility = () => {
-//     setPasswordVisible(!passwordVisible);
-//   };
-
-//   return (
-//     <KeyboardAwareScrollView>
-//       <ImageBackground
-//         source={require('../../assest/bg_image.jpeg')}
-//         resizeMode="cover"
-//         style={styles.image}>
-//         <View style={styles.container}>
-//           <View style={styles.content}>
-//             <Text style={styles.login}>Login</Text>
-//             <Text style={styles.loginContent}>
-//               Login to your account or Register below
-//             </Text>
-
-//             <View>
-//               <Text style={{color: '#8e8e8e'}}>Email</Text>
-//               <View style={styles.inputContainer}>
-//                 <FontAwesome5
-//                   name={'envelope'}
-//                   size={20}
-//                   color={Color.primaryColor}
-//                 />
-//                 <TextInput
-//                   placeholder="john123@gmail.com"
-//                   style={styles.input}
-//                 />
-//               </View>
-
-//               <Text style={{color: '#8e8e8e'}}>Password</Text>
-//               <View style={styles.inputContainer}>
-//                 <FontAwesome5
-//                   name={'lock'}
-//                   size={20}
-//                   color={Color.primaryColor}
-//                 />
-//                 <TextInput
-//                   placeholder="Password"
-//                   secureTextEntry={!passwordVisible}
-//                   style={styles.input}
-//                   value={password}
-//                   onChangeText={setPassword}
-//                 />
-//                 <TouchableOpacity
-//                   onPress={togglePasswordVisibility}
-//                   style={styles.eyeIconContainer}>
-//                   <FontAwesome5
-//                     name={passwordVisible ? 'eye' : 'eye-slash'}
-//                     size={20}
-//                     color={'#c2c2c2'}
-//                   />
-//                 </TouchableOpacity>
-//               </View>
-
-//               <TouchableOpacity
-//                 style={styles.Fpassword}
-//                 onPress={() => {
-//                   navigation.navigate('Forget Password');
-//                 }}>
-//                 <Text style={styles.text}>Forget Password ?</Text>
-//               </TouchableOpacity>
-
-//               <TouchableOpacity
-//                 style={styles.customButton}
-//                 onPress={handleLogin}>
-//                 <Text style={styles.customButtonText}>Login</Text>
-//               </TouchableOpacity>
-//             </View>
-
-//             <View style={styles.orContainer}>
-//               <View style={styles.line} />
-//               <Text style={styles.orText}>OR</Text>
-//               <View style={styles.line} />
-//             </View>
-
-//             <View style={styles.registerContainer}>
-//               <Text>Don't have an Account ?</Text>
-//               <TouchableOpacity
-//                 onPress={() => {
-//                   navigation.navigate('Register');
-//                 }}>
-//                 <Text style={styles.registerText}>Register</Text>
-//               </TouchableOpacity>
-//             </View>
-//           </View>
-//         </View>
-//       </ImageBackground>
-//     </KeyboardAwareScrollView>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     marginTop: '54%',
-//   },
-//   login: {
-//     fontSize: 25,
-//     fontWeight: 'bold',
-//     marginBottom: 5,
-//     color: '#333',
-//   },
-//   loginContent: {
-//     marginBottom: 25,
-//   },
-//   inputContainer: {
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//     borderBottomWidth: 1,
-//     borderColor: Color.accentColor,
-//     marginBottom: 10,
-//   },
-//   input: {
-//     flex: 1,
-//     marginLeft: 10,
-//   },
-//   registerContainer: {
-//     flexDirection: 'row',
-//     justifyContent: 'center',
-//   },
-//   registerText: {
-//     marginLeft: 5,
-//     fontWeight: 'bold',
-//   },
-//   orContainer: {
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//     marginVertical: 30,
-//   },
-//   line: {
-//     flex: 1,
-//     height: 1,
-//     backgroundColor: '#000',
-//   },
-//   orText: {
-//     marginHorizontal: 10,
-//   },
-//   content: {
-//     backgroundColor: 'white',
-//     paddingHorizontal: 20,
-//     paddingTop: 20,
-//     borderTopLeftRadius: 50,
-//     borderTopRightRadius: 50,
-//     elevation: 10,
-//   },
-//   Fpassword: {
-//     marginBottom: 15,
-//     flexDirection: 'row-reverse',
-//   },
-//   image: {
-//     flex: 1,
-//     justifyContent: 'center',
-//   },
-//   text: {
-//     color: '#000',
-//   },
-//   eyeIconContainer: {
-//     position: 'absolute',
-//     right: 10,
-//   },
-//   customButton: {
-//     marginTop: 10,
-//     backgroundColor: Color.primaryColor,
-//     borderRadius: 8,
-//     height: 50,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-//   customButtonText: {
-//     color: '#fff',
-//     fontSize: 16,
-//     fontWeight: 'bold',
-//   },
-// });
 
 import React, {useState, useEffect} from 'react';
 import {
@@ -218,7 +12,7 @@ import {
 } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import Color from '../../Constants/Color';
+import Color from '../../constants/Color';
 import {useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {BackHandler} from 'react-native';
@@ -226,13 +20,8 @@ import {BackHandler} from 'react-native';
 export default function Login({navigation, route}) {
   const Role = useSelector(state => state.user.role);
   const login = useSelector(state => state.RegisterData);
-  // console.log(login);
   const useremail = login.email;
-  // console.log(useremail);
   const userpassword = login.password;
-  // console.log(userpassword);
-
-  // console.log(Role);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState('');
   const [email, setemail] = useState('');
@@ -254,38 +43,52 @@ export default function Login({navigation, route}) {
   // console.log(email);
 
   const handleLogin = async () => {
-    await fetchData();
-    if (
-      Role === 'Customer' &&
-      validateEmail(email) &&
-      validatePassword(password)
-      //  && useremail === email
-    ) {
-      try {
-        await AsyncStorage.setItem('isLoggedIn', 'true');
-        await AsyncStorage.setItem('Role', Role);
-      } catch (error) {
-        console.log('Error storing data:', error);
-      }
+    const url = 'http://43.204.219.99:8080/users/login';
+    const requestBody = {
+      email: email,
+      password: password,
+      role: Role === 'Customer' ? 1 : 0,
+    };
 
-      navigation.navigate('Home Navigation');
-    } else if (
-      Role === 'Caterer' &&
-      validateEmail(email) &&
-      validatePassword(password)
-      //  && userpassword === password
-    ) {
-      try {
-        await AsyncStorage.setItem('isLoggedIn', 'true');
-        await AsyncStorage.setItem('Role', Role);
-      } catch (error) {
-        console.log('Error storing data:', error);
-      }
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    })
+      .then(async res => {
+        const response = await res.json();
+        console.log(response);
 
-      navigation.navigate('CatereLogin');
-    } else {
-      console.log('Invalid credentials');
-    }
+        if (response.status === 1) {
+          if (response.user.role === 1) {
+            navigation.navigate('Home Navigation');
+          } else if (response.user.role === 0) {
+            navigation.navigate('CatereLogin');
+          }
+          try {
+            await AsyncStorage.setItem(
+              'userData',
+              JSON.stringify(response.user),
+            );
+            await AsyncStorage.setItem('token', JSON.stringify(response.token));
+          } catch (error) {
+            console.log('Error storing user data:', error);
+          }
+        } else {
+          if (
+            response.status === 0 &&
+            response.message ===
+              'Register your store and get verified by admin!'
+          ) {
+            navigation.navigate('Add Caterer Store Details', {
+              userId: response.userId,
+            });
+          }
+        }
+      })
+      .catch(err => console.log(err));
   };
 
   const validateEmail = email => {
@@ -304,7 +107,7 @@ export default function Login({navigation, route}) {
 
   const fetchData = async () => {
     try {
-      const url = 'https://cerv-api.herokuapp.com/users/login';
+      const url = 'http://43.204.219.99:8080/users/login';
       const requestBody = {
         email: email,
         password: password,
@@ -313,9 +116,9 @@ export default function Login({navigation, route}) {
 
       const response = await fetch(url, {
         method: 'POST',
-        // headers: {
-        //   'Content-Type': 'application/json',
-        // },
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(requestBody),
       });
 
@@ -381,7 +184,7 @@ export default function Login({navigation, route}) {
                 <FontAwesome5
                   name={passwordVisible ? 'eye' : 'eye-slash'}
                   size={20}
-                  color={'#000'}
+                  color={Color.blackColor}
                 />
               </TouchableOpacity>
             </View>
@@ -484,7 +287,7 @@ const styles = StyleSheet.create({
   line: {
     flex: 1,
     height: 1,
-    backgroundColor: '#000',
+    backgroundColor: Color.blackColor,
   },
   orText: {
     marginHorizontal: 10,
@@ -495,7 +298,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    color: '#000',
+    color: Color.blackColor,
   },
   eyeIconContainer: {
     position: 'absolute',
@@ -510,7 +313,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   customButtonText: {
-    color: '#fff',
+    color: Color.whiteColor,
     fontSize: 16,
     fontWeight: 'bold',
   },

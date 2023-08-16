@@ -11,8 +11,8 @@ import {
 import React, {useState, useEffect} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Silder from './Slider/Silder';
-import Cater from '../../componets/Caterer/Catere';
-import Color from '../../Constants/Color';
+import Cater from '../../components/Caterer/Caterer';
+import Color from '../../constants/Color';
 import Feather from 'react-native-vector-icons/Feather';
 import Caterer_data from '../../data/Caterer_data';
 import {useSelector} from 'react-redux';
@@ -62,13 +62,17 @@ export default function Home({navigation, route}) {
       <View style={styles.headerContainer}>
         <View style={styles.header}>
           <TouchableOpacity>
-            <Feather name={'help-circle'} size={25} color={'#8e8e8e'} />
+            <Feather
+              name={'help-circle'}
+              size={25}
+              color={Color.offGrayColor}
+            />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate('Notification');
             }}>
-            <FontAwesome5 name={'bell'} size={25} color={'#8e8e8e'} />
+            <FontAwesome5 name={'bell'} size={25} color={Color.offGrayColor} />
           </TouchableOpacity>
         </View>
         <View>
@@ -79,13 +83,17 @@ export default function Home({navigation, route}) {
             <Text>My Event Location</Text>
             <Text
               style={{
-                color: '#000',
+                color: Color.blackColor,
                 fontWeight: '500',
                 fontFamily: 'bold',
                 fontSize: 16,
               }}>
               {Adress}
-              <FontAwesome5 name={'sort-down'} size={25} color={'green'} />
+              <FontAwesome5
+                name={'sort-down'}
+                size={25}
+                color={Color.greenColor}
+              />
             </Text>
           </TouchableOpacity>
         </View>
@@ -99,7 +107,7 @@ export default function Home({navigation, route}) {
               onPress={() => {
                 navigation.navigate('Filter');
               }}>
-              <Feather name={'filter'} size={20} color={'#000'} />
+              <Feather name={'filter'} size={20} color={Color.blackColor} />
             </TouchableOpacity>
           </View>
           <View>
@@ -110,7 +118,7 @@ export default function Home({navigation, route}) {
                   name={item.name}
                   address={item.Address}
                   price={item.price}
-                  favaroite={item.favorite}
+                  favorite={item.favorite}
                   onClick={() =>
                     navigation.navigate('Details', {
                       name: item.name,
@@ -166,7 +174,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: 'white',
     // marginBottom: 5,
-    backgroundColor: '#ffff',
+    backgroundColor: Color.whiteColor,
     elevation: 5,
   },
   filterContainer: {
@@ -176,6 +184,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontWeight: 'bold',
-    color: '#000',
+    color: Color.blackColor,
   },
 });
