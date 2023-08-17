@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 import React from 'react';
-import CervNavigation from './src/navigation/CervNavigation';
+import CervNavigation from './src/navigation/cervNavigation';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import rootReducer from './src/store/reducer/rootreducer';
