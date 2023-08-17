@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import CurrentOrder from './CurrentOrder';
-import PastOrder from './PastOrder';
+import CurrentOrder from './currentOrder';
+import PastOrder from './pastOrder';
 import Color from '../../../constants/Color';
 export default function Order({navigation}) {
   const [selectedTab, setSelectedTab] = useState('current');

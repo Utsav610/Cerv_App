@@ -1,7 +1,7 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import EditCustomerInfo from '../../../components/EditInfomation/EditCustomerInfo';
-import EditCatererInfo from '../../../components/EditInfomation/EditCatererInfo';
+import EditCustomerInfo from '../../../components/EditInfomation/editCustomerInfo';
+import EditCatererInfo from '../../../components/EditInfomation/editCatererInfo';
 import {useSelector} from 'react-redux';
 
 export default function EditInfo({navigation}) {

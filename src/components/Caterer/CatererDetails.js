@@ -21,8 +21,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import * as cartAction from '../../store/action/action';
 import {BackHandler} from 'react-native';
 import Images from '../../constants/Images';
-import CommonMenu from '../CommonMenu';
-import RadioButton from '../RadioButton';
+import CommonMenu from '../commonMenu';
+import RadioButton from '../radioButton';
 
 const CatererDetails = ({navigation}) => {
   const handleBackPress = () => {

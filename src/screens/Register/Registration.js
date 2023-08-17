@@ -11,7 +11,7 @@ import {
 import React, {useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import CheckBox from '@react-native-community/checkbox';
-import CustomButton from '../../components/CustomeButton';
+import CustomButton from '../../components/customeButton';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Color from '../../constants/Color';
 import ImagePicker from 'react-native-image-picker';

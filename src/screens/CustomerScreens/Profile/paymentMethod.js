@@ -1,7 +1,7 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Feather from 'react-native-vector-icons/Feather';
-import CustomButton from '../../../components/CustomeButton';
+import CustomButton from '../../../components/customeButton';
 import Color from '../../../constants/Color';
 import FontAwesome5 from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';

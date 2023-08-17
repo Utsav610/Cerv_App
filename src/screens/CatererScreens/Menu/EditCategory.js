@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
-import CustomButton from '../../../components/CustomeButton';
+import CustomButton from '../../../components/customeButton';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {updateCategoryTitle} from '../../../store/action/action';
 import {useDispatch} from 'react-redux';

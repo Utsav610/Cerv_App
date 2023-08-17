@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import CustomButton from '../components/CustomeButton';
+import CustomButton from '../components/customeButton';
 import Color from '../constants/Color';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 export default function MobileNumber({navigation}) {

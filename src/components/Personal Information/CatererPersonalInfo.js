@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import CustomButton from '../CustomeButton';
+import CustomButton from '../customeButton';
 import Color from '../../constants/Color';
 import {Picker} from '@react-native-picker/picker';
 import Feather from 'react-native-vector-icons/Feather';

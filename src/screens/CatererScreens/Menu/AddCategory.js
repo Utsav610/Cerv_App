@@ -1,6 +1,6 @@
 import {StyleSheet, Text, View, Image, TextInput} from 'react-native';
 import React, {useState, useEffect} from 'react';
-import CustomButton from '../../../components/CustomeButton';
+import CustomButton from '../../../components/customeButton';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {addCategory} from '../../../store/action/action';
 import {useDispatch} from 'react-redux';

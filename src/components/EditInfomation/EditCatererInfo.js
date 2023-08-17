@@ -16,7 +16,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useDispatch, useSelector} from 'react-redux';
 import {storeFormData, storeCatereData} from '../../store/action/action';
 import Images from '../../constants/Images';
-import RadioButton from '../RadioButton';
+import RadioButton from '../radioButton';
 
 export default function EditCatererInfo({navigation}) {
   const dispatch = useDispatch();

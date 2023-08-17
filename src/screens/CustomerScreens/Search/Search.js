@@ -35,7 +35,7 @@ export default function Search() {
     <>
       <View style={styles.container}>
         <View style={styles.inputContainer}>
-          <FontAwesome5 name="search" size={20} color="Color.blackColor" />
+          <FontAwesome5 name="search" size={20} color={Color.blackColor} />
           <TextInput
             style={styles.input}
             placeholder="Search"

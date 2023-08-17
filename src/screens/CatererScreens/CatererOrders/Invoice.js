@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Color from '../../../constants/Color';
-import CustomButton from '../../../components/CustomeButton';
+import CustomButton from '../../../components/customeButton';
 
 export default function Invoice({navigation}) {
   return (

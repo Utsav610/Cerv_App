@@ -8,7 +8,7 @@ import {
   Image,
 } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import CustomButton from '../CustomeButton';
+import CustomButton from '../customeButton';
 import Color from '../../constants/Color';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useDispatch, useSelector} from 'react-redux';

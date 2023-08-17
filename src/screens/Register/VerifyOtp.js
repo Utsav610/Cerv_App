@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
-import CustomButton from '../../components/CustomeButton';
+import CustomButton from '../../components/customeButton';
 import Color from '../../constants/Color';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import OtpInputs from '@twotalltotems/react-native-otp-input';

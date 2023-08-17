@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import DeleteModal from '../../../components/DeleteModal';
+import DeleteModal from '../../../components/deleteModal';
 import Color from '../../../constants/Color';
 import Feather from 'react-native-vector-icons/Feather';
 import Cerv_Data from '../../../data/Cerv_Data';

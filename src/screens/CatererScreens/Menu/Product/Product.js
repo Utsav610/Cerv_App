@@ -237,7 +237,7 @@ import {
 import React, {useState, useEffect} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Color from '../../../../constants/Color';
-import DeleteModal from '../../../../components/DeleteModal';
+import DeleteModal from '../../../../components/deleteModal';
 import Menu_data from '../../../../data/Menu_data';
 // import Cerv_Data from '../../../../data/Cerv_Data';
 import Feather from 'react-native-vector-icons/Feather';

@@ -2,7 +2,7 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View, ScrollView} from 'react-native';
 import Color from '../../../../constants/Color';
-import CustomButton from '../../../../components/CustomeButton';
+import CustomButton from '../../../../components/customeButton';
 import Images from '../../../../constants/Images';
 
 const ProductDetails = ({navigation}) => {

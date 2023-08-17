@@ -1,7 +1,7 @@
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import CustomButton from '../../../components/CustomeButton';
+import CustomButton from '../../../components/customeButton';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {BackHandler} from 'react-native';
 

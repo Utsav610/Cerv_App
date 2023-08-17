@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import CustomButton from '../../components/CustomeButton';
+import CustomButton from '../../components/customeButton';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Color from '../../constants/Color';
 import Feather from 'react-native-vector-icons/Feather';

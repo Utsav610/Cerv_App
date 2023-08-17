@@ -7,7 +7,7 @@ import {
   Platform,
   TouchableOpacity,
 } from 'react-native';
-import CustomButton from '../../../../components/CustomeButton';
+import CustomButton from '../../../../components/customeButton';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';

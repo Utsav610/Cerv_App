@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Platform,
 } from 'react-native';
-import CustomButton from '../../../../components/CustomeButton';
+import CustomButton from '../../../../components/customeButton';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useDispatch} from 'react-redux';
 import {storeCouponData} from '../../../../store/action/action';

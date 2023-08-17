@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Color from '../../../../constants/Color';
-import CustomButton from '../../../../components/CustomeButton';
+import CustomButton from '../../../../components/customeButton';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Images from '../../../../constants/Images';

@@ -10,13 +10,13 @@ import {
 import React, {useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {Picker} from '@react-native-picker/picker';
-import CustomButton from '../../components/CustomeButton';
+import CustomButton from '../../components/customeButton';
 import Color from '../../constants/Color';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useDispatch} from 'react-redux';
 import {storeCatereData} from '../../store/action/action';
 import Images from '../../constants/Images';
-import RadioButton from '../../components/RadioButton';
+import RadioButton from '../../components/radioButton';
 
 export default function AddStoreDetails({navigation, route}) {
   const userId = route.params.userId;

@@ -34,7 +34,7 @@
 import {FlatList, Animated, StyleSheet, Text, View} from 'react-native';
 import React, {useRef, useState} from 'react';
 import Sildes from '../../../data/Dummy_data';
-import SilderItem from './SilderItem';
+import SilderItem from './silderItem';
 import Pagination from './Pagination';
 
 const Slider = () => {
