@@ -16,13 +16,12 @@ const initialState = {
 };
 
 const cartReducer = (state = initialState, action) => {
-  // console.log(action.type);
   switch (action.type) {
     case ADD_TO_CART: {
       let tempCart = [...state.cartItems];
-      // console.log('payload' + action.payload);
+
       const newItem = action.payload;
-      // console.log('reducer' + newItem.price);
+
       const existingItem = state.cartItems.find(item => item.id === newItem.id);
 
       if (existingItem) {
@@ -40,7 +39,7 @@ const cartReducer = (state = initialState, action) => {
           ...newItem,
           quantity: 1,
         };
-        // console.log('new', newItemWithQuantity);
+
         tempCart.push(newItemWithQuantity);
       }
 

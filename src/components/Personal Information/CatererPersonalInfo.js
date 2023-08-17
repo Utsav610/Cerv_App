@@ -33,7 +33,7 @@ export default function CatererPersonalInfo({navigation}) {
     };
   });
 
-  const [selectedKm, setSelectedKm] = useState(5); // Default selected km
+  const [selectedKm, setSelectedKm] = useState(5);
   const fees = {
     5: 10,
     10: 15,
@@ -47,11 +47,13 @@ export default function CatererPersonalInfo({navigation}) {
   };
 
   useEffect(() => {
+    console.log('innnnn');
     AsyncStorage.getItem('userData')
       .then(async userData => {
         const {id} = JSON.parse(userData);
-
+        console.log(id);
         const token = await AsyncStorage.getItem('token');
+        console.log('token>>>', JSON.parse(token));
 
         fetch(`http://43.204.219.99:8080/catererInfo/${id}`, {
           headers: {
@@ -70,7 +72,7 @@ export default function CatererPersonalInfo({navigation}) {
       .catch(error => {
         console.log('Error retrieving userData:', error);
       });
-  });
+  }, []);
 
   console.log('->>>', profileData);
 
@@ -88,7 +90,9 @@ export default function CatererPersonalInfo({navigation}) {
         <View style={styles.inputContainer}>
           <FontAwesome5 name={'user'} size={20} color={Color.primaryColor} />
           <View style={styles.input}>
-            <Text style={styles.text}>{profileData?.catererName}</Text>
+            <Text style={styles.text}>
+              {profileData?.caterer?.caterer?.name}
+            </Text>
           </View>
         </View>
 
@@ -100,7 +104,9 @@ export default function CatererPersonalInfo({navigation}) {
             color={Color.primaryColor}
           />
           <View style={styles.input}>
-            <Text style={styles.text}>{profileData?.email}</Text>
+            <Text style={styles.text}>
+              {profileData?.caterer?.caterer?.email}
+            </Text>
           </View>
         </View>
 
@@ -108,7 +114,9 @@ export default function CatererPersonalInfo({navigation}) {
         <View style={styles.inputContainer}>
           <Feather name={'phone'} size={20} color={Color.primaryColor} />
           <View style={styles.input}>
-            <Text style={styles.text}>{profileData?.phoneNumber}</Text>
+            <Text style={styles.text}>
+              {profileData?.caterer?.caterer?.phone_number}
+            </Text>
           </View>
         </View>
         <View>
@@ -140,12 +148,12 @@ export default function CatererPersonalInfo({navigation}) {
               style={styles.image}
             />
           </View>
-          <Text style={styles.label}>Addres</Text>
+          <Text style={styles.label}>Address</Text>
 
-          <Text style={styles.textInput}>{profileData.caterer.address}</Text>
+          <Text style={styles.textInput}>{profileData?.caterer?.address}</Text>
           <Text style={styles.label}>Bio</Text>
 
-          <Text style={styles.textInput}>{profileData?.bio}</Text>
+          <Text style={styles.textInput}>{profileData?.caterer?.bio}</Text>
         </View>
         <View>
           <View>

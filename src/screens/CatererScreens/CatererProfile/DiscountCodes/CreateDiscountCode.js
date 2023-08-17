@@ -26,7 +26,7 @@ const CreateDiscountCode = ({navigation}) => {
   const [active, setActive] = useState('');
   const [couponCode, setCouponCode] = useState('');
 
-  console.log(selectedDate);
+  // console.log(selectedDate);
 
   const handleGenerateCode = () => {
     const url = 'http://43.204.219.99:8080/caterer/addCoupon';
@@ -37,19 +37,21 @@ const CreateDiscountCode = ({navigation}) => {
       code: couponCode,
       is_percent: true,
       value: 40,
-      expiry: '2022-07-07T06:04:44.411Z',
-      is_active: true,
+      expiry: selectedDate,
+      is_active: active === 'Yes' ? true : false,
     };
 
     fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        // Authorization: 'Bearer ' + JSON.parse(token),
       },
       body: JSON.stringify(requestBody),
     })
       .then(async res => {
         const response = await res.json();
+        // console.log(response);
         if (response.status === 1) {
           navigation.navigate('Discount Codes');
         }
@@ -58,6 +60,9 @@ const CreateDiscountCode = ({navigation}) => {
   };
 
   const handleDateChange = (event, newDate) => {
+    if (Platform.OS === 'android') {
+      setShowDatePicker(false);
+    }
     if (newDate !== undefined) {
       setSelectedDate(newDate);
     }
@@ -104,12 +109,14 @@ const CreateDiscountCode = ({navigation}) => {
             </View>
           </TouchableOpacity>
 
-          <DateTimePicker
-            value={selectedDate}
-            mode="date"
-            display="default"
-            onChange={handleDateChange}
-          />
+          {showDatePicker && (
+            <DateTimePicker
+              value={selectedDate}
+              mode="date"
+              display="default"
+              onChange={handleDateChange}
+            />
+          )}
 
           <Text style={styles.title}>Active:</Text>
           <TextInput

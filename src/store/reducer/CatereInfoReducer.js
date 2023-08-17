@@ -18,7 +18,6 @@ const initialState = {
 };
 
 const allDataReducer = (state = initialState, action) => {
-  // console.log(action);
   switch (action.type) {
     case STORE_CATERE_DATA:
       return {

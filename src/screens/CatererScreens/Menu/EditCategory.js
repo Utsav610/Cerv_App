@@ -36,7 +36,6 @@ export default function EditCategory({navigation, route}) {
   const dispatch = useDispatch();
 
   const handleSave = () => {
-    // console.log();
     dispatch(updateCategoryTitle(initialTitle, Title));
     navigation.navigate('CatereLogin');
   };

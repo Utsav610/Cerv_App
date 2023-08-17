@@ -1,18 +1,18 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import CustomerPersonalInfo from '../../../components/Personal Information/CustomerPersonalInfo';
-import CaterePersonalInfo from '../../../components/Personal Information/CatererPersonalInfo';
+import CatererPersonalInfo from '../../../components/Personal Information/CatererPersonalInfo';
 import {useSelector} from 'react-redux';
 
 export default function Peronal_Infomation({navigation}) {
   const role = useSelector(state => state.user.role);
-  console.log('pp ' + role);
+
   return (
     <View style={styles.container}>
       {role === 'Customer' ? (
         <CustomerPersonalInfo navigation={navigation} />
       ) : (
-        <CaterePersonalInfo navigation={navigation} />
+        <CatererPersonalInfo navigation={navigation} />
       )}
     </View>
   );

@@ -11,7 +11,6 @@ export default function Filter({navigation}) {
 
   const handleFilterSelect = filter => {
     setSelectedFilter(filter);
-    // console.log(filter);
   };
 
   return (

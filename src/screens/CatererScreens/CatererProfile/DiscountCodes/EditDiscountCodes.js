@@ -14,10 +14,8 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Color from '../../../../constants/Color';
 
 const EditDiscountCodes = ({route}) => {
-  // console.log('params', route.params.index);
   const {coupon} = route.params;
-  // console.log('a', coupon);
-  // const {index} = route.params;w
+
   const [title, setTitle] = useState(coupon.title);
   const [description, setDescription] = useState(coupon.description);
   // const [expiryDate, setExpiryDate] = useState(coupon.expiryDate);

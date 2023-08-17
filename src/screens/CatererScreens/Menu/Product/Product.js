@@ -247,12 +247,9 @@ import {deleteSubCategory} from '../../../../store/action/action';
 export default function Product({navigation, route}) {
   const {subcategory} = route.params;
   const {title} = route.params;
-  console.log(subcategory);
 
   let Cerv_Data = useSelector(state => state.cerv.cervData);
   const dispatch = useDispatch();
-
-  // console.log(subcategory);
 
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState(subcategory);

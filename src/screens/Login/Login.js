@@ -34,13 +34,10 @@ export default function Login({navigation, route}) {
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', handleBackPress);
 
-    // Don't forget to remove the event listener when the component is unmounted
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
     };
   });
-
-  // console.log(email);
 
   const handleLogin = async () => {
     const url = 'http://43.204.219.99:8080/users/login';
@@ -72,6 +69,7 @@ export default function Login({navigation, route}) {
               'userData',
               JSON.stringify(response.user),
             );
+
             await AsyncStorage.setItem('token', JSON.stringify(response.token));
           } catch (error) {
             console.log('Error storing user data:', error);
@@ -103,34 +101,6 @@ export default function Login({navigation, route}) {
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
-  };
-
-  const fetchData = async () => {
-    try {
-      const url = 'http://43.204.219.99:8080/users/login';
-      const requestBody = {
-        email: email,
-        password: password,
-        role: 1,
-      };
-
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch data from the API');
-      }
-
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
   };
 
   return (

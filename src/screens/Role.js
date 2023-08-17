@@ -12,7 +12,7 @@ export default function OptionScreen({navigation}) {
 
   const handleOptionSelect = option => {
     setSelectedOption(option);
-    // console.log(option);
+
     dispatch(updateRole(option));
   };
 

@@ -27,17 +27,12 @@ export default function Home({navigation, route}) {
     }
   }, [route.params]);
 
-  // console.log('route', route.params);
-  // console.log('filter', selectedFilter);
   const Adress = useSelector(state => state.address.Adress);
-  // console.log(Adress);
 
   useEffect(() => {
     const applyFilter = (filter, data) => {
-      // console.log('apply');
       switch (filter) {
         case 'rating':
-          // console.log(filter);
           return data;
 
         case 'lowToHigh':

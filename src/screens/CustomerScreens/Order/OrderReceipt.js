@@ -19,8 +19,6 @@ import {Image} from 'react-native-svg';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function OrderReceipt({navigation, route}) {
-  // console.log(route);
-  // console.log(route.params);
   const dispatch = useDispatch();
   const Adress = useSelector(state => state.address.Adress);
   const [appliedCoupon, setAppliedCoupon] = useState(false);
@@ -38,11 +36,10 @@ export default function OrderReceipt({navigation, route}) {
   // let selectedCard = false;
 
   const OrderData = useSelector(state => state.cart.cartItems);
-  // console.log(OrderData);
+
   const cartTotalAmount = useSelector(state => state.cart.totalAmount);
   const couponCode = useSelector(state => state.cart.couponCode);
   const selectedCard = useSelector(state => state.cart.selectedcard);
-  console.log(selectedCard);
 
   const [subtotal, setSubtotal] = useState(0);
   const serviceCharges = 1.0;
@@ -59,7 +56,6 @@ export default function OrderReceipt({navigation, route}) {
 
   const totalAmount =
     subtotal + serviceCharges + deliveryFee + tax - couponPrice;
-  // console.log(OrderData);
 
   return (
     <>

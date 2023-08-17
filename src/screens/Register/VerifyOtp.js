@@ -34,7 +34,7 @@ export default function OTPScreen({navigation, number}) {
     })
       .then(async res => {
         const response = await res.json();
-        console.log('>>>>', response);
+
         if (response.status === 1) {
           registrationApi();
         }
@@ -62,7 +62,7 @@ export default function OTPScreen({navigation, number}) {
     })
       .then(async res => {
         const response = await res.json();
-        console.log('>>>>', response);
+
         if (response.status === 1) {
           if (Role === 'Customer') {
             navigation.navigate('Login');

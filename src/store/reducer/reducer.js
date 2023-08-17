@@ -4,8 +4,6 @@ const initialState = {
 };
 
 const userReducer = (state = initialState, action) => {
-  // console.log(action.type);
-  // console.log('reducer' + state);
   switch (action.type) {
     case UPDATE_ROLE:
       return {

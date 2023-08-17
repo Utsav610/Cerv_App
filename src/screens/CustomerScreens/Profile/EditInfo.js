@@ -6,7 +6,7 @@ import {useSelector} from 'react-redux';
 
 export default function EditInfo({navigation}) {
   const role = useSelector(state => state.user.role);
-  console.log('pp ' + role);
+
   return (
     <View style={styles.container}>
       {role === 'Customer' ? (

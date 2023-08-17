@@ -30,7 +30,6 @@ export default function EditCatererInfo({navigation}) {
   ]);
 
   const CatereData = useSelector(state => state.catereData);
-  // console.log(CatereData);
 
   const [driverInfo, setDriverInfo] = useState({
     driverName: CatereData.driverInfo.driverName,
@@ -38,7 +37,7 @@ export default function EditCatererInfo({navigation}) {
   });
 
   const foodCategories = ['chinese', 'indian Thali', 'Italian', 'Korean'];
-  // Default selected km
+
   const fees = {
     5: 10,
     10: 15,
@@ -53,7 +52,6 @@ export default function EditCatererInfo({navigation}) {
 
   const [orderType, setOrderType] = useState(CatereData.orderType);
   const handleOrderTypeChange = type => {
-    // console.log(type);
     setOrderType(type);
   };
   const handleFoodCategoryChange = category => {

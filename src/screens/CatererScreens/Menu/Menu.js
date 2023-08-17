@@ -24,7 +24,7 @@ export default function Menu({navigation}) {
   const cervData = useSelector(state => state.cerv.cervData);
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [title, settitle] = useState('Noodle');
+  const [title, setTitle] = useState('Noodle');
   const handleDelete = () => {
     // Perform delete operation
     dispatch(deleteCategory(title));
@@ -61,7 +61,7 @@ export default function Menu({navigation}) {
               style={styles.iconContainer}
               onPress={() => {
                 setModalVisible(true);
-                settitle(item.name);
+                setTitle(item.name);
               }}>
               <Feather name={'trash-2'} size={20} color={Color.redColor} />
             </TouchableOpacity>

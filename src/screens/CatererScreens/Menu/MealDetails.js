@@ -52,7 +52,7 @@ export default function MealDetails({navigation, route}) {
   const handleConfirm = () => {
     // Handle the confirmed action here
     dispatch(addSubcategory(textInputValue, title));
-    // console.log('Confirmed:', textInputValue, title);
+
     closeModal();
     setTextInputValue('');
   };
@@ -71,7 +71,6 @@ export default function MealDetails({navigation, route}) {
   // }
 
   const Cerv_Data = useSelector(state => state.cerv.cervData);
-  // console.log('cerv', Cerv_Data);
 
   const category = Cerv_Data.find(item => item.name === title);
   const subcategoryNames = category.subcategories.map(

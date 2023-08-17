@@ -108,7 +108,7 @@ export default function AddStoreDetails({navigation, route}) {
     })
       .then(async res => {
         const response = await res.json();
-        console.log('--->>>', response);
+
         if (response.status === 1) {
           navigation.navigate('Login');
         }

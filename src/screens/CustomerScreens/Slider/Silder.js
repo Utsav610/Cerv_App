@@ -59,8 +59,6 @@ const Slider = () => {
   };
 
   const handleOnViewableItemsChanged = useRef(({viewableItems}) => {
-    // console.log('viewableItems', viewableItems);
-    // console.log(viewableItems[0]?.index);
     setIndex(viewableItems[0]?.index);
   }).current;
 

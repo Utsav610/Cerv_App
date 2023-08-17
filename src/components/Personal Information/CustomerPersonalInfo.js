@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -15,8 +15,10 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useSelector} from 'react-redux';
 import {BackHandler} from 'react-native';
 import Images from '../../constants/Images';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function CustomerPersonalInfo({navigation}) {
+  const [profileData, setProfileData] = useState({});
   const handleBackPress = () => {
     navigation.goBack();
     return true;
@@ -31,8 +33,31 @@ export default function CustomerPersonalInfo({navigation}) {
     };
   });
 
-  const allData = useSelector(state => state.RegisterData);
-  console.log(allData);
+  useEffect(() => {
+    fetchProfileData();
+  }, []);
+
+  const fetchProfileData = async () => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+
+      const response = await fetch('http://43.204.219.99:8080/profile', {
+        headers: {
+          Authorization: 'Bearer ' + JSON.parse(token),
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      setProfileData(data);
+    } catch (error) {
+      console.error('Error fetching profile data:', error);
+    }
+  };
+
   return (
     <>
       <KeyboardAwareScrollView>
@@ -47,7 +72,7 @@ export default function CustomerPersonalInfo({navigation}) {
         <View style={styles.inputContainer}>
           <FontAwesome5 name={'user'} size={20} color={Color.primaryColor} />
           <View style={styles.input}>
-            <Text style={styles.text}>{allData.catererName}</Text>
+            <Text style={styles.text}>{profileData?.data?.name}</Text>
           </View>
         </View>
 
@@ -59,7 +84,7 @@ export default function CustomerPersonalInfo({navigation}) {
             color={Color.primaryColor}
           />
           <View style={styles.input}>
-            <Text style={styles.text}>{allData.email}</Text>
+            <Text style={styles.text}>{profileData?.data?.email}</Text>
           </View>
         </View>
 
@@ -72,19 +97,16 @@ export default function CustomerPersonalInfo({navigation}) {
             value={allData.phoneNumber}
           /> */}
           <View style={styles.input}>
-            <Text style={styles.text}>{allData.phoneNumber}</Text>
+            <Text style={styles.text}>{profileData?.data?.phoneNumber}</Text>
           </View>
         </View>
 
         <Text style={styles.label}> Home Postcode</Text>
         <View style={styles.inputContainer}>
           <FontAwesome5 name={'home'} size={20} color={Color.primaryColor} />
-          <TextInput
-            placeholder="123456"
-            secureTextEntry
-            style={styles.input}
-            // value={allData.catererName}
-          />
+          <View style={styles.input}>
+            <Text style={styles.text}>Postcode</Text>
+          </View>
         </View>
         <View style={styles.btnContainer}>
           <CustomButton

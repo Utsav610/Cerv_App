@@ -15,7 +15,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Images from '../../constants/Images';
 
 const Caterer = ({onClick, name, address, price, favorite}) => {
-  // console.log(favaroite);
   let TouchableCmp = TouchableOpacity;
   if (Platform.OS === 'android' && Platform.Version >= 21) {
     TouchableCmp = TouchableNativeFeedback;

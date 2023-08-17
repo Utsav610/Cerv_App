@@ -4,7 +4,6 @@ import Menu_data from '../data/Menu_data';
 import Color from '../constants/Color';
 
 export default function CommonMenu({label, selectedMenu, onSelectMenu}) {
-  console.log('labe>>>', label);
   return (
     <TouchableOpacity onPress={() => onSelectMenu(label)}>
       <Text

@@ -27,7 +27,7 @@ export default function SavedAddress({navigation}) {
 
   const handleCircleIconPress = address => {
     setSelectedAddress(address);
-    // console.log(address);
+
     dispatch(updateAddress(address));
   };
 
