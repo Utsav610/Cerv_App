@@ -15,6 +15,7 @@ import Color from '../../constants/Color';
 import Feather from 'react-native-vector-icons/Feather';
 import {storeMobile} from '../../store/action/action';
 import {useDispatch} from 'react-redux';
+import Images from '../../constants/Images';
 
 export default function MobileNumber({navigation}) {
   const dispatch = useDispatch();
@@ -48,11 +49,7 @@ export default function MobileNumber({navigation}) {
     <View style={styles.container}>
       <KeyboardAwareScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.header}>
-          <Image
-            source={require('../../assest/bg.jpeg')}
-            resizeMode="cover"
-            style={styles.image}
-          />
+          <Image source={Images.BG} resizeMode="cover" style={styles.image} />
         </View>
         <View style={styles.content}>
           <View style={styles.textconatiner}>

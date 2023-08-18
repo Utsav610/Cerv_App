@@ -12,16 +12,14 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import CustomButton from '../components/customeButton';
 import Color from '../constants/Color';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import Images from '../constants/Images';
+
 export default function MobileNumber({navigation}) {
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.header}>
-          <Image
-            source={require('../assest/bg.jpeg')}
-            resizeMode="cover"
-            style={styles.image}
-          />
+          <Image source={Images.BG} resizeMode="cover" style={styles.image} />
         </View>
         <View style={styles.content}>
           <View style={styles.textconatiner}>

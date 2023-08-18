@@ -1,11 +1,39 @@
 /* eslint-disable react-native/no-inline-styles */
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Color from '../../../constants/Color';
 import CustomButton from '../../../components/customeButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Invoice({navigation}) {
+  useEffect(() => {
+    fetchCouponData();
+  }, []);
+
+  const fetchCouponData = async () => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+
+      const response = await fetch(
+        'http://43.204.219.99:8080/caterer/get-invoice/1',
+        {
+          headers: {
+            Authorization: 'Bearer ' + JSON.parse(token),
+          },
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+    } catch (error) {
+      console.error('Error fetching Coupon data:', error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View>

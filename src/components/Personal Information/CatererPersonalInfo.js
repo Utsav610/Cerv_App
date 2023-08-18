@@ -47,13 +47,12 @@ export default function CatererPersonalInfo({navigation}) {
   };
 
   useEffect(() => {
-    console.log('innnnn');
+    // console.log('innnnn');
     AsyncStorage.getItem('userData')
       .then(async userData => {
         const {id} = JSON.parse(userData);
-        console.log(id);
+
         const token = await AsyncStorage.getItem('token');
-        console.log('token>>>', JSON.parse(token));
 
         fetch(`http://43.204.219.99:8080/catererInfo/${id}`, {
           headers: {
@@ -62,7 +61,6 @@ export default function CatererPersonalInfo({navigation}) {
         })
           .then(response => response.json())
           .then(data => {
-            // console.log(data);
             setProfileData(data);
           })
           .catch(error => {
@@ -74,7 +72,17 @@ export default function CatererPersonalInfo({navigation}) {
       });
   }, []);
 
-  console.log('->>>', profileData);
+  const getOrderTypeText = orderType => {
+    if (orderType === 0) {
+      return 'Delivery';
+    } else if (orderType === 1) {
+      return 'Pickup';
+    } else if (orderType === 2) {
+      return 'Both';
+    } else {
+      return 'Unknown';
+    }
+  };
 
   return (
     <>
@@ -121,7 +129,9 @@ export default function CatererPersonalInfo({navigation}) {
         </View>
         <View>
           <Text style={styles.headerText}>OrderType</Text>
-          <Text style={styles.headerText}>{profileData?.orderType}</Text>
+          <Text style={styles.headerText}>
+            {getOrderTypeText(profileData?.caterer?.order_type)}
+          </Text>
         </View>
         <View>
           <Text>Distance and fee</Text>
@@ -140,11 +150,13 @@ export default function CatererPersonalInfo({navigation}) {
         </View>
         <View>
           <Text style={styles.label}>Business License Number</Text>
-          <Text style={styles.textInput}>{profileData?.licenseNumber}</Text>
+          <Text style={styles.textInput}>
+            {profileData?.caterer?.license_num}
+          </Text>
           <View>
             <Text>Business License Photo</Text>
             <Image
-              source={require('../../assest/license.jpeg')}
+              source={require('../../assets/license.jpeg')}
               style={styles.image}
             />
           </View>

@@ -11,6 +11,7 @@ import Color from '../../constants/Color';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import OtpInputs from '@twotalltotems/react-native-otp-input';
 import {useSelector} from 'react-redux';
+import Images from '../../constants/Images';
 
 export default function OTPScreen({navigation, number}) {
   const Role = useSelector(state => state.user.role);
@@ -77,7 +78,7 @@ export default function OTPScreen({navigation, number}) {
   return (
     <KeyboardAwareScrollView>
       <ImageBackground
-        source={require('../../assest/bg.jpeg')}
+        source={Images.BG}
         resizeMode="cover"
         style={styles.image}>
         <View style={styles.container}>

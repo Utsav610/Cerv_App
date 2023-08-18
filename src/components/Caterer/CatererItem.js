@@ -16,7 +16,7 @@ export default function CatererItem() {
       <View style={styles.itemContainer}>
         <View style={styles.itemImageContainer}>
           <Image
-            source={require('../../assest/silder1.jpeg')}
+            source={require('../../assets/silder1.jpeg')}
             style={styles.itemImage}
           />
         </View>

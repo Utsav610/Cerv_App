@@ -18,6 +18,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useDispatch, useSelector} from 'react-redux';
 import {setcervData, deleteCategory} from '../../../store/action/action';
 import Images from '../../../constants/Images';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Menu({navigation}) {
   const dispatch = useDispatch();
@@ -25,16 +26,47 @@ export default function Menu({navigation}) {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState('Noodle');
+
+  const [menuItem, setMenuItem] = useState({});
+
   const handleDelete = () => {
-    // Perform delete operation
     dispatch(deleteCategory(title));
     setModalVisible(false);
   };
 
   useEffect(() => {
-    // Load the Cerv data when the component mounts
     dispatch(setcervData(Cerv_Data));
   }, [dispatch]);
+
+  useEffect(() => {
+    fetchCouponData();
+  }, []);
+
+  const fetchCouponData = async () => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+
+      const response = await fetch(
+        'http://43.204.219.99:8080/caterer/categories',
+        {
+          headers: {
+            Authorization: 'Bearer ' + JSON.parse(token),
+          },
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      setMenuItem(data);
+    } catch (error) {
+      console.error('Error fetching Coupon data:', error);
+    }
+  };
+
+  console.log('>>>>MenuItem', menuItem);
 
   const renderCategory = ({item}) => (
     <View>
@@ -89,7 +121,7 @@ export default function Menu({navigation}) {
         onRequestClose={() => setModalVisible(false)}>
         <View style={styles.modalContainer}>
           <DeleteModal
-            imageSource={require('../../../assest/catere.jpeg')}
+            imageSource={require('../../../assets/catere.jpeg')}
             itemTitle={title}
             onCancel={() => setModalVisible(false)}
             onDelete={handleDelete}

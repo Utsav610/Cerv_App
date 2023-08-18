@@ -14,6 +14,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useDispatch, useSelector} from 'react-redux';
 import {storeFormData} from '../../store/action/action';
 import Images from '../../constants/Images';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function EditCustomerInfo({navigation}) {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ export default function EditCustomerInfo({navigation}) {
     dispatch(storeFormData(data));
     navigation.navigate('Personal information');
   };
+
   return (
     <>
       <KeyboardAwareScrollView>

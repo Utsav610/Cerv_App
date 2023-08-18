@@ -1,7 +1,7 @@
 export default [
   {
     id: 1,
-    img: require('../assest/silder1.jpeg'),
+    img: require('../assets/silder1.jpeg'),
     title: 'Chinese',
     description: 'The future of health is on your wrist',
     price: 399,
@@ -9,7 +9,7 @@ export default [
   },
   {
     id: 2,
-    img: require('../assest/slider2.jpeg'),
+    img: require('../assets/slider2.jpeg'),
     title: 'Italian',
     description:
       'Active noise cancellation for immersive sound Active noise cancellation for immersive sound',
@@ -18,7 +18,7 @@ export default [
   },
   {
     id: 3,
-    img: require('../assest/slider3.jpeg'),
+    img: require('../assets/slider3.jpeg'),
     title: 'Thai',
     description: 'Effortless AirPods experience',
     price: 549,
@@ -26,7 +26,7 @@ export default [
   },
   {
     id: 4,
-    img: require('../assest/slider3.jpeg'),
+    img: require('../assets/slider3.jpeg'),
     title: 'Indian',
     description: 'Effortless AirPods experience',
     price: 549,
@@ -34,7 +34,7 @@ export default [
   },
   {
     id: 5,
-    img: require('../assest/slider3.jpeg'),
+    img: require('../assets/slider3.jpeg'),
     title: 'Mexican',
     description: 'Effortless AirPods experience',
     price: 549,
@@ -42,7 +42,7 @@ export default [
   },
   {
     id: 6,
-    img: require('../assest/slider3.jpeg'),
+    img: require('../assets/slider3.jpeg'),
     title: 'Noodles',
     description: 'Effortless AirPods experience',
     price: 549,
@@ -50,7 +50,7 @@ export default [
   },
   {
     id: 7,
-    img: require('../assest/slider3.jpeg'),
+    img: require('../assets/slider3.jpeg'),
     title: 'Greek',
     description: 'Effortless AirPods experience',
     price: 549,
@@ -58,7 +58,7 @@ export default [
   },
   {
     id: 8,
-    img: require('../assest/slider3.jpeg'),
+    img: require('../assets/slider3.jpeg'),
     title: 'Japanese',
     description: 'Effortless AirPods experience',
     price: 549,

@@ -134,7 +134,7 @@ export default function AddStoreDetails({navigation, route}) {
             <View>
               <Text>Business License Photo</Text>
               <Image
-                source={require('../../assest/license.jpeg')}
+                source={require('../../assets/license.jpeg')}
                 style={styles.image}
               />
             </View>

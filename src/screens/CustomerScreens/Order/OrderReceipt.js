@@ -17,6 +17,7 @@ import * as cartAction from '../../../store/action/action';
 import Order from '../../CatererScreens/CatererOrders/Order';
 import {Image} from 'react-native-svg';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Images from '../../../constants/Images';
 
 export default function OrderReceipt({navigation, route}) {
   const dispatch = useDispatch();
@@ -288,7 +289,7 @@ export default function OrderReceipt({navigation, route}) {
           <View style={styles.modalContent}>
             <View style={styles.modalImageContainer}>
               <Image
-                source={require('../../../assest/sucess.jpeg')}
+                source={Images.SUCESS}
                 // resizeMode="cover"
                 style={styles.modalImage}
               />

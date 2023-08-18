@@ -12,6 +12,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Color from '../../../../constants/Color';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const EditDiscountCodes = ({route}) => {
   const {coupon} = route.params;
@@ -33,6 +34,38 @@ const EditDiscountCodes = ({route}) => {
   const showAndroidDatePicker = () => {
     setShowDatePicker(true);
   };
+
+  // const handleGenerateCode = async () => {
+  //   const url = 'http://43.204.219.99:8080/caterer/addCoupon';
+  //   const token = await AsyncStorage.getItem('token');
+
+  //   const requestBody = {
+  //     title: title,
+  //     description: description,
+  //     code: couponCode,
+  //     is_percent: true,
+  //     value: 40,
+  //     expiry: selectedDate,
+  //     is_active: active === 'Yes' ? true : false,
+  //   };
+
+  //   fetch(url, {
+  //     method: 'PUT',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Authorization: 'Bearer ' + JSON.parse(token),
+  //     },
+  //     body: JSON.stringify(requestBody),
+  //   })
+  //     .then(async res => {
+  //       const response = await res.json();
+  //       console.log(response);
+  //       if (response.status === 1) {
+  //         navigation.navigate('Discount Codes');
+  //       }
+  //     })
+  //     .catch(error => console.log(error));
+  // };
 
   return (
     <KeyboardAwareScrollView>

@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useDispatch} from 'react-redux';
 import {updateAddress} from '../../../store/action/action';
 import {BackHandler} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function SavedAddress({navigation}) {
   const handleBackPress = () => {
@@ -16,7 +17,6 @@ export default function SavedAddress({navigation}) {
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', handleBackPress);
 
-    // Don't forget to remove the event listener when the component is unmounted
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
     };
@@ -29,6 +29,30 @@ export default function SavedAddress({navigation}) {
     setSelectedAddress(address);
 
     dispatch(updateAddress(address));
+  };
+
+  useEffect(() => {
+    fetchCouponData();
+  }, []);
+
+  const fetchCouponData = async () => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+
+      const response = await fetch('http://43.204.219.99:8080/get-address', {
+        headers: {
+          Authorization: 'Bearer ' + JSON.parse(token),
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+    } catch (error) {
+      console.error('Error fetching Coupon data:', error);
+    }
   };
 
   return (

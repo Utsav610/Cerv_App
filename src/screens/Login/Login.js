@@ -16,6 +16,7 @@ import Color from '../../constants/Color';
 import {useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {BackHandler} from 'react-native';
+import Images from '../../constants/Images';
 
 export default function Login({navigation, route}) {
   const Role = useSelector(state => state.user.role);
@@ -107,11 +108,7 @@ export default function Login({navigation, route}) {
     <View style={styles.container}>
       <KeyboardAwareScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.header}>
-          <Image
-            source={require('../../assest/bg.jpeg')}
-            resizeMode="cover"
-            style={styles.image}
-          />
+          <Image source={Images.BG} resizeMode="cover" style={styles.image} />
         </View>
         <View style={styles.content}>
           <Text style={styles.login}>Login</Text>

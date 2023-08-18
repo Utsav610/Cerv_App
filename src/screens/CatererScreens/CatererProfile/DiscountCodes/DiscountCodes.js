@@ -55,33 +55,32 @@ const DiscountCodes = ({navigation}) => {
   };
 
   useEffect(() => {
-    console.log('innnnn');
-    const fetchCouponData = async () => {
-      try {
-        const token = await AsyncStorage.getItem('token');
-
-        const response = await fetch(
-          'http://43.204.219.99:8080/caterer/getCoupons',
-          {
-            headers: {
-              Authorization: 'Bearer ' + JSON.parse(token),
-            },
-          },
-        );
-
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-
-        const data = await response.json();
-        setcouponData(data);
-      } catch (error) {
-        console.error('Error fetching profile data:', error);
-      }
-    };
-
     fetchCouponData();
   }, []);
+
+  const fetchCouponData = async () => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+
+      const response = await fetch(
+        'http://43.204.219.99:8080/caterer/getCoupons',
+        {
+          headers: {
+            Authorization: 'Bearer ' + JSON.parse(token),
+          },
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      setcouponData(data);
+    } catch (error) {
+      console.error('Error fetching profile data:', error);
+    }
+  };
 
   console.log('>>>>couponData', couponData);
 

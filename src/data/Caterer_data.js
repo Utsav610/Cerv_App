@@ -1,7 +1,7 @@
 export default [
   {
     id: 1,
-    img: require('../assest/catere.jpeg'),
+    img: require('../assets/catere.jpeg'),
     name: 'St John & Thomans Catering',
     Address: '3200 Williams treet , Nathan Road , MA',
     price: 39,
@@ -9,7 +9,7 @@ export default [
   },
   {
     id: 2,
-    img: require('../assest/catere.jpeg'),
+    img: require('../assets/catere.jpeg'),
     name: 'St John & Thomans Catering',
     Address: '3200 Williams treet , Nathan Road , MA',
     price: 24,
@@ -17,7 +17,7 @@ export default [
   },
   {
     id: 3,
-    img: require('../assest/catere.jpeg'),
+    img: require('../assets/catere.jpeg'),
     name: 'St John & Thomans Catering',
     Address: '3200 Williams treet , Nathan Road , MA',
     price: 54,

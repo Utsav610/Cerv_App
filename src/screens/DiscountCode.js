@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Color from '../constants/Color';
 import {useDispatch} from 'react-redux';
 import * as cartAction from '../store/action/action';
 import {useSelector} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const DiscountCodes = ({navigation}) => {
   const dispatch = useDispatch();
@@ -12,6 +13,33 @@ const DiscountCodes = ({navigation}) => {
   const handleCouponPress = code => {
     dispatch(cartAction.storeCouponCode(code));
     navigation.navigate('Order Receipt');
+  };
+
+  useEffect(() => {
+    fetchCouponData();
+  }, []);
+
+  const fetchCouponData = async () => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+
+      const response = await fetch(
+        'http://43.204.219.99:8080/users/getCoupons/2',
+        {
+          headers: {
+            Authorization: 'Bearer ' + JSON.parse(token),
+          },
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+    } catch (error) {
+      console.error('Error fetching profile data:', error);
+    }
   };
 
   return (

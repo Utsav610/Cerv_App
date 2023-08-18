@@ -126,11 +126,7 @@ export default function Registration({navigation}) {
       {/* <View style={{flex: 1}}> */}
       <KeyboardAwareScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.header}>
-          <Image
-            source={require('../../assest/bg.jpeg')}
-            resizeMode="cover"
-            style={styles.image}
-          />
+          <Image source={Images.BG} resizeMode="cover" style={styles.image} />
         </View>
         <View style={styles.content}>
           <View style={styles.imageContainer}>
