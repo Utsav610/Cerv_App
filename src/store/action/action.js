@@ -89,9 +89,9 @@ export const storeFormData = formData => ({
   payload: formData,
 });
 
-export const storeMobile = number => ({
+export const storeMobile = (number, selectedCode) => ({
   type: SET_MOBILE_NUMBER,
-  payload: number,
+  payload: {number, selectedCode},
 });
 
 export const setcervData = data => ({

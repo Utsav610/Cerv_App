@@ -78,7 +78,7 @@ const cervReducer = (state = initialState, action) => {
     case ADD_SUBCATEGORY:
       const newSubcategory = {
         name: action.payload.subcategoryName,
-        items: [], // You can initialize an empty array for the new subcategory items here
+        items: [],
       };
 
       updatedCervData = state.cervData.map(category => {

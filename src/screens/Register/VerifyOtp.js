@@ -12,35 +12,50 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import OtpInputs from '@twotalltotems/react-native-otp-input';
 import {useSelector} from 'react-redux';
 import Images from '../../constants/Images';
+import {Register, verifyOTP} from '../../services/Auth';
 
 export default function OTPScreen({navigation, number}) {
   const Role = useSelector(state => state.user.role);
   const registration = useSelector(state => state.RegisterData);
   const [otp, setOtp] = useState('');
 
-  const validateOtp = () => {
-    const url = 'http://43.204.219.99:8080/users/verifyOTP';
-    const requestBody = {
-      otpValue: otp,
-      phone_number: registration.phoneNumber,
-      country_code: '+91',
-    };
+  // const validateOtp = () => {
+  //   const url = 'http://43.204.219.99:8080/users/verifyOTP';
+  //   const requestBody = {
+  //     otpValue: otp,
+  //     phone_number: registration.phoneNumber,
+  //     country_code: '+91',
+  //   };
 
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestBody),
-    })
-      .then(async res => {
-        const response = await res.json();
+  //   fetch(url, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(requestBody),
+  //   })
+  //     .then(async res => {
+  //       const response = await res.json();
 
-        if (response.status === 1) {
-          registrationApi();
-        }
-      })
-      .catch(err => console.log(err));
+  //       if (response.status === 1) {
+  //         registrationApi();
+  //       }
+  //     })
+  //     .catch(err => console.log(err));
+  // };
+
+  const validateOtp = async () => {
+    const isVerified = await verifyOTP(
+      otp,
+      registration.phoneNumber,
+      registration.country_code,
+    );
+
+    if (isVerified) {
+      registrationApi();
+    } else {
+      console.log('OTP verification failed');
+    }
   };
 
   const registrationApi = () => {
@@ -52,7 +67,7 @@ export default function OTPScreen({navigation, number}) {
       role: Role === 'Customer' ? 1 : 0,
       image: '',
       phone_number: registration.phoneNumber,
-      country_code: '+91',
+      country_code: registration.country_code,
     };
     fetch(url, {
       method: 'POST',

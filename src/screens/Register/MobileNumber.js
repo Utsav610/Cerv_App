@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {
   StyleSheet,
   Text,
@@ -16,15 +17,29 @@ import Feather from 'react-native-vector-icons/Feather';
 import {storeMobile} from '../../store/action/action';
 import {useDispatch} from 'react-redux';
 import Images from '../../constants/Images';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function MobileNumber({navigation}) {
   const dispatch = useDispatch();
   const [number, setnumber] = useState('');
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [selectedCode, setSelectedCode] = useState('+91');
+
+  const countryCodes = ['+91', '+1', '+44', '+81'];
+
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
+
+  const selectCode = code => {
+    setSelectedCode(code);
+    setShowDropdown(false);
+  };
 
   const validateNumber = () => {
     const url = 'http://43.204.219.99:8080/users/generateOTP';
     const requestBody = {
-      country_code: '+91',
+      country_code: selectedCode,
       phone_number: number,
       channel: 'sms',
     };
@@ -59,7 +74,33 @@ export default function MobileNumber({navigation}) {
           <Text>Phone Number</Text>
           <View style={styles.inputContainer}>
             <Feather name={'phone'} size={20} color={Color.primaryColor} />
-            <Text>{' +91 |'}</Text>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <TouchableOpacity onPress={toggleDropdown}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Text>{selectedCode}</Text>
+                  <Icon name={'menu-down'} size={20} color={Color.blackColor} />
+                </View>
+              </TouchableOpacity>
+              {showDropdown && (
+                <View
+                  style={{
+                    position: 'absolute',
+                    top: 30,
+                    left: 0,
+                    backgroundColor: Color.whiteColor,
+                  }}>
+                  {countryCodes.map(code => (
+                    <TouchableOpacity
+                      key={code}
+                      onPress={() => selectCode(code)}
+                      style={{paddingVertical: 5}}>
+                      <Text>{code}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              )}
+              <Text>{'|'}</Text>
+            </View>
             <TextInput
               placeholder="1234567890"
               style={styles.input}
@@ -70,13 +111,21 @@ export default function MobileNumber({navigation}) {
               }}
             />
           </View>
-          <CustomButton
-            title="Send Code"
-            onPress={() => {
-              dispatch(storeMobile(number));
-              validateNumber();
-            }}
-          />
+          <View
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              width: '100%',
+              alignSelf: 'center',
+            }}>
+            <CustomButton
+              title="Send Code"
+              onPress={() => {
+                dispatch(storeMobile(number, selectedCode));
+                validateNumber();
+              }}
+            />
+          </View>
         </View>
       </KeyboardAwareScrollView>
     </View>
