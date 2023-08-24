@@ -12,13 +12,20 @@ import CustomButton from '../customeButton';
 import Color from '../../constants/Color';
 import Feather from 'react-native-vector-icons/Feather';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {useSelector} from 'react-redux';
 import {BackHandler} from 'react-native';
 import Images from '../../constants/Images';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function CustomerPersonalInfo({navigation}) {
-  const [profileData, setProfileData] = useState({});
+  const [profileData, setProfileData] = useState({
+    countryCode: '',
+    email: '',
+    image: '',
+    name: '',
+    phoneNumber: '',
+  });
+  const [isEdit, setIsEdit] = useState(false);
+
   const handleBackPress = () => {
     navigation.goBack();
     return true;
@@ -26,8 +33,6 @@ export default function CustomerPersonalInfo({navigation}) {
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', handleBackPress);
-
-    // Don't forget to remove the event listener when the component is unmounted
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
     };
@@ -52,10 +57,48 @@ export default function CustomerPersonalInfo({navigation}) {
       }
 
       const data = await response.json();
-      setProfileData(data);
+      console.log(data.data);
+      setProfileData({...data.data});
     } catch (error) {
       console.error('Error fetching profile data:', error);
     }
+  };
+
+  const name = profileData.name;
+
+  const handleSave = async () => {
+    const data = {
+      name,
+    };
+    const token = await AsyncStorage.getItem('token');
+
+    console.log(token);
+    try {
+      const response = await fetch('http://43.204.219.99:8080/edit-profile', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + JSON.parse(token),
+        },
+        body: JSON.stringify(data),
+      });
+      console.log(response);
+      if (response.ok) {
+        console.log(response);
+      } else {
+        console.error('Failed to update profile');
+      }
+    } catch (error) {
+      console.error('Error while updating profile:', error);
+    }
+
+    setIsEdit(false);
+  };
+
+  const onChangeText = (key, value) => {
+    const temp = {...profileData};
+    temp[key] = value;
+    isEdit && setProfileData({...temp});
   };
 
   return (
@@ -71,9 +114,15 @@ export default function CustomerPersonalInfo({navigation}) {
         <Text style={styles.label}>Caterer Name</Text>
         <View style={styles.inputContainer}>
           <FontAwesome5 name={'user'} size={20} color={Color.primaryColor} />
-          <View style={styles.input}>
-            <Text style={styles.text}>{profileData?.data?.name}</Text>
-          </View>
+          <TextInput
+            placeholder="john"
+            style={styles.input}
+            value={profileData.name}
+            editable={isEdit}
+            onChangeText={text => {
+              onChangeText('name', text);
+            }}
+          />
         </View>
 
         <Text style={styles.label}>Email</Text>
@@ -83,38 +132,58 @@ export default function CustomerPersonalInfo({navigation}) {
             size={20}
             color={Color.primaryColor}
           />
-          <View style={styles.input}>
-            <Text style={styles.text}>{profileData?.data?.email}</Text>
-          </View>
+          <TextInput
+            placeholder="john123@gmail.com"
+            style={styles.input}
+            value={profileData.email}
+            editable={isEdit}
+            onChangeText={text => {
+              onChangeText('email', text);
+            }}
+          />
         </View>
 
         <Text style={styles.label}>Phone Number</Text>
         <View style={styles.inputContainer}>
           <Feather name={'phone'} size={20} color={Color.primaryColor} />
-          {/* <TextInput
+          <TextInput
             placeholder="123456789"
             style={styles.input}
-            value={allData.phoneNumber}
-          /> */}
-          <View style={styles.input}>
-            <Text style={styles.text}>{profileData?.data?.phoneNumber}</Text>
-          </View>
+            value={profileData.phoneNumber}
+            editable={isEdit}
+            onChangeText={text => {
+              onChangeText('phoneNumber', text);
+            }}
+          />
         </View>
 
         <Text style={styles.label}> Home Postcode</Text>
         <View style={styles.inputContainer}>
           <FontAwesome5 name={'home'} size={20} color={Color.primaryColor} />
-          <View style={styles.input}>
-            <Text style={styles.text}>Postcode</Text>
-          </View>
+          <TextInput
+            placeholder="123456"
+            style={styles.input}
+            editable={isEdit}
+          />
         </View>
+        {/* {console.log('name ', profileData?.data?.name)} */}
         <View style={styles.btnContainer}>
-          <CustomButton
+          {/* <CustomButton
             title="Edit Information"
             onPress={() => {
-              navigation.navigate('Edit information');
+              navigation.navigate('Edit information', {
+                name: profileData?.data?.name,
+              });
             }}
-          />
+          /> */}
+          {isEdit ? (
+            <CustomButton title="Save" onPress={handleSave} />
+          ) : (
+            <CustomButton
+              title="Edit information"
+              onPress={() => setIsEdit(true)}
+            />
+          )}
         </View>
       </KeyboardAwareScrollView>
     </>

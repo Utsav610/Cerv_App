@@ -6,8 +6,9 @@ import {
   TouchableOpacity,
   ImageBackground,
   Image,
+  Alert,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import CustomButton from '../components/customeButton';
 import Color from '../constants/Color';
@@ -15,6 +16,39 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Images from '../constants/Images';
 
 export default function MobileNumber({navigation}) {
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
+
+  const validateEmail = email => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  };
+
+  const handleSend = () => {
+    const url = 'http://43.204.219.99:8080/users/forgotPassword';
+    const requestBody = {
+      email: email,
+    };
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    })
+      .then(async res => {
+        const response = await res.json();
+
+        if (response.status === 1) {
+          navigation.navigate('Login');
+        } else {
+          alert(response.message);
+        }
+      })
+      .catch(err => console.log(err));
+  };
+
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -36,12 +70,29 @@ export default function MobileNumber({navigation}) {
               color={Color.primaryColor}
             />
 
-            <TextInput placeholder="john123@gmail.com" style={styles.input} />
+            <TextInput
+              placeholder="john123@gmail.com"
+              style={styles.input}
+              onChangeText={text => {
+                setEmail(text);
+                setEmailError('');
+              }}
+              onBlur={() => {
+                if (!validateEmail(email)) {
+                  setEmailError('Invalid email');
+                }
+              }}
+            />
           </View>
+          {emailError ? (
+            <Text style={{color: 'red', fontSize: 12, marginBottom: 20}}>
+              {emailError}
+            </Text>
+          ) : null}
           <CustomButton
             title="Send Now"
             onPress={() => {
-              navigation.navigate('Login');
+              handleSend();
             }}
           />
         </View>
@@ -83,7 +134,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingVertical: 1,
     paddingHorizontal: 10,
-    marginBottom: 20,
+    marginBottom: 5,
   },
   input: {
     marginLeft: 10,

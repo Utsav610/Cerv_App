@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -18,45 +18,49 @@ export default function OTPScreen({navigation, number}) {
   const Role = useSelector(state => state.user.role);
   const registration = useSelector(state => state.RegisterData);
   const [otp, setOtp] = useState('');
+  const [timer, setTimer] = useState(120);
+  const [showResend, setShowResend] = useState(false);
 
-  // const validateOtp = () => {
-  //   const url = 'http://43.204.219.99:8080/users/verifyOTP';
-  //   const requestBody = {
-  //     otpValue: otp,
-  //     phone_number: registration.phoneNumber,
-  //     country_code: '+91',
-  //   };
+  console.log(registration);
 
-  //   fetch(url, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(requestBody),
-  //   })
-  //     .then(async res => {
-  //       const response = await res.json();
+  const validateOtp = () => {
+    const url = 'http://43.204.219.99:8080/users/verifyOTP';
+    const requestBody = {
+      otpValue: otp,
+      phone_number: registration.phoneNumber,
+      country_code: registration.country_code,
+    };
 
-  //       if (response.status === 1) {
-  //         registrationApi();
-  //       }
-  //     })
-  //     .catch(err => console.log(err));
-  // };
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    })
+      .then(async res => {
+        const response = await res.json();
 
-  const validateOtp = async () => {
-    const isVerified = await verifyOTP(
-      otp,
-      registration.phoneNumber,
-      registration.country_code,
-    );
-
-    if (isVerified) {
-      registrationApi();
-    } else {
-      console.log('OTP verification failed');
-    }
+        if (response.status === 1) {
+          registrationApi();
+        }
+      })
+      .catch(err => console.log(err));
   };
+
+  // const validateOtp = async () => {
+  //   const isVerified = await verifyOTP(
+  //     otp,
+  //     registration.phoneNumber,
+  //     registration.country_code,
+  //   );
+
+  //   if (isVerified.status === 1) {
+  //     registrationApi();
+  //   } else {
+  //     console.log('OTP verification failed');
+  //   }
+  // };
 
   const registrationApi = () => {
     const url = 'http://43.204.219.99:8080/users/register';
@@ -65,7 +69,7 @@ export default function OTPScreen({navigation, number}) {
       password: registration.password,
       name: registration.catererName,
       role: Role === 'Customer' ? 1 : 0,
-      image: '',
+      image: registration.imageUri,
       phone_number: registration.phoneNumber,
       country_code: registration.country_code,
     };
@@ -90,6 +94,26 @@ export default function OTPScreen({navigation, number}) {
       .catch(err => console.log(err));
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimer(prevTime => prevTime - 1);
+    }, 1000);
+
+    if (timer === 0) {
+      clearInterval(interval);
+      setShowResend(true);
+    }
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [timer]);
+
+  const startTimer = () => {
+    setTimer(120);
+    setShowResend(false);
+  };
+
   return (
     <KeyboardAwareScrollView>
       <ImageBackground
@@ -111,12 +135,16 @@ export default function OTPScreen({navigation, number}) {
                 <Text>Did not get Code ?</Text>
               </View>
               <View>
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate('Phone Number');
-                  }}>
-                  <Text style={styles.text}>Resend Code</Text>
-                </TouchableOpacity>
+                {showResend ? (
+                  <TouchableOpacity onPress={startTimer}>
+                    <Text style={styles.text}>Resend Code</Text>
+                  </TouchableOpacity>
+                ) : (
+                  <Text style={styles.timerText}>
+                    Resend in {Math.floor(timer / 60)}:
+                    {timer % 60 < 10 ? `0${timer % 60}` : timer % 60}
+                  </Text>
+                )}
               </View>
             </View>
 

@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import React, {useState, useCallback} from 'react';
 import {
   StyleSheet,
   Text,
@@ -12,13 +13,103 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Color from '../../../constants/Color';
 import Images from '../../../constants/Images';
+import MonthPicker from 'react-native-month-year-picker';
+import moment from 'moment';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function AddNewcard({navigation}) {
   const [selectedPayment, setSelectedPayment] = useState('');
+  const [date, setDate] = useState(new Date());
+  const [show, setShow] = useState(false);
+  const DEFAULT_OUTPUT_FORMAT = 'MM/YYYY';
+
+  const [cardNumber, setCardNumber] = useState('');
+  const [cvv, setCvv] = useState('');
+  const [name, setName] = useState('');
+
+  const [cardNumberError, setCardNumberError] = useState('');
+  const [cardNameError, setCardNameError] = useState('');
+  const [cvvError, setCvvError] = useState('');
+
+  const showPicker = useCallback(value => setShow(value), []);
+
+  const onValueChange = useCallback(
+    (event, newDate) => {
+      const selectedDate = newDate || date;
+
+      showPicker(false);
+      setDate(selectedDate);
+    },
+    [date, showPicker],
+  );
 
   const handlePaymentSelect = payment => {
     setSelectedPayment(payment);
   };
+
+  const validateFields = () => {
+    let isValid = true;
+
+    if (cardNumber.length !== 16) {
+      isValid = false;
+    }
+
+    if (cvv.length !== 3) {
+      isValid = false;
+    }
+    if (name.trim() === '') {
+      isValid = false;
+    }
+
+    return isValid;
+  };
+
+  const validateNumber = number => {
+    console.log(/^\d{16}$/.test(number));
+    return /^\d{16}$/.test(number);
+  };
+
+  const validateCvv = number => {
+    return /^\d{3}$/.test(number);
+  };
+
+  const validateName = name => {
+    return name.trim() !== '';
+  };
+
+  const HandleConfirm = async () => {
+    if (validateFields()) {
+      const token = await AsyncStorage.getItem('token');
+      console.log(token);
+      const url = 'http://43.204.219.99:8080/addCard';
+      const requestBody = {
+        number: cardNumber,
+        expire: moment(date).format(DEFAULT_OUTPUT_FORMAT),
+        cvc: cvv,
+        name: name,
+      };
+
+      // console.log(requestBody);
+
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + JSON.parse(token),
+        },
+        body: JSON.stringify(requestBody),
+      })
+        .then(async res => {
+          const response = await res.json();
+          console.log('response', response);
+          if (response.status === 1) {
+            navigation.goBack();
+          }
+        })
+        .catch(err => console.log(err));
+    }
+  };
+
   return (
     <KeyboardAwareScrollView>
       <View style={styles.container}>
@@ -97,28 +188,89 @@ export default function AddNewcard({navigation}) {
           </View>
           <View>
             <Text style={styles.label}>CARD NUMBER</Text>
-            <TextInput style={styles.input} />
+            <TextInput
+              style={styles.input}
+              value={cardNumber}
+              onChangeText={text => {
+                setCardNumber(text);
+                setCardNumberError('');
+              }}
+              onBlur={() => {
+                if (!validateNumber(cardNumber)) {
+                  setCardNumberError('Card number must be 16 digits');
+                }
+              }}
+            />
           </View>
+          {cardNumberError ? (
+            <Text style={styles.errorText}>{cardNumberError}</Text>
+          ) : null}
           <View style={styles.direction}>
             <View>
               <Text style={styles.label}>EXPIRATION DATE</Text>
-              <TextInput style={[styles.input, {width: 190}]} />
+              <TouchableOpacity
+                onPress={() => showPicker(true)}
+                style={styles.expiration}>
+                <Text>{moment(date).format(DEFAULT_OUTPUT_FORMAT)}</Text>
+              </TouchableOpacity>
             </View>
             <View>
-              <Text style={styles.label}>CVV</Text>
-              <TextInput secureTextEntry style={[styles.input, {width: 85}]} />
+              <View>
+                <Text style={styles.label}>CVV</Text>
+                <TextInput
+                  secureTextEntry
+                  style={[styles.input, {width: 85}]}
+                  value={cvv}
+                  onChangeText={text => {
+                    setCvv(text);
+                    setCvvError('');
+                  }}
+                  onBlur={() => {
+                    if (!validateCvv(cvv)) {
+                      setCvvError('CVV must be 3 digits');
+                    }
+                  }}
+                />
+              </View>
+              {cvvError ? (
+                <Text style={styles.errorText}>{cvvError}</Text>
+              ) : null}
             </View>
           </View>
+          {show && (
+            <MonthPicker
+              onChange={onValueChange}
+              value={date}
+              minimumDate={new Date()}
+              maximumDate={new Date(2025, 5)}
+              // locale="ko"
+            />
+          )}
           <View>
             <Text style={styles.label}>CARD HOLDER'S</Text>
-            <TextInput style={styles.input} />
+            <TextInput
+              style={styles.input}
+              value={name}
+              onChangeText={text => {
+                setName(text);
+                setCardNameError('');
+              }}
+              onBlur={() => {
+                if (!validateName(name)) {
+                  setCardNameError("Cardholder's name cannot be empty");
+                }
+              }}
+            />
+            {cardNameError ? (
+              <Text style={styles.errorText}>{cardNameError}</Text>
+            ) : null}
           </View>
         </View>
         <View>
           <CustomButton
             title={'Confirm'}
             onPress={() => {
-              navigation.goBack();
+              HandleConfirm();
             }}
           />
         </View>
@@ -170,5 +322,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin: 10,
     position: 'relative',
+  },
+  expiration: {
+    borderWidth: 0.5,
+    borderColor: Color.offGrayColor,
+    padding: 13,
+    alignItems: 'center',
+    borderRadius: 5,
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 12,
   },
 });

@@ -30,7 +30,13 @@ export default {
     return data;
   },
 
-  Login: async ({params}) => {
+  Loginn: async (email, password, role) => {
+    const params = {
+      email: email,
+      password: password,
+      role: role,
+    };
+
     const response = await fetch(BASE_URL + '/users/login', {
       method: 'POST',
       headers: {
@@ -90,7 +96,12 @@ export default {
     return data;
   },
 
-  verifyOTP: async params => {
+  verifyOTP: async (otp, phoneNumber, country_code) => {
+    const params = {
+      otpValue: otp,
+      phone_number: phoneNumber,
+      country_code: country_code,
+    };
     const response = await fetch(BASE_URL + '/users/verifyOTP', {
       method: 'POST',
       headers: {

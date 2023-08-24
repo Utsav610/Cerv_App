@@ -9,11 +9,22 @@ import Images from '../../../constants/Images';
 
 const Profile = ({navigation}) => {
   const handleLogout = async () => {
+    const token = await AsyncStorage.getItem('token');
     try {
-      await AsyncStorage.removeItem('isLoggedIn');
-      navigation.navigate('role');
+      const response = await fetch('http://43.204.219.99:8080/users/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + JSON.parse(token),
+        },
+      });
+      console.log('log', response);
+      if (response.ok) {
+        await AsyncStorage.removeItem('isLoggedIn');
+        navigation.navigate('role');
+      }
     } catch (error) {
-      console.log('Error removing data:', error);
+      console.log('Error during logout:', error);
     }
   };
   return (

@@ -1,43 +1,12 @@
-// import {FlatList, StyleSheet, Text, View} from 'react-native';
-// import React from 'react';
-// import Sildes from '../../data/Dummy_data';
-// import SilderItem from './SilderItem';
-
-// export default function Silder() {
-//   return (
-//     <View>
-//       <FlatList
-//         data={Sildes}
-//         horizontal
-//         pagingEnabled
-//         snapToAlignment="center"
-//         renderItem={({item}) => {
-//           return (
-//             <>
-//               <SilderItem item={item} resizeMode="contain" />
-//             </>
-//           );
-//         }}
-//       />
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({});
-
-// import {Animated, FlatList, StyleSheet, Text, View} from 'react-native';
-// import React, {useRef, useState} from 'react';
-// import Slides from '../data';
-// import SlideItem from './SlideItem';
-// import Pagination from './Pagination';
-
 import {FlatList, Animated, StyleSheet, Text, View} from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import Sildes from '../../../data/Dummy_data';
 import SilderItem from './silderItem';
 import Pagination from './Pagination';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Slider = () => {
+  const [data, setData] = useState([]);
   const [index, setIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
 
@@ -66,12 +35,33 @@ const Slider = () => {
     itemVisiblePercentThreshold: 50,
   }).current;
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const token = await AsyncStorage.getItem('token');
+    try {
+      const response = await fetch('http://43.204.219.99:8080/get-banners', {
+        headers: {
+          Authorization: 'Bearer ' + JSON.parse(token),
+        },
+      });
+      const jsonData = await response.json();
+
+      setData(jsonData.banners);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
   return (
     <>
       <View style={styles.container}>
         <FlatList
-          data={Sildes}
+          data={data}
           renderItem={({item}) => <SilderItem item={item} />}
+          // keyExtractor={item => item.id.toString()}
           horizontal
           pagingEnabled
           snapToAlignment="center"
@@ -81,7 +71,7 @@ const Slider = () => {
           viewabilityConfig={viewabilityConfig}
         />
 
-        <Pagination data={Sildes} scrollX={scrollX} index={index} />
+        <Pagination data={data} scrollX={scrollX} index={index} />
       </View>
     </>
   );

@@ -4,6 +4,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import CustomButton from '../../../components/customeButton';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {BackHandler} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Change_password({navigation}) {
   const handleBackPress = () => {
@@ -13,26 +14,66 @@ export default function Change_password({navigation}) {
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', handleBackPress);
-
-    // Don't forget to remove the event listener when the component is unmounted
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
     };
   });
 
+  const [password, setPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [CurrentpasswordVisible, setCurrentpasswordVisible] = useState(false);
-  const [ConformpasswordVisible, setConformpasswordVisible] = useState(false);
+  const [newPasswordVisible, setnewPasswordVisible] = useState(false);
+  const [confirmPasswordVisible, setConfirmpasswordVisible] = useState(false);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
   const toggleCurrentPasswordVisibility = () => {
-    setCurrentpasswordVisible(!CurrentpasswordVisible);
+    setnewPasswordVisible(!newPasswordVisible);
   };
 
   const toggleConformPasswordVisibility = () => {
-    setConformpasswordVisible(!ConformpasswordVisible);
+    setConfirmpasswordVisible(!confirmPasswordVisible);
+  };
+
+  const handleSave = async () => {
+    const token = await AsyncStorage.getItem('token');
+    console.log(token);
+    if (newPassword !== confirmPassword) {
+      alert("New password and Confirm password don't match.");
+      return;
+    }
+
+    const requestData = {
+      currentPassword: password,
+      newPassword: newPassword,
+    };
+
+    try {
+      const response = await fetch(
+        'http://43.204.219.99:8080/users/changePassword',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + JSON.parse(token),
+          },
+          body: JSON.stringify(requestData),
+        },
+      );
+      console.log('response', response);
+
+      if (response.ok) {
+        navigation.navigate('Profile');
+      } else {
+        alert('Password change failed. Please check your input.');
+      }
+    } catch (error) {
+      console.error('Error changing password:', error);
+      alert('An error occurred. Please try again later.');
+    }
   };
 
   return (
@@ -47,6 +88,8 @@ export default function Change_password({navigation}) {
                   placeholder="Password"
                   secureTextEntry={passwordVisible}
                   style={styles.input}
+                  value={password}
+                  onChangeText={setPassword}
                 />
                 <FontAwesome5
                   name={passwordVisible ? 'eye-slash' : 'eye'}
@@ -61,12 +104,14 @@ export default function Change_password({navigation}) {
               <Text>New Password</Text>
               <View style={styles.inputContainer}>
                 <TextInput
-                  placeholder="Password"
-                  secureTextEntry={CurrentpasswordVisible}
+                  placeholder="New Password"
+                  secureTextEntry={newPasswordVisible}
                   style={styles.input}
+                  value={newPassword}
+                  onChangeText={setNewPassword}
                 />
                 <FontAwesome5
-                  name={CurrentpasswordVisible ? 'eye-slash' : 'eye'}
+                  name={newPasswordVisible ? 'eye-slash' : 'eye'}
                   size={20}
                   color="#333"
                   onPress={toggleCurrentPasswordVisibility}
@@ -78,12 +123,14 @@ export default function Change_password({navigation}) {
               <Text>Confirm Password</Text>
               <View style={styles.inputContainer}>
                 <TextInput
-                  placeholder="Password"
-                  secureTextEntry={ConformpasswordVisible}
+                  placeholder="Confirm Password"
+                  secureTextEntry={confirmPasswordVisible}
                   style={styles.input}
+                  value={confirmPassword}
+                  onChangeText={setConfirmPassword}
                 />
                 <FontAwesome5
-                  name={ConformpasswordVisible ? 'eye-slash' : 'eye'}
+                  name={confirmPasswordVisible ? 'eye-slash' : 'eye'}
                   size={20}
                   color="#333"
                   onPress={toggleConformPasswordVisibility}
@@ -95,7 +142,7 @@ export default function Change_password({navigation}) {
           <CustomButton
             title={'Save'}
             onPress={() => {
-              navigation.navigate('Profile');
+              handleSave();
             }}
           />
         </View>

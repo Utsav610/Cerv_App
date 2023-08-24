@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {
   Image,
   ScrollView,
@@ -7,7 +8,7 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {Picker} from '@react-native-picker/picker';
 import CustomButton from '../../components/customeButton';
@@ -17,10 +18,56 @@ import {useDispatch} from 'react-redux';
 import {storeCatereData} from '../../store/action/action';
 import Images from '../../constants/Images';
 import RadioButton from '../../components/radioButton';
+import ImagePicker from 'react-native-image-crop-picker';
+import GetLocation from 'react-native-get-location';
 
 export default function AddStoreDetails({navigation, route}) {
-  const userId = route.params.userId;
+  const userId = route?.params?.userId;
   const dispatch = useDispatch();
+
+  const [licenseImage, setLicenseImage] = useState(null);
+  const [DrivelicenseImage, setDriveLicenseImage] = useState(null);
+  const [location, setLocation] = useState();
+
+  const selectLicense = async () => {
+    ImagePicker.openCamera({
+      width: 300,
+      height: 400,
+      cropping: true,
+      includeBase64: true,
+    }).then(image => {
+      setLicenseImage(image.path);
+    });
+  };
+
+  const selectDriveLicense = async () => {
+    ImagePicker.openCamera({
+      width: 300,
+      height: 400,
+      cropping: true,
+      includeBase64: true,
+    }).then(image => {
+      setDriveLicenseImage(image.path);
+    });
+  };
+
+  useEffect(() => {
+    GetLocation.getCurrentPosition({
+      enableHighAccuracy: true,
+      timeout: 60000,
+    })
+      .then(location => {
+        console.log(location);
+        setLocation(location);
+      })
+      .catch(error => {
+        const {code, message} = error;
+        console.warn(code, message);
+      });
+  }, []);
+
+  // console.log('location', location.altitude);
+
   const [businessInfo, setBusinessInfo] = useState({
     licenseNumber: '',
     // licensePhoto: '',
@@ -86,29 +133,36 @@ export default function AddStoreDetails({navigation, route}) {
 
     dispatch(storeCatereData(allData));
 
+    const formData = new FormData();
+    formData.append('license_num', businessInfo.licenseNumber);
+    formData.append('license_image', {
+      uri: licenseImage,
+      name: 'image.jpg',
+      type: 'image/jpeg',
+    });
+    formData.append('address', businessInfo.address);
+    formData.append('bio', businessInfo.bio);
+    formData.append('latitude', location.latitude);
+    formData.append('longitude', location.longitude);
+    formData.append(
+      'order_type',
+      orderType === 'delivery' ? 0 : orderType === 'pickup' ? 1 : 2,
+    );
+    formData.append('category', selectedFoodCategories);
+    formData.append('catererId', userId);
+
     const url = 'http://43.204.219.99:8080/users/storeDetails';
-    const requestBody = {
-      license_num: businessInfo.licenseNumber,
-      license_image: '',
-      address: businessInfo.address,
-      bio: businessInfo.bio,
-      latitude: 21.0,
-      longitude: 72.0,
-      order_type: orderType === 'delivery' ? 0 : orderType === 'pickup' ? 1 : 2,
-      category: selectedFoodCategories,
-      catererId: userId,
-    };
 
     fetch(url, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data',
       },
-      body: JSON.stringify(requestBody),
+      body: formData,
     })
       .then(async res => {
         const response = await res.json();
-
+        console.log(response);
         if (response.status === 1) {
           navigation.navigate('Login');
         }
@@ -133,10 +187,22 @@ export default function AddStoreDetails({navigation, route}) {
             />
             <View>
               <Text>Business License Photo</Text>
-              <Image
-                source={require('../../assets/license.jpeg')}
-                style={styles.image}
-              />
+              {licenseImage ? (
+                <View>
+                  <Image source={{uri: licenseImage}} style={styles.image} />
+                  <TouchableOpacity
+                    onPress={selectLicense}
+                    style={styles.editButton}>
+                    <Icon name={'pencil'} size={20} color={'#FFFF'} />
+                  </TouchableOpacity>
+                </View>
+              ) : (
+                <TouchableOpacity
+                  style={styles.Uploadbtn}
+                  onPress={selectLicense}>
+                  <Text>Upload Licence</Text>
+                </TouchableOpacity>
+              )}
             </View>
             <Text style={styles.label}>Addres</Text>
             <TextInput
@@ -216,7 +282,7 @@ export default function AddStoreDetails({navigation, route}) {
               </View>
             ))}
           </View>
-          <View>
+          <View style={{marginBottom: 20}}>
             <View>
               <Text style={styles.headerText}>Driver Info</Text>
             </View>
@@ -236,8 +302,22 @@ export default function AddStoreDetails({navigation, route}) {
                 handleDriverInputChange('driverLicenseNum', text)
               }
             />
-            <Text>Driver License Photo</Text>
-            <Image source={Images.DRIVER_LICENSE} style={styles.image} />
+            {DrivelicenseImage ? (
+              <View>
+                <Image source={{uri: DrivelicenseImage}} style={styles.image} />
+                <TouchableOpacity
+                  onPress={selectDriveLicense}
+                  style={styles.editButton}>
+                  <Icon name={'pencil'} size={20} color={'#FFFF'} />
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <TouchableOpacity
+                style={styles.Uploadbtn}
+                onPress={selectDriveLicense}>
+                <Text>Upload Driver Licence</Text>
+              </TouchableOpacity>
+            )}
           </View>
         </ScrollView>
         <TouchableOpacity
@@ -335,5 +415,24 @@ const styles = StyleSheet.create({
     marginRight: 10,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  Uploadbtn: {
+    backgroundColor: '#CCCC',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 5,
+  },
+
+  editButton: {
+    backgroundColor: '#4CAF50',
+    padding: 5,
+    borderRadius: 3,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 20,
+    right: 5,
   },
 });

@@ -1,4 +1,5 @@
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+/* eslint-disable react-native/no-inline-styles */
+import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Feather from 'react-native-vector-icons/Feather';
 import CustomButton from '../../../components/customeButton';
@@ -8,9 +9,13 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useDispatch} from 'react-redux';
 import * as cartAction from '../../../store/action/action';
 import {BackHandler} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Images from '../../../constants/Images';
 
 export default function Payment_method({navigation}) {
   const dispatch = useDispatch();
+  const [store, setStore] = useState([]);
+  const [selectedCard, setSelectedCard] = useState(null);
 
   const handleBackPress = () => {
     navigation.goBack();
@@ -20,26 +25,43 @@ export default function Payment_method({navigation}) {
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', handleBackPress);
 
-    // Don't forget to remove the event listener when the component is unmounted
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
     };
   });
 
-  const [selectedCard, setSelectedCard] = useState('');
-  const [selectedPayment, setSelectedPayment] = useState('');
-
   const handleCardSelect = card => {
     setSelectedCard(card);
     dispatch(cartAction.setCard(card));
-    setSelectedPayment('');
   };
 
-  const handlePaymentSelect = payment => {
-    setSelectedPayment(payment);
-    dispatch(cartAction.setCard(payment));
-    setSelectedCard('');
+  useEffect(() => {
+    fetchPaymentData();
+  }, []);
+
+  const fetchPaymentData = async () => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+
+      const response = await fetch('http://43.204.219.99:8080/getCards', {
+        headers: {
+          Authorization: 'Bearer ' + JSON.parse(token),
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+
+      setStore(data.message.data);
+    } catch (error) {
+      console.error('Error fetching Coupon data:', error);
+    }
   };
+
+  // console.log('>>>>StoreItem', store);
   return (
     <>
       <View style={styles.Container}>
@@ -57,73 +79,47 @@ export default function Payment_method({navigation}) {
               </TouchableOpacity>
             </View>
             <View>
-              <TouchableOpacity
-                style={[
-                  styles.card,
-                  selectedCard === 'Card1' && styles.selectedCard,
-                ]}
-                onPress={() => handleCardSelect('Card1')}>
-                <Text>Card1</Text>
-                <TouchableOpacity style={styles.cameraIconContainer}>
-                  <Icon
-                    name={'check-circle'}
-                    size={25}
-                    color={selectedCard === 'Card1' ? Color.greenColor : '#ccc'}
-                  />
-                </TouchableOpacity>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={[
-                  styles.card,
-                  selectedCard === 'Card2' && styles.selectedCard,
-                ]}
-                onPress={() => handleCardSelect('Card2')}>
-                <Text>Card2</Text>
-                <TouchableOpacity style={styles.cameraIconContainer}>
-                  <Icon
-                    name={'check-circle'}
-                    size={25}
-                    color={selectedCard === 'Card2' ? Color.greenColor : '#ccc'}
-                  />
-                </TouchableOpacity>
-              </TouchableOpacity>
+              {store?.map((card, index) => (
+                <View key={index}>
+                  <TouchableOpacity
+                    style={[
+                      styles.card,
+                      selectedCard === card.id && styles.selectedCard,
+                    ]}
+                    onPress={() => handleCardSelect(card.id)}>
+                    <Image
+                      source={Images.MASTERCARD}
+                      style={{width: 50, height: 50, borderRadius: 20}}
+                    />
+                    <View>
+                      <View
+                        style={{flexDirection: 'row', alignItems: 'center'}}>
+                        <Text>**** **** **** {card.last4}</Text>
+                        <Icon
+                          name={'credit-card-edit-outline'}
+                          size={17}
+                          color={'#3CA6DD'}
+                        />
+                      </View>
+                      <Text>
+                        Expire: {card.exp_month}/{card.exp_year}
+                      </Text>
+                    </View>
+                    <TouchableOpacity style={styles.cameraIconContainer}>
+                      {selectedCard === card.id ? (
+                        <Icon
+                          name={'check-circle'}
+                          size={25}
+                          color={Color.greenColor}
+                        />
+                      ) : (
+                        <Icon name={'check-circle'} size={25} color={'#ccc'} />
+                      )}
+                    </TouchableOpacity>
+                  </TouchableOpacity>
+                </View>
+              ))}
             </View>
-          </View>
-          <View style={styles.payContainer}>
-            <Text>Other Payment Method</Text>
-
-            <TouchableOpacity
-              style={[
-                styles.card,
-                selectedPayment === 'Pay1' && styles.selectedCard,
-              ]}
-              onPress={() => handlePaymentSelect('Pay1')}>
-              <Text>Pay1</Text>
-              <TouchableOpacity style={styles.cameraIconContainer}>
-                <Icon
-                  name={'check-circle'}
-                  size={25}
-                  color={selectedPayment === 'Pay1' ? Color.greenColor : '#ccc'}
-                />
-              </TouchableOpacity>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[
-                styles.card,
-                selectedPayment === 'Pay2' && styles.selectedCard,
-              ]}
-              onPress={() => handlePaymentSelect('Pay2')}>
-              <Text>Pay2</Text>
-              <TouchableOpacity style={styles.cameraIconContainer}>
-                <Icon
-                  name={'check-circle'}
-                  size={25}
-                  color={selectedPayment === 'Pay2' ? Color.greenColor : '#ccc'}
-                />
-              </TouchableOpacity>
-            </TouchableOpacity>
           </View>
         </View>
 

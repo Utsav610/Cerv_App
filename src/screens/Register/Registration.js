@@ -14,10 +14,11 @@ import CheckBox from '@react-native-community/checkbox';
 import CustomButton from '../../components/customeButton';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Color from '../../constants/Color';
-import ImagePicker from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 import {useDispatch} from 'react-redux';
 import {storeFormData} from '../../store/action/action';
 import Images from '../../constants/Images';
+import GetLocation from 'react-native-get-location';
 
 export default function Registration({navigation}) {
   const dispatch = useDispatch();
@@ -32,30 +33,54 @@ export default function Registration({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [ConfirmpasswordError, setConfirmPasswordError] = useState('');
+
+  GetLocation.getCurrentPosition({
+    enableHighAccuracy: true,
+    timeout: 60000,
+  })
+    .then(location => {
+      console.log(location);
+    })
+    .catch(error => {
+      const {code, message} = error;
+      console.warn(code, message);
+    });
 
   const validateForm = () => {
     if (catererName.trim() === '') {
-      alert('Please enter a valid caterer name.');
       return false;
     }
 
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
-      alert('Please enter a valid email address.');
       return false;
     }
 
     if (password.length < 6) {
-      alert('Password must be at least 6 characters long.');
       return false;
     }
 
     if (password !== confirmPassword) {
-      alert('Passwords do not match.');
+      return false;
+    }
+
+    if (!isChecked) {
       return false;
     }
 
     return true;
+  };
+
+  const validateEmail = email => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  };
+
+  const validatePassword = password => {
+    return password.length >= 6;
   };
 
   const handleSubmit = async () => {
@@ -65,6 +90,7 @@ export default function Registration({navigation}) {
         email,
         password,
         confirmPassword,
+        imageUri,
       };
 
       dispatch(storeFormData(allData));
@@ -84,43 +110,16 @@ export default function Registration({navigation}) {
   };
 
   const selectImage = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-        {
-          title: 'Storage Permission',
-          message: 'App needs access to your storage to select images.',
-          buttonPositive: 'OK',
-          buttonNegative: 'Cancel',
-        },
-      );
-
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        ImagePicker.showImagePicker(
-          {
-            title: 'Select Profile Picture',
-            storageOptions: {
-              skipBackup: true,
-              path: 'images',
-            },
-          },
-          response => {
-            if (response.didCancel) {
-              console.log('User cancelled image picker');
-            } else if (response.error) {
-              console.log('ImagePicker Error: ', response.error);
-            } else {
-              setImageUri(response.uri);
-            }
-          },
-        );
-      } else {
-        console.log('Storage permission denied');
-      }
-    } catch (err) {
-      console.warn(err);
-    }
+    ImagePicker.openCamera({
+      width: 300,
+      height: 400,
+      cropping: true,
+      includeBase64: true,
+    }).then(image => {
+      setImageUri(image.path);
+    });
   };
+
   return (
     <View style={styles.container}>
       {/* <View style={{flex: 1}}> */}
@@ -171,10 +170,20 @@ export default function Registration({navigation}) {
               <TextInput
                 placeholder="john123@gmail.com"
                 style={styles.input}
-                value={email}
-                onChangeText={setEmail}
+                onChangeText={text => {
+                  setEmail(text);
+                  setEmailError('');
+                }}
+                onBlur={() => {
+                  if (!validateEmail(email)) {
+                    setEmailError('Invalid email');
+                  }
+                }}
               />
             </View>
+            {emailError ? (
+              <Text style={{color: 'red', fontSize: 12}}>{emailError}</Text>
+            ) : null}
 
             <Text>Password</Text>
             <View style={styles.inputContainer}>
@@ -188,7 +197,15 @@ export default function Registration({navigation}) {
                 secureTextEntry={passwordVisible}
                 style={styles.input}
                 value={password}
-                onChangeText={setPassword}
+                onChangeText={text => {
+                  setPassword(text);
+                  setPasswordError('');
+                }}
+                onBlur={() => {
+                  if (!validatePassword(password)) {
+                    setPasswordError('Password must be at least 6 characters');
+                  }
+                }}
               />
               <TouchableOpacity
                 onPress={togglePasswordVisibility}
@@ -200,6 +217,9 @@ export default function Registration({navigation}) {
                 />
               </TouchableOpacity>
             </View>
+            {passwordError ? (
+              <Text style={{color: 'red', fontSize: 12}}>{passwordError}</Text>
+            ) : null}
 
             <Text>Confirm Password</Text>
             <View style={styles.inputContainer}>
@@ -215,6 +235,15 @@ export default function Registration({navigation}) {
                 style={styles.input}
                 value={confirmPassword}
                 onChangeText={setConfirmPassword}
+                onBlur={() => {
+                  if (password !== confirmPassword) {
+                    setConfirmPasswordError(
+                      'password and confirmPassword are not same',
+                    );
+                  } else {
+                    setConfirmPasswordError('');
+                  }
+                }}
               />
               <TouchableOpacity
                 onPress={toggleCurrentPasswordVisibility}
@@ -226,6 +255,11 @@ export default function Registration({navigation}) {
                 />
               </TouchableOpacity>
             </View>
+            {ConfirmpasswordError ? (
+              <Text style={{color: 'red', fontSize: 12}}>
+                {ConfirmpasswordError}
+              </Text>
+            ) : null}
 
             <View style={styles.checkbox}>
               <CheckBox value={isChecked} onValueChange={toggleCheckbox} />
@@ -242,6 +276,11 @@ export default function Registration({navigation}) {
                 </Text>
               </View>
             </View>
+            {!isChecked ? (
+              <Text style={{color: 'red', fontSize: 12}}>
+                {'Please check T&C'}
+              </Text>
+            ) : null}
           </View>
 
           <CustomButton

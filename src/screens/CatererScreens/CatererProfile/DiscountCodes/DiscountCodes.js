@@ -61,7 +61,7 @@ const DiscountCodes = ({navigation}) => {
   const fetchCouponData = async () => {
     try {
       const token = await AsyncStorage.getItem('token');
-
+      console.log(token);
       const response = await fetch(
         'http://43.204.219.99:8080/caterer/getCoupons',
         {

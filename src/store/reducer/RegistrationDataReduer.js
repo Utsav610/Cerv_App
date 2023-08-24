@@ -7,8 +7,9 @@ const initialState = {
   email: '',
   password: '',
   confirmPassword: '',
+  imageUri: '',
   phoneNumber: '',
-  country_code: '+91',
+  country_code: '',
   // isChecked: false,
 };
 
@@ -25,7 +26,7 @@ const formDataReducer = (state = initialState, action) => {
       return {
         ...state,
         phoneNumber: action.payload.number,
-        country_code: action.payload.selectedCode,
+        country_code: action.payload.countryCode,
       };
 
     default:

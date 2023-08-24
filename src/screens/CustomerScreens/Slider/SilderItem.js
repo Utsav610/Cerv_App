@@ -4,7 +4,7 @@ import React from 'react';
 export default function SilderItem({item}) {
   return (
     <View style={styles.container}>
-      <Image source={item.img} style={styles.image} />
+      <Image source={item.image} style={styles.image} />
     </View>
   );
 }

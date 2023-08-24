@@ -16,7 +16,10 @@ import {storeFormData} from '../../store/action/action';
 import Images from '../../constants/Images';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function EditCustomerInfo({navigation}) {
+export default function EditCustomerInfo({navigation, route}) {
+  const {name} = route;
+  console.log(name);
+
   const dispatch = useDispatch();
   const allData = useSelector(state => state.RegisterData);
   const [catererName, setCatererName] = useState(allData.catererName);
@@ -33,6 +36,32 @@ export default function EditCustomerInfo({navigation}) {
     dispatch(storeFormData(data));
     navigation.navigate('Personal information');
   };
+
+  // const handleSubmit = async () => {
+  //   const data = {
+  //     name
+  //   };
+
+  //   try {
+  //     const response = await fetch('http://43.204.219.99:8080/edit-profile', {
+  //       method: 'PUT',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(data),
+  //     });
+
+  //     if (response.ok) {
+  //
+  //       navigation.navigate('Personal information');
+  //     } else {
+  //
+  //       console.error('Failed to update profile');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error while updating profile:', error);
+  //   }
+  // };
 
   return (
     <>

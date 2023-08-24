@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-no-undef */
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -39,6 +41,8 @@ import Invoice from '../screens/CatererScreens/CatererOrders/Invoice';
 import DiscountCodes from '../screens/CatererScreens/CatererProfile/DiscountCodes/discountCodes';
 import CreateDiscountCode from '../screens/CatererScreens/CatererProfile/DiscountCodes/createDiscountCode';
 import EditDiscountCodes from '../screens/CatererScreens/CatererProfile/DiscountCodes/editDiscountCodes';
+import AddAddress from '../screens/CustomerScreens/Profile/addAddress';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Stack = createNativeStackNavigator();
 
@@ -103,8 +107,24 @@ export default function CervNavigation() {
         <Stack.Screen name="Change Password" component={Change_password} />
         <Stack.Screen name="Payment Method" component={Payment_method} />
         <Stack.Screen name="My Favorites" component={MyFavorites} />
-        <Stack.Screen name="Saved Address" component={SavedAddress} />
-
+        <Stack.Screen
+          name="Saved Address"
+          component={SavedAddress}
+          options={({navigation}) => ({
+            // eslint-disable-next-line react/no-unstable-nested-components
+            headerRight: () => (
+              <Icon
+                name="plus"
+                size={24}
+                color="black"
+                style={{marginRight: 15}}
+                onPress={() => {
+                  navigation.navigate('Add Address');
+                }}
+              />
+            ),
+          })}
+        />
         <Stack.Screen name="Chat Details" component={ChatDetails} />
         <Stack.Screen name="Notification" component={Notification} />
         <Stack.Screen
@@ -118,6 +138,8 @@ export default function CervNavigation() {
         <Stack.Screen name="Order Receipt" component={OrderReceipt} />
         <Stack.Screen name="View Discount Codes" component={DiscountCode} />
         <Stack.Screen name="Edit information" component={EditInfo} />
+
+        <Stack.Screen name="Add Address" component={AddAddress} />
 
         {/* caterScreen Screen */}
         <Stack.Screen
@@ -168,3 +190,9 @@ export default function CervNavigation() {
     </NavigationContainer>
   );
 }
+
+// {
+//   defaultNavigationOptions: ({ navigation }) => ({
+//     title: navigation.state.routeName === 'Profile' ?
+//       (navigation.state.params?.editable ? 'Edit Info' : 'Profile') : '',
+//   }),

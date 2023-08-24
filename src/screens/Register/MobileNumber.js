@@ -18,28 +18,24 @@ import {storeMobile} from '../../store/action/action';
 import {useDispatch} from 'react-redux';
 import Images from '../../constants/Images';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {CountryPicker} from 'react-native-country-codes-picker';
 
 export default function MobileNumber({navigation}) {
   const dispatch = useDispatch();
   const [number, setnumber] = useState('');
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [selectedCode, setSelectedCode] = useState('+91');
+  const [numberError, setNumberError] = useState('');
 
-  const countryCodes = ['+91', '+1', '+44', '+81'];
+  const [show, setShow] = useState(false);
+  const [countryCode, setCountryCode] = useState('+91');
 
-  const toggleDropdown = () => {
-    setShowDropdown(!showDropdown);
-  };
-
-  const selectCode = code => {
-    setSelectedCode(code);
-    setShowDropdown(false);
+  const validateNum = number => {
+    return number.length === 10;
   };
 
   const validateNumber = () => {
     const url = 'http://43.204.219.99:8080/users/generateOTP';
     const requestBody = {
-      country_code: selectedCode,
+      country_code: countryCode,
       phone_number: number,
       channel: 'sms',
     };
@@ -75,42 +71,42 @@ export default function MobileNumber({navigation}) {
           <View style={styles.inputContainer}>
             <Feather name={'phone'} size={20} color={Color.primaryColor} />
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <TouchableOpacity onPress={toggleDropdown}>
+              <TouchableOpacity onPress={() => setShow(true)}>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <Text>{selectedCode}</Text>
+                  <Text>{countryCode}</Text>
                   <Icon name={'menu-down'} size={20} color={Color.blackColor} />
                 </View>
               </TouchableOpacity>
-              {showDropdown && (
-                <View
-                  style={{
-                    position: 'absolute',
-                    top: 30,
-                    left: 0,
-                    backgroundColor: Color.whiteColor,
-                  }}>
-                  {countryCodes.map(code => (
-                    <TouchableOpacity
-                      key={code}
-                      onPress={() => selectCode(code)}
-                      style={{paddingVertical: 5}}>
-                      <Text>{code}</Text>
-                    </TouchableOpacity>
-                  ))}
-                </View>
-              )}
+
               <Text>{'|'}</Text>
             </View>
+            <CountryPicker
+              show={show}
+              // when picker button press you will get the country object with dial code
+              pickerButtonOnPress={item => {
+                setCountryCode(item.dial_code);
+                setShow(false);
+              }}
+            />
             <TextInput
               placeholder="1234567890"
               style={styles.input}
               keyboardType="numeric"
-              maxLength={10}
               onChangeText={text => {
                 setnumber(text);
+                setNumberError('');
+              }}
+              onBlur={() => {
+                if (!validateNum(number)) {
+                  setNumberError('Number must be 10 Digit');
+                }
               }}
             />
           </View>
+
+          {numberError ? (
+            <Text style={{color: 'red', fontSize: 12}}>{numberError}</Text>
+          ) : null}
           <View
             style={{
               position: 'absolute',
@@ -121,7 +117,7 @@ export default function MobileNumber({navigation}) {
             <CustomButton
               title="Send Code"
               onPress={() => {
-                dispatch(storeMobile(number, selectedCode));
+                dispatch(storeMobile(number, countryCode));
                 validateNumber();
               }}
             />
@@ -165,7 +161,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingVertical: 1,
     paddingHorizontal: 10,
-    marginBottom: 20,
+    marginBottom: 5,
   },
   input: {
     marginLeft: 10,

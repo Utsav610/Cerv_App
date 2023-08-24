@@ -16,10 +16,12 @@ import Color from '../../constants/Color';
 import Feather from 'react-native-vector-icons/Feather';
 import Caterer_data from '../../data/Caterer_data';
 import {useSelector} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Home({navigation, route}) {
   const [selectedFilter, setSelectedFilter] = useState('');
   const [filteredData, setFilteredData] = useState([]);
+  const [Caterer, setCaterer] = useState([]);
 
   useEffect(() => {
     if (route.params) {
@@ -28,6 +30,37 @@ export default function Home({navigation, route}) {
   }, [route.params]);
 
   const Adress = useSelector(state => state.address.Adress);
+
+  useEffect(() => {
+    fetchCaterer();
+  }, []);
+
+  const fetchCaterer = async () => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      console.log(token);
+      const response = await fetch(
+        'http://43.204.219.99:8080/caterers/lat/lng',
+        {
+          headers: {
+            Authorization: 'Bearer ' + JSON.parse(token),
+          },
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      console.log('data', data.caterer);
+      setCaterer(data);
+    } catch (error) {
+      console.error('Error fetching Coupon data:', error);
+    }
+  };
+
+  console.log('>>>>Caterer', Caterer);
 
   useEffect(() => {
     const applyFilter = (filter, data) => {
@@ -124,29 +157,6 @@ export default function Home({navigation, route}) {
                 />
               )}
             />
-
-            {/* <FlatList
-              data={Caterer_data}
-              renderItem={({item}) => (
-                <Cater
-                  name={item.name}
-                  address={item.Address}
-                  price={item.price}
-                  favaroite={item.favorite}
-                  onClick={() =>
-                    navigation.navigate('Details', {
-                      name: item.name,
-                      address: item.Address,
-                      price: item.price,
-                      // favaroite: item.favorite,
-                    })
-                  }
-                />
-              )}
-            /> */}
-
-            {/* <Cater onclick={() => navigation.navigate('Details')} />
-            <Cater onclick={() => console.log('2')} /> */}
           </View>
         </View>
       </ScrollView>

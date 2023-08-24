@@ -26,9 +26,8 @@ export default function EditCatererInfo({navigation}) {
   const [email, setEmail] = useState(allData.email);
   const [phoneNumber, setPhoneNumber] = useState(allData.phoneNumber);
   const [selectedKm, setSelectedKm] = useState(5);
-  const [selectedFoodCategories, setSelectedFoodCategories] = useState([
-    'chinese',
-  ]);
+  const [selectedFoodCategories, setSelectedFoodCategories] =
+    useState('chinese');
 
   const CatereData = useSelector(state => state.catereData);
 
@@ -56,14 +55,7 @@ export default function EditCatererInfo({navigation}) {
     setOrderType(type);
   };
   const handleFoodCategoryChange = category => {
-    const isSelected = selectedFoodCategories.includes(category);
-    if (isSelected) {
-      setSelectedFoodCategories(
-        selectedFoodCategories.filter(item => item !== category),
-      );
-    } else {
-      setSelectedFoodCategories([...selectedFoodCategories, category]);
-    }
+    setSelectedFoodCategories(category);
   };
 
   const handleDriverInputChange = (field, value) => {
@@ -94,36 +86,33 @@ export default function EditCatererInfo({navigation}) {
     navigation.navigate('Personal information');
   };
 
-  // const handleGenerateCode = async () => {
-  //   const url = 'http://43.204.219.99:8080/caterer/addCoupon';
-  //   const token = await AsyncStorage.getItem('token');
+  // const handleSubmit = async () => {
+  // const data = {
+  //   name: catererName,
+  //   email,
+  //   orderType,
+  //   category: selectedFoodCategories,
+  // };
 
-  //   const requestBody = {
-  //     title: title,
-  //     description: description,
-  //     code: couponCode,
-  //     is_percent: true,
-  //     value: 40,
-  //     expiry: selectedDate,
-  //     is_active: active === 'Yes' ? true : false,
-  //   };
+  //   try {
+  //     const response = await fetch('http://43.204.219.99:8080/caterer/edit-profile', {
+  //       method: 'PUT',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(data),
+  //     });
 
-  //   fetch(url, {
-  //     method: 'PUT',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: 'Bearer ' + JSON.parse(token),
-  //     },
-  //     body: JSON.stringify(requestBody),
-  //   })
-  //     .then(async res => {
-  //       const response = await res.json();
-  //       console.log(response);
-  //       if (response.status === 1) {
-  //         navigation.navigate('Discount Codes');
-  //       }
-  //     })
-  //     .catch(error => console.log(error));
+  //     if (response.ok) {
+  //
+  //       navigation.navigate('Personal information');
+  //     } else {
+  //
+  //       console.error('Failed to update profile');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error while updating profile:', error);
+  //   }
   // };
 
   return (

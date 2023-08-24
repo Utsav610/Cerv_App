@@ -21,11 +21,12 @@ import Images from '../../constants/Images';
 export default function Login({navigation, route}) {
   const Role = useSelector(state => state.user.role);
   const login = useSelector(state => state.RegisterData);
-  const useremail = login.email;
-  const userpassword = login.password;
+
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState('');
-  const [email, setemail] = useState('');
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   const handleBackPress = () => {
     navigation.goBack();
@@ -58,6 +59,12 @@ export default function Login({navigation, route}) {
       .then(async res => {
         const response = await res.json();
         console.log(response);
+
+        // const isLogin = await Login(
+        //   email
+        //   password,
+        //   Role === 'Customer' ? 1 : 0,
+        // );
 
         if (response.status === 1) {
           if (response.user.role === 1) {
@@ -95,7 +102,6 @@ export default function Login({navigation, route}) {
     return emailPattern.test(email);
   };
 
-  // Password validation function
   const validatePassword = password => {
     return password.length >= 6;
   };
@@ -127,9 +133,20 @@ export default function Login({navigation, route}) {
               <TextInput
                 placeholder="john123@gmail.com"
                 style={styles.input}
-                onChangeText={setemail}
+                onChangeText={text => {
+                  setEmail(text);
+                  setEmailError('');
+                }}
+                onBlur={() => {
+                  if (!validateEmail(email)) {
+                    setEmailError('Invalid email');
+                  }
+                }}
               />
             </View>
+            {emailError ? (
+              <Text style={{color: 'red', fontSize: 12}}>{emailError}</Text>
+            ) : null}
 
             <Text>Password</Text>
             <View style={styles.inputContainer}>
@@ -143,8 +160,17 @@ export default function Login({navigation, route}) {
                 secureTextEntry={!passwordVisible}
                 style={styles.input}
                 value={password}
-                onChangeText={setPassword}
+                onChangeText={text => {
+                  setPassword(text);
+                  setPasswordError('');
+                }}
+                onBlur={() => {
+                  if (!validatePassword(password)) {
+                    setPasswordError('Password must be at least 6 characters');
+                  }
+                }}
               />
+
               <TouchableOpacity
                 onPress={togglePasswordVisibility}
                 style={styles.eyeIconContainer}>
@@ -155,6 +181,9 @@ export default function Login({navigation, route}) {
                 />
               </TouchableOpacity>
             </View>
+            {passwordError ? (
+              <Text style={{color: 'red', fontSize: 12}}>{passwordError}</Text>
+            ) : null}
 
             <TouchableOpacity
               style={styles.Fpassword}
@@ -232,7 +261,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,
     borderColor: Color.accentColor,
-    marginBottom: 10,
+    marginBottom: 5,
   },
   input: {
     flex: 1,

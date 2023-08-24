@@ -160,7 +160,7 @@ export default function OrderReceipt({navigation, route}) {
               <Text style={styles.itemText}>$2.50</Text>
             </View>
 
-            {couponCode != '' ? (
+            {couponCode !== '' ? (
               <View style={{paddingVertical: 10}}>
                 <View style={[styles.ItemContent]}>
                   <Text style={[styles.itemText, styles.color]}>
