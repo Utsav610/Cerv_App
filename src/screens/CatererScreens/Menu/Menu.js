@@ -27,7 +27,7 @@ export default function Menu({navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState('Noodle');
 
-  const [menuItem, setMenuItem] = useState({});
+  const [menuItem, setMenuItem] = useState([]);
 
   const handleDelete = () => {
     dispatch(deleteCategory(title));
@@ -39,10 +39,10 @@ export default function Menu({navigation}) {
   }, [dispatch]);
 
   useEffect(() => {
-    fetchCouponData();
+    fetchCategories();
   }, []);
 
-  const fetchCouponData = async () => {
+  const fetchCategories = async () => {
     try {
       const token = await AsyncStorage.getItem('token');
 
@@ -60,24 +60,25 @@ export default function Menu({navigation}) {
       }
 
       const data = await response.json();
-      setMenuItem(data);
+      setMenuItem(data.categories);
     } catch (error) {
-      console.error('Error fetching Coupon data:', error);
+      console.error('Error fetching Menu data:', error);
     }
   };
-
-  console.log('>>>>MenuItem', menuItem);
 
   const renderCategory = ({item}) => (
     <View>
       <View style={styles.label}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('Meal Details', {title: item.name});
+            navigation.navigate('Product', {
+              id: item.id,
+              title: item.title,
+            });
           }}>
           <View style={styles.labelContent}>
             <Image source={Images.CATERER} style={styles.image} />
-            <Text style={styles.labelText}>{item.name}</Text>
+            <Text style={styles.labelText}>{item.title}</Text>
           </View>
         </TouchableOpacity>
         <View style={{flexDirection: 'row'}}>
@@ -85,7 +86,11 @@ export default function Menu({navigation}) {
             <TouchableOpacity
               style={styles.iconContainer}
               onPress={() => {
-                navigation.navigate('Edit Category', {title: item.name});
+                navigation.navigate('Add Category', {
+                  action: 'edit',
+                  title: item.title,
+                  id: item.id,
+                });
               }}>
               <Feather name={'edit-2'} size={20} color={Color.greenColor} />
             </TouchableOpacity>
@@ -109,7 +114,7 @@ export default function Menu({navigation}) {
   return (
     <View style={styles.container}>
       <FlatList
-        data={cervData}
+        data={menuItem}
         keyExtractor={(item, index) => index.toString()}
         renderItem={renderCategory}
       />
@@ -132,7 +137,7 @@ export default function Menu({navigation}) {
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          navigation.navigate('Add Category');
+          navigation.navigate('Add Category', {action: 'add'});
         }}>
         <Icon name={'plus'} size={40} color={Color.whiteColor} />
       </TouchableOpacity>

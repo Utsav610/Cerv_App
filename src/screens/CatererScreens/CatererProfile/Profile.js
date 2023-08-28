@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import Images from '../../../constants/Images';
+// import Toast from 'react-native-toast-message';
 
 const Profile = ({navigation}) => {
   const handleLogout = async () => {
@@ -21,6 +22,7 @@ const Profile = ({navigation}) => {
       console.log('log', response);
       if (response.ok) {
         await AsyncStorage.removeItem('isLoggedIn');
+        // Toast.show({text1: 'SuccessFully logout'});
         navigation.navigate('role');
       }
     } catch (error) {
@@ -29,6 +31,11 @@ const Profile = ({navigation}) => {
   };
   return (
     <View style={styles.container}>
+      {/* <Toast
+        ref={ref => {
+          Toast.setRef(ref);
+        }}
+      /> */}
       <View style={styles.imageContainer}>
         <Image source={Images.PROFILE} style={styles.image} />
       </View>

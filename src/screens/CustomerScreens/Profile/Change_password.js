@@ -26,6 +26,8 @@ export default function Change_password({navigation}) {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [newPasswordVisible, setnewPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmpasswordVisible] = useState(false);
+  const [passwordError, setPasswordError] = useState('');
+  const [ConfirmpasswordError, setConfirmPasswordError] = useState('');
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -36,6 +38,10 @@ export default function Change_password({navigation}) {
 
   const toggleConformPasswordVisibility = () => {
     setConfirmpasswordVisible(!confirmPasswordVisible);
+  };
+
+  const validatePassword = password => {
+    return password.length >= 6;
   };
 
   const handleSave = async () => {
@@ -108,7 +114,17 @@ export default function Change_password({navigation}) {
                   secureTextEntry={newPasswordVisible}
                   style={styles.input}
                   value={newPassword}
-                  onChangeText={setNewPassword}
+                  onChangeText={text => {
+                    setNewPassword(text);
+                    setPasswordError('');
+                  }}
+                  onBlur={() => {
+                    if (!validatePassword(newPassword)) {
+                      setPasswordError(
+                        'Password must be at least 6 characters',
+                      );
+                    }
+                  }}
                 />
                 <FontAwesome5
                   name={newPasswordVisible ? 'eye-slash' : 'eye'}
@@ -118,6 +134,11 @@ export default function Change_password({navigation}) {
                   style={styles.eyeIcon}
                 />
               </View>
+              {passwordError ? (
+                <Text style={{color: 'red', fontSize: 12}}>
+                  {passwordError}
+                </Text>
+              ) : null}
             </View>
             <View style={styles.passContainer}>
               <Text>Confirm Password</Text>
@@ -128,6 +149,15 @@ export default function Change_password({navigation}) {
                   style={styles.input}
                   value={confirmPassword}
                   onChangeText={setConfirmPassword}
+                  onBlur={() => {
+                    if (newPassword !== confirmPassword) {
+                      setConfirmPasswordError(
+                        'password and confirmPassword are not same',
+                      );
+                    } else {
+                      setConfirmPasswordError('');
+                    }
+                  }}
                 />
                 <FontAwesome5
                   name={confirmPasswordVisible ? 'eye-slash' : 'eye'}
@@ -137,6 +167,11 @@ export default function Change_password({navigation}) {
                   style={styles.eyeIcon}
                 />
               </View>
+              {ConfirmpasswordError ? (
+                <Text style={{color: 'red', fontSize: 12}}>
+                  {ConfirmpasswordError}
+                </Text>
+              ) : null}
             </View>
           </View>
           <CustomButton

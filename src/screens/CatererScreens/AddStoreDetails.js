@@ -20,6 +20,7 @@ import Images from '../../constants/Images';
 import RadioButton from '../../components/radioButton';
 import ImagePicker from 'react-native-image-crop-picker';
 import GetLocation from 'react-native-get-location';
+import mime from 'mime';
 
 export default function AddStoreDetails({navigation, route}) {
   const userId = route?.params?.userId;
@@ -135,10 +136,10 @@ export default function AddStoreDetails({navigation, route}) {
 
     const formData = new FormData();
     formData.append('license_num', businessInfo.licenseNumber);
-    formData.append('license_image', {
+    formData.append('image', {
       uri: licenseImage,
-      name: 'image.jpg',
-      type: 'image/jpeg',
+      name: 'license.jpg',
+      type: mime.getType(licenseImage),
     });
     formData.append('address', businessInfo.address);
     formData.append('bio', businessInfo.bio);

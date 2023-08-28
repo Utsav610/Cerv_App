@@ -15,6 +15,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {BackHandler} from 'react-native';
 import Images from '../../constants/Images';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ImagePicker from 'react-native-image-crop-picker';
 
 export default function CustomerPersonalInfo({navigation}) {
   const [profileData, setProfileData] = useState({
@@ -25,6 +26,7 @@ export default function CustomerPersonalInfo({navigation}) {
     phoneNumber: '',
   });
   const [isEdit, setIsEdit] = useState(false);
+  const [profileImage, setProfileImage] = useState(null);
 
   const handleBackPress = () => {
     navigation.goBack();
@@ -42,6 +44,12 @@ export default function CustomerPersonalInfo({navigation}) {
     fetchProfileData();
   }, []);
 
+  useEffect(() => {
+    navigation.setOptions({
+      title: isEdit ? 'Edit Information' : 'Personal Information',
+    });
+  }, [navigation, isEdit]);
+
   const fetchProfileData = async () => {
     try {
       const token = await AsyncStorage.getItem('token');
@@ -57,8 +65,9 @@ export default function CustomerPersonalInfo({navigation}) {
       }
 
       const data = await response.json();
-      console.log(data.data);
+
       setProfileData({...data.data});
+      setProfileImage(data.data.image);
     } catch (error) {
       console.error('Error fetching profile data:', error);
     }
@@ -72,7 +81,6 @@ export default function CustomerPersonalInfo({navigation}) {
     };
     const token = await AsyncStorage.getItem('token');
 
-    console.log(token);
     try {
       const response = await fetch('http://43.204.219.99:8080/edit-profile', {
         method: 'PUT',
@@ -85,6 +93,7 @@ export default function CustomerPersonalInfo({navigation}) {
       console.log(response);
       if (response.ok) {
         console.log(response);
+        navigation.goBack();
       } else {
         console.error('Failed to update profile');
       }
@@ -101,14 +110,32 @@ export default function CustomerPersonalInfo({navigation}) {
     isEdit && setProfileData({...temp});
   };
 
+  const selectProfile = async () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then(image => {
+      setProfileImage(image);
+    });
+  };
+
   return (
     <>
       <KeyboardAwareScrollView>
         <View style={styles.imageContainer}>
           <Image source={Images.PROFILE} style={styles.image1} />
-          <TouchableOpacity style={styles.cameraIconContainer}>
-            <FontAwesome5 name={'camera'} size={20} color={Color.whiteColor} />
-          </TouchableOpacity>
+          {isEdit ? (
+            <TouchableOpacity
+              style={styles.cameraIconContainer}
+              onPress={selectProfile}>
+              <FontAwesome5
+                name={'camera'}
+                size={20}
+                color={Color.whiteColor}
+              />
+            </TouchableOpacity>
+          ) : null}
         </View>
 
         <Text style={styles.label}>Caterer Name</Text>

@@ -23,7 +23,6 @@ export default function EditCategory({navigation, route}) {
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', handleBackPress);
 
-    // Don't forget to remove the event listener when the component is unmounted
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
     };

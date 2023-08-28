@@ -23,62 +23,65 @@ export default function OTPScreen({navigation, number}) {
 
   console.log(registration);
 
-  const validateOtp = () => {
-    const url = 'http://43.204.219.99:8080/users/verifyOTP';
-    const requestBody = {
-      otpValue: otp,
-      phone_number: registration.phoneNumber,
-      country_code: registration.country_code,
-    };
+  // const validateOtp = () => {
+  //   const url = 'http://43.204.219.99:8080/users/verifyOTP';
+  //   const requestBody = {
+  //     otpValue: otp,
+  //     phone_number: registration.phoneNumber,
+  //     country_code: registration.country_code,
+  //   };
 
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestBody),
-    })
-      .then(async res => {
-        const response = await res.json();
+  //   fetch(url, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(requestBody),
+  //   })
+  //     .then(async res => {
+  //       const response = await res.json();
 
-        if (response.status === 1) {
-          registrationApi();
-        }
-      })
-      .catch(err => console.log(err));
-  };
-
-  // const validateOtp = async () => {
-  //   const isVerified = await verifyOTP(
-  //     otp,
-  //     registration.phoneNumber,
-  //     registration.country_code,
-  //   );
-
-  //   if (isVerified.status === 1) {
-  //     registrationApi();
-  //   } else {
-  //     console.log('OTP verification failed');
-  //   }
+  //       if (response.status === 1) {
+  //         registrationApi();
+  //       }
+  //     })
+  //     .catch(err => console.log(err));
   // };
+
+  const validateOtp = async () => {
+    console.log('called');
+    const isVerified = await verifyOTP(
+      otp,
+      registration.phoneNumber,
+      registration.country_code,
+    );
+    console.log('>>', isVerified);
+    if (isVerified.status === 1) {
+      registrationApi();
+    } else {
+      console.log('OTP verification failed');
+    }
+  };
 
   const registrationApi = () => {
     const url = 'http://43.204.219.99:8080/users/register';
-    const requestBody = {
-      email: registration.email,
-      password: registration.password,
-      name: registration.catererName,
-      role: Role === 'Customer' ? 1 : 0,
-      image: registration.imageUri,
-      phone_number: registration.phoneNumber,
-      country_code: registration.country_code,
-    };
+
+    const formData = new FormData();
+
+    formData.append('email', registration.email);
+    formData.append('password', registration.password);
+    formData.append('name', registration.catererName);
+    formData.append('role', Role === 'Customer' ? 1 : 0);
+    formData.append('image', registration.imageUri);
+    formData.append('phone_number', registration.phoneNumber);
+    formData.append('country_code', registration.country_code);
+
     fetch(url, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data',
       },
-      body: JSON.stringify(requestBody),
+      body: JSON.stringify(formData),
     })
       .then(async res => {
         const response = await res.json();

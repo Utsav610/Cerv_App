@@ -18,7 +18,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function EditCustomerInfo({navigation, route}) {
   const {name} = route;
-  console.log(name);
 
   const dispatch = useDispatch();
   const allData = useSelector(state => state.RegisterData);

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -16,18 +16,52 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Color from '../../../../constants/Color';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const CreateDiscountCode = ({navigation}) => {
-  const dispatch = useDispatch();
+const ValidationTextInput = ({
+  label,
+  value,
+  onChangeText,
+  error,
+  onBlur,
+  placeholder,
+}) => (
+  <View>
+    <Text style={styles.title}>{label}</Text>
+    <TextInput
+      style={styles.input}
+      value={value}
+      onChangeText={onChangeText}
+      onBlur={onBlur}
+      placeholder={placeholder}
+    />
+    {error ? <Text style={styles.errorText}>{error}</Text> : null}
+  </View>
+);
+
+const CreateDiscountCode = ({navigation, route}) => {
+  // const isEditing = route.params.action == 'edit';
+  // const initialTitle = isEditing ? route.params.title : '';
+  // const initialDescription = isEditing ? route.params.description : '';
+  // const initialcouponCode = isEditing ? route.params.couponCode : '';
+  // const initialActive = isEditing ? route.params.Active : '';
+  // const id = isEditing ? route.params.id : '';
+
+  // useEffect(() => {
+  //   navigation.setOptions({
+  //     title: isEditing ? 'Edit Discount Codes' : 'Create Discount Codes',
+  //   });
+  // }, [navigation, isEditing]);
 
   const [title, setTitle] = useState('');
+  const [titleError, setTitleError] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [description, setDescription] = useState('');
-  const [expiryDate, setExpiryDate] = useState('');
+  const [descriptionError, setDescriptionError] = useState('');
   const [active, setActive] = useState('');
+  const [activeError, setActiveError] = useState('');
   const [couponCode, setCouponCode] = useState('');
-
-  // console.log(selectedDate);
+  const [couponCodeError, setCouponCodeError] = useState('');
+  const [dateError, setDateError] = useState('');
 
   const handleGenerateCode = async () => {
     const url = 'http://43.204.219.99:8080/caterer/addCoupon';
@@ -68,39 +102,69 @@ const CreateDiscountCode = ({navigation}) => {
     if (newDate !== undefined) {
       setSelectedDate(newDate);
     }
+    setDateError(validateDate(newDate) ? '' : 'Please select a future date');
+  };
+
+  const validateDate = selected => {
+    const today = new Date();
+    return selected >= today;
   };
 
   const showAndroidDatePicker = () => {
     setShowDatePicker(true);
   };
 
+  const validateTitle = number => {
+    return number.trim() !== '';
+  };
+
+  const validateDescription = number => {
+    return number.trim() !== '';
+  };
+
+  const validateActive = number => {
+    return number.trim() !== '';
+  };
+
+  const validateCoupon = number => {
+    return number.trim() !== '';
+  };
+
   return (
     <KeyboardAwareScrollView>
       <View style={styles.container}>
         <View>
-          <Text style={styles.title}>Title:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter title"
+          <ValidationTextInput
+            label="Title:"
             value={title}
-            onChangeText={setTitle}
+            placeholder={'Enter title'}
+            onChangeText={text => {
+              setTitle(text), setTitleError('');
+            }}
+            onBlur={() => {
+              if (!validateTitle(title)) {
+                setTitleError('Title requried');
+              }
+            }}
+            error={titleError}
           />
 
-          <Text style={styles.title}>Description:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter description"
+          <ValidationTextInput
+            label="Description:"
             value={description}
-            onChangeText={setDescription}
+            placeholder={'Enter description'}
+            onChangeText={text => {
+              setDescription(text), setDescriptionError('');
+            }}
+            onBlur={() => {
+              if (!validateDescription(title)) {
+                setDescriptionError('Description Requried');
+              }
+            }}
+            error={descriptionError}
           />
 
           <Text style={styles.title}>Expiry Date:</Text>
-          {/* <TextInput
-          style={styles.input}
-          placeholder="Enter expiry date"
-          value={expiryDate}
-          onChangeText={setExpiryDate}
-        /> */}
 
           <TouchableOpacity onPress={showAndroidDatePicker}>
             <View style={styles.inputContainer}>
@@ -110,6 +174,7 @@ const CreateDiscountCode = ({navigation}) => {
               <FontAwesome5 name="calendar-alt" size={20} style={styles.icon} />
             </View>
           </TouchableOpacity>
+          {dateError ? <Text style={styles.errorText}>{dateError}</Text> : null}
 
           {showDatePicker && (
             <DateTimePicker
@@ -120,23 +185,41 @@ const CreateDiscountCode = ({navigation}) => {
             />
           )}
 
-          <Text style={styles.title}>Active:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter active status"
+          <ValidationTextInput
+            label="Active:"
             value={active}
-            onChangeText={setActive}
+            placeholder={'Enter active status'}
+            onChangeText={text => {
+              setActive(text), setActiveError('');
+            }}
+            onBlur={() => {
+              if (!validateActive(title)) {
+                setActiveError('Active status Required');
+              }
+            }}
+            error={activeError}
           />
 
-          <Text style={styles.title}>Coupon Code:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter coupon code"
+          <ValidationTextInput
+            label="Coupon Code:"
             value={couponCode}
-            onChangeText={setCouponCode}
+            placeholder={'Enter coupon code'}
+            onChangeText={text => {
+              setCouponCode(text), setCouponCodeError('');
+            }}
+            onBlur={() => {
+              if (!validateCoupon(title)) {
+                setCouponCodeError('Coupon Code requried');
+              }
+            }}
+            error={couponCodeError}
           />
         </View>
-        <CustomButton title={'Generate Code'} onPress={handleGenerateCode} />
+        <CustomButton
+          // title={isEditing ? 'Update Code' : 'Generate Code'}
+          title={'Generate Code'}
+          onPress={handleGenerateCode}
+        />
       </View>
     </KeyboardAwareScrollView>
   );
@@ -155,7 +238,7 @@ const styles = StyleSheet.create({
   input: {
     borderBottomWidth: 1,
     borderColor: Color.accent2Color,
-    marginBottom: 10,
+    marginBottom: 5,
   },
   inputContainer: {
     flexDirection: 'row',
@@ -169,6 +252,11 @@ const styles = StyleSheet.create({
   androidDatePickerText: {
     fontSize: 16,
     color: Color.blackColor,
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 12,
+    marginBottom: 10,
   },
 });
 

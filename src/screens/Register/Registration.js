@@ -18,7 +18,6 @@ import ImagePicker from 'react-native-image-crop-picker';
 import {useDispatch} from 'react-redux';
 import {storeFormData} from '../../store/action/action';
 import Images from '../../constants/Images';
-import GetLocation from 'react-native-get-location';
 
 export default function Registration({navigation}) {
   const dispatch = useDispatch();
@@ -37,18 +36,7 @@ export default function Registration({navigation}) {
   const [passwordError, setPasswordError] = useState('');
   const [ConfirmpasswordError, setConfirmPasswordError] = useState('');
 
-  GetLocation.getCurrentPosition({
-    enableHighAccuracy: true,
-    timeout: 60000,
-  })
-    .then(location => {
-      console.log(location);
-    })
-    .catch(error => {
-      const {code, message} = error;
-      console.warn(code, message);
-    });
-
+  console.log(imageUri);
   const validateForm = () => {
     if (catererName.trim() === '') {
       return false;
@@ -84,16 +72,16 @@ export default function Registration({navigation}) {
   };
 
   const handleSubmit = async () => {
-    if (validateForm()) {
-      const allData = {
-        catererName,
-        email,
-        password,
-        confirmPassword,
-        imageUri,
-      };
+    const allData = {
+      catererName,
+      email,
+      password,
+      confirmPassword,
+      imageUri,
+    };
 
-      dispatch(storeFormData(allData));
+    dispatch(storeFormData(allData));
+    if (validateForm()) {
       navigation.navigate('Phone Number');
     }
   };

@@ -19,6 +19,7 @@ import {useDispatch} from 'react-redux';
 import Images from '../../constants/Images';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {CountryPicker} from 'react-native-country-codes-picker';
+import {sendOTP} from '../../services/Auth';
 
 export default function MobileNumber({navigation}) {
   const dispatch = useDispatch();
@@ -32,28 +33,19 @@ export default function MobileNumber({navigation}) {
     return number.length === 10;
   };
 
-  const validateNumber = () => {
-    const url = 'http://43.204.219.99:8080/users/generateOTP';
-    const requestBody = {
-      country_code: countryCode,
-      phone_number: number,
-      channel: 'sms',
-    };
-
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestBody),
-    })
-      .then(async res => {
-        const response = await res.json();
-        if (response.status === 1) {
+  const validateNumber = async () => {
+    if (validateNum(number)) {
+      try {
+        const sendOtpResponse = await sendOTP(countryCode, number);
+        if (sendOtpResponse.status === 1) {
           navigation.navigate('Otp Verify', {number: number});
         }
-      })
-      .catch(err => console.log(err));
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      alert('Please enter a valid mobile number');
+    }
   };
 
   return (
@@ -82,7 +74,6 @@ export default function MobileNumber({navigation}) {
             </View>
             <CountryPicker
               show={show}
-              // when picker button press you will get the country object with dial code
               pickerButtonOnPress={item => {
                 setCountryCode(item.dial_code);
                 setShow(false);

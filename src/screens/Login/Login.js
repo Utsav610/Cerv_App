@@ -17,6 +17,7 @@ import {useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {BackHandler} from 'react-native';
 import Images from '../../constants/Images';
+import {Loginn} from '../../services/Auth';
 
 export default function Login({navigation, route}) {
   const Role = useSelector(state => state.user.role);
@@ -42,59 +43,42 @@ export default function Login({navigation, route}) {
   });
 
   const handleLogin = async () => {
-    const url = 'http://43.204.219.99:8080/users/login';
-    const requestBody = {
-      email: email,
-      password: password,
-      role: Role === 'Customer' ? 1 : 0,
-    };
+    try {
+      const isLogin = await Loginn(
+        email,
+        password,
+        Role === 'Customer' ? 1 : 0,
+      );
+      console.log('isLogin ', isLogin);
 
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestBody),
-    })
-      .then(async res => {
-        const response = await res.json();
-        console.log(response);
+      if (isLogin.status === 1) {
+        const user = isLogin.user;
 
-        // const isLogin = await Login(
-        //   email
-        //   password,
-        //   Role === 'Customer' ? 1 : 0,
-        // );
-
-        if (response.status === 1) {
-          if (response.user.role === 1) {
-            navigation.navigate('Home Navigation');
-          } else if (response.user.role === 0) {
-            navigation.navigate('CatereLogin');
-          }
-          try {
-            await AsyncStorage.setItem(
-              'userData',
-              JSON.stringify(response.user),
-            );
-
-            await AsyncStorage.setItem('token', JSON.stringify(response.token));
-          } catch (error) {
-            console.log('Error storing user data:', error);
-          }
-        } else {
-          if (
-            response.status === 0 &&
-            response.message ===
-              'Register your store and get verified by admin!'
-          ) {
-            navigation.navigate('Add Caterer Store Details', {
-              userId: response.userId,
-            });
-          }
+        if (user.role === 1) {
+          navigation.navigate('Home Navigation');
+        } else if (user.role === 0) {
+          navigation.navigate('CatereLogin');
         }
-      })
-      .catch(err => console.log(err));
+
+        try {
+          await AsyncStorage.setItem('userData', JSON.stringify(user));
+          await AsyncStorage.setItem('token', JSON.stringify(isLogin.token));
+        } catch (error) {
+          console.log('Error storing user data:', error);
+        }
+      } else {
+        if (
+          isLogin.status === 0 &&
+          isLogin.message === 'Register your store and get verified by admin!'
+        ) {
+          navigation.navigate('Add Caterer Store Details', {
+            userId: isLogin.userId,
+          });
+        }
+      }
+    } catch (error) {
+      console.log('Error during login:', error);
+    }
   };
 
   const validateEmail = email => {
