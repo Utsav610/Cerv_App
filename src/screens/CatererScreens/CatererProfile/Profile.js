@@ -7,22 +7,15 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import Images from '../../../constants/Images';
 // import Toast from 'react-native-toast-message';
+import {Logout} from '../../../services/Auth';
 
 const Profile = ({navigation}) => {
   const handleLogout = async () => {
-    const token = await AsyncStorage.getItem('token');
     try {
-      const response = await fetch('http://43.204.219.99:8080/users/logout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + JSON.parse(token),
-        },
-      });
-      console.log('log', response);
-      if (response.ok) {
+      const LogOut = await Logout();
+      console.log('logout ', LogOut);
+      if (LogOut.status === 1) {
         await AsyncStorage.removeItem('isLoggedIn');
-        // Toast.show({text1: 'SuccessFully logout'});
         navigation.navigate('role');
       }
     } catch (error) {

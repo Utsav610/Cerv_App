@@ -47,13 +47,12 @@ export default function CatererPersonalInfo({navigation}) {
   };
 
   useEffect(() => {
-    // console.log('innnnn');
     AsyncStorage.getItem('userData')
       .then(async userData => {
         const {id} = JSON.parse(userData);
 
         const token = await AsyncStorage.getItem('token');
-
+        console.log(token);
         fetch(`http://43.204.219.99:8080/catererInfo/${id}`, {
           headers: {
             Authorization: 'Bearer ' + JSON.parse(token),

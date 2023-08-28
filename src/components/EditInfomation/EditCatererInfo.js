@@ -79,7 +79,6 @@ export default function EditCatererInfo({navigation}) {
       selectedKm,
       selectedFoodCategories,
       driverInfo,
-      // Add other necessary data properties here for Driver Info
     };
     dispatch(storeCatereData(Catereditdata));
     dispatch(storeFormData(data));
