@@ -16,6 +16,7 @@ import Images from '../../../constants/Images';
 import MonthPicker from 'react-native-month-year-picker';
 import moment from 'moment';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {AddCard} from '../../../services/userProfile';
 
 export default function AddNewcard({navigation}) {
   const [selectedPayment, setSelectedPayment] = useState('');
@@ -78,35 +79,18 @@ export default function AddNewcard({navigation}) {
   };
 
   const HandleConfirm = async () => {
+    let fdate = moment(date).format(DEFAULT_OUTPUT_FORMAT);
+
     if (validateFields()) {
-      const token = await AsyncStorage.getItem('token');
-      console.log(token);
-      const url = 'http://43.204.219.99:8080/addCard';
-      const requestBody = {
-        number: cardNumber,
-        expire: moment(date).format(DEFAULT_OUTPUT_FORMAT),
-        cvc: cvv,
-        name: name,
-      };
-
-      // console.log(requestBody);
-
-      fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + JSON.parse(token),
-        },
-        body: JSON.stringify(requestBody),
-      })
-        .then(async res => {
-          const response = await res.json();
-          console.log('response', response);
-          if (response.status === 1) {
-            navigation.goBack();
-          }
-        })
-        .catch(err => console.log(err));
+      try {
+        const addCardResult = await AddCard(cardNumber, fdate, cvv, name);
+        console.log(addCardResult);
+        if (addCardResult.status === 1) {
+          navigation.goBack();
+        }
+      } catch (error) {
+        console.error('Error fetching :', error);
+      }
     }
   };
 
@@ -221,6 +205,7 @@ export default function AddNewcard({navigation}) {
                   secureTextEntry
                   style={[styles.input, {width: 85}]}
                   value={cvv}
+                  maxLength={3}
                   onChangeText={text => {
                     setCvv(text);
                     setCvvError('');

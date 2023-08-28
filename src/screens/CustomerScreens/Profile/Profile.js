@@ -9,6 +9,7 @@ import Images from '../../../constants/Images';
 const Profile = ({navigation}) => {
   const handleLogout = async () => {
     const token = await AsyncStorage.getItem('token');
+
     try {
       const response = await fetch('http://43.204.219.99:8080/users/logout', {
         method: 'POST',

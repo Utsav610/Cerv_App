@@ -49,7 +49,6 @@ export default function Login({navigation, route}) {
         password,
         Role === 'Customer' ? 1 : 0,
       );
-      console.log('isLogin ', isLogin);
 
       if (isLogin.status === 1) {
         const user = isLogin.user;

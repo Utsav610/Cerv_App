@@ -14,6 +14,7 @@ import CustomButton from '../components/customeButton';
 import Color from '../constants/Color';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Images from '../constants/Images';
+import {ForgotPassword} from '../../services/Auth';
 
 export default function MobileNumber({navigation}) {
   const [email, setEmail] = useState('');
@@ -24,29 +25,18 @@ export default function MobileNumber({navigation}) {
     return emailPattern.test(email);
   };
 
-  const handleSend = () => {
-    const url = 'http://43.204.219.99:8080/users/forgotPassword';
-    const requestBody = {
-      email: email,
-    };
+  const handleSend = async () => {
+    try {
+      const forgotPasswordResponse = await ForgotPassword(email);
 
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestBody),
-    })
-      .then(async res => {
-        const response = await res.json();
-
-        if (response.status === 1) {
-          navigation.navigate('Login');
-        } else {
-          alert(response.message);
-        }
-      })
-      .catch(err => console.log(err));
+      if (forgotPasswordResponse.status === 1) {
+        navigation.navigate('Login');
+      } else {
+        alert(forgotPasswordResponse.message);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

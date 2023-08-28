@@ -11,6 +11,7 @@ import * as cartAction from '../../../store/action/action';
 import {BackHandler} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Images from '../../../constants/Images';
+import {FetchCard} from '../../../services/userProfile';
 
 export default function Payment_method({navigation}) {
   const dispatch = useDispatch();
@@ -41,21 +42,9 @@ export default function Payment_method({navigation}) {
 
   const fetchPaymentData = async () => {
     try {
-      const token = await AsyncStorage.getItem('token');
-
-      const response = await fetch('http://43.204.219.99:8080/getCards', {
-        headers: {
-          Authorization: 'Bearer ' + JSON.parse(token),
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const data = await response.json();
-
-      setStore(data.message.data);
+      const cardData = await FetchCard();
+      console.log('cardData', cardData);
+      setStore(cardData);
     } catch (error) {
       console.error('Error fetching Coupon data:', error);
     }

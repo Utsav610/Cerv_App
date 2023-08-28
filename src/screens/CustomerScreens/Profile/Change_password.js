@@ -5,6 +5,7 @@ import CustomButton from '../../../components/customeButton';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {BackHandler} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {ChangePassword} from '../../../services/userProfile';
 
 export default function Change_password({navigation}) {
   const handleBackPress = () => {
@@ -52,26 +53,10 @@ export default function Change_password({navigation}) {
       return;
     }
 
-    const requestData = {
-      currentPassword: password,
-      newPassword: newPassword,
-    };
-
     try {
-      const response = await fetch(
-        'http://43.204.219.99:8080/users/changePassword',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + JSON.parse(token),
-          },
-          body: JSON.stringify(requestData),
-        },
-      );
-      console.log('response', response);
+      const response = await ChangePassword(password, newPassword);
 
-      if (response.ok) {
+      if (response.status === 1) {
         navigation.navigate('Profile');
       } else {
         alert('Password change failed. Please check your input.');

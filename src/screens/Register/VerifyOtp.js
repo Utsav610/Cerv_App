@@ -23,39 +23,13 @@ export default function OTPScreen({navigation, number}) {
 
   console.log(registration);
 
-  // const validateOtp = () => {
-  //   const url = 'http://43.204.219.99:8080/users/verifyOTP';
-  //   const requestBody = {
-  //     otpValue: otp,
-  //     phone_number: registration.phoneNumber,
-  //     country_code: registration.country_code,
-  //   };
-
-  //   fetch(url, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(requestBody),
-  //   })
-  //     .then(async res => {
-  //       const response = await res.json();
-
-  //       if (response.status === 1) {
-  //         registrationApi();
-  //       }
-  //     })
-  //     .catch(err => console.log(err));
-  // };
-
   const validateOtp = async () => {
-    console.log('called');
     const isVerified = await verifyOTP(
       otp,
       registration.phoneNumber,
       registration.country_code,
     );
-    console.log('>>', isVerified);
+
     if (isVerified.status === 1) {
       registrationApi();
     } else {
@@ -63,38 +37,30 @@ export default function OTPScreen({navigation, number}) {
     }
   };
 
-  const registrationApi = () => {
-    const url = 'http://43.204.219.99:8080/users/register';
+  const registrationApi = async () => {
+    try {
+      const registrationData = {
+        email: registration.email,
+        password: registration.password,
+        catererName: registration.catererName,
+        role: Role,
+        imageUri: registration.imageUri,
+        phoneNumber: registration.phoneNumber,
+        country_code: registration.country_code,
+      };
 
-    const formData = new FormData();
+      const registerResponse = await Register(registrationData);
 
-    formData.append('email', registration.email);
-    formData.append('password', registration.password);
-    formData.append('name', registration.catererName);
-    formData.append('role', Role === 'Customer' ? 1 : 0);
-    formData.append('image', registration.imageUri);
-    formData.append('phone_number', registration.phoneNumber);
-    formData.append('country_code', registration.country_code);
-
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-      body: JSON.stringify(formData),
-    })
-      .then(async res => {
-        const response = await res.json();
-
-        if (response.status === 1) {
-          if (Role === 'Customer') {
-            navigation.navigate('Login');
-          } else if (Role === 'Caterer') {
-            navigation.navigate('Add Caterer Store Details');
-          }
+      if (registerResponse.status === 1) {
+        if (Role === 'Customer') {
+          navigation.navigate('Login');
+        } else if (Role === 'Caterer') {
+          navigation.navigate('Add Caterer Store Details');
         }
-      })
-      .catch(err => console.log(err));
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {

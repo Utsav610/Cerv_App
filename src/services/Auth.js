@@ -1,12 +1,24 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const BASE_URL = 'http://43.204.219.99:8080';
 
-export const Register = async params => {
+export const Register = async registration => {
+  const formData = new FormData();
+
+  formData.append('email', registration.email);
+  formData.append('password', registration.password);
+  formData.append('name', registration.catererName);
+  formData.append('role', registration.role === 'Customer' ? 1 : 0);
+  formData.append('image', registration.imageUri);
+  formData.append('phone_number', registration.phoneNumber);
+  formData.append('country_code', registration.country_code);
+
   const response = await fetch(BASE_URL + '/users/register', {
     method: 'POST',
     headers: {
-      Accept: 'application/json',
+      'Content-Type': 'multipart/form-data',
     },
-    body: JSON.stringify(params),
+    body: JSON.stringify(formData),
   });
   const data = await response.json();
   return data;
@@ -30,13 +42,14 @@ export const Loginn = async (email, password, role) => {
   return data;
 };
 
-export const Logout = async params => {
-  const response = await fetch(BASE_URL + `/users/logout`, {
+export const Logout = async () => {
+  const token = await AsyncStorage.getItem('token');
+  const response = await fetch(BASE_URL + '/users/logout', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + JSON.parse(token),
     },
-    body: JSON.stringify(params),
   });
   const data = await response.json();
   return data;
@@ -54,25 +67,13 @@ export const ResetPassword = async params => {
   return data;
 };
 
-export const ChangePassword = async params => {
-  const response = await fetch(BASE_URL + '/users/changePassword', {
+export const ForgotPassword = async email => {
+  const response = await fetch(BASE_URL + '/users/forgotPassword', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(params),
-  });
-  const data = await response.json();
-  return data;
-};
-
-export const sendForgotPasswordOTP = async params => {
-  const response = await fetch(BASE_URL + 'forgot-password-otp', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(params),
+    body: JSON.stringify(email),
   });
   const data = await response.json();
   return data;

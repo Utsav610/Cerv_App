@@ -16,6 +16,7 @@ import {BackHandler} from 'react-native';
 import Images from '../../constants/Images';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ImagePicker from 'react-native-image-crop-picker';
+import {ProfileData, UpdateProfile} from '../../services/userProfile';
 
 export default function CustomerPersonalInfo({navigation}) {
   const [profileData, setProfileData] = useState({
@@ -52,53 +53,27 @@ export default function CustomerPersonalInfo({navigation}) {
 
   const fetchProfileData = async () => {
     try {
-      const token = await AsyncStorage.getItem('token');
+      const profileData = await ProfileData();
 
-      const response = await fetch('http://43.204.219.99:8080/profile', {
-        headers: {
-          Authorization: 'Bearer ' + JSON.parse(token),
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const data = await response.json();
-
-      setProfileData({...data.data});
-      setProfileImage(data.data.image);
+      setProfileData({...profileData});
+      setProfileImage(profileData.image);
     } catch (error) {
-      console.error('Error fetching profile data:', error);
+      console.error(error);
     }
   };
 
   const name = profileData.name;
 
   const handleSave = async () => {
-    const data = {
-      name,
-    };
-    const token = await AsyncStorage.getItem('token');
-
+    console.log('save');
     try {
-      const response = await fetch('http://43.204.219.99:8080/edit-profile', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + JSON.parse(token),
-        },
-        body: JSON.stringify(data),
-      });
-      console.log(response);
-      if (response.ok) {
-        console.log(response);
+      const updateResult = await UpdateProfile(name);
+      console.log(updateResult);
+      if (updateResult) {
         navigation.goBack();
-      } else {
-        console.error('Failed to update profile');
       }
     } catch (error) {
-      console.error('Error while updating profile:', error);
+      console.error(error);
     }
 
     setIsEdit(false);
