@@ -15,6 +15,7 @@ import {deleteCoupon} from '../../../../store/action/action';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {BackHandler} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {DeleteCoupon, getCoupons} from '../../../../services/catererProfile';
 
 const DiscountCodes = ({navigation}) => {
   const handleBackPress = () => {
@@ -50,6 +51,17 @@ const DiscountCodes = ({navigation}) => {
 
   const DeleteHandler = couponCode => {
     dispatch(deleteCoupon(couponCode));
+
+    // try {
+    //   const removeCoupon = await DeleteCoupon(id);
+
+    //   if (removeCoupon.status === 1){
+    //     closeModal();
+    //   }
+
+    // } catch (error) {
+    //   console.log('fails to delete the counpon ', error);
+    // }
     closeModal();
   };
 
@@ -59,25 +71,11 @@ const DiscountCodes = ({navigation}) => {
 
   const fetchCouponData = async () => {
     try {
-      const token = await AsyncStorage.getItem('token');
-      console.log(token);
-      const response = await fetch(
-        'http://43.204.219.99:8080/caterer/getCoupons',
-        {
-          headers: {
-            Authorization: 'Bearer ' + JSON.parse(token),
-          },
-        },
-      );
+      const data = await getCoupons();
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const data = await response.json();
       setcouponData(data);
     } catch (error) {
-      console.error('Error fetching profile data:', error);
+      console.error('Error fetching coupon data:', error);
     }
   };
 

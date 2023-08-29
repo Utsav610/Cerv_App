@@ -324,7 +324,7 @@ export default function AddProduct({navigation, route}) {
         fetch(url, {
           method: 'PUT',
           headers: {
-            'Content-Type': 'multipart/form-data',
+            // 'Content-Type': 'multipart/form-data',
             Authorization: 'Bearer ' + JSON.parse(token),
           },
           body: JSON.stringify(formData),
@@ -353,7 +353,7 @@ export default function AddProduct({navigation, route}) {
         fetch(url, {
           method: 'POST',
           headers: {
-            'Content-Type': 'multipart/form-data',
+            // 'Content-Type': 'multipart/form-data',
             Authorization: 'Bearer ' + JSON.parse(token),
           },
           body: JSON.stringify(formData),

@@ -24,11 +24,14 @@ export default function OTPScreen({navigation, number}) {
   console.log(registration);
 
   const validateOtp = async () => {
+    console.log('on');
     const isVerified = await verifyOTP(
       otp,
       registration.phoneNumber,
       registration.country_code,
     );
+
+    console.log(isVerified);
 
     if (isVerified.status === 1) {
       registrationApi();
@@ -50,7 +53,7 @@ export default function OTPScreen({navigation, number}) {
       };
 
       const registerResponse = await Register(registrationData);
-
+      console.log('rg', registerResponse);
       if (registerResponse.status === 1) {
         if (Role === 'Customer') {
           navigation.navigate('Login');

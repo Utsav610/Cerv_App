@@ -16,7 +16,7 @@ export const Register = async registration => {
   const response = await fetch(BASE_URL + '/users/register', {
     method: 'POST',
     headers: {
-      'Content-Type': 'multipart/form-data',
+      // 'Content-Type': 'multipart/form-data',
     },
     body: JSON.stringify(formData),
   });

@@ -15,6 +15,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Color from '../../../../constants/Color';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {CreateCoupon} from '../../../../services/catererProfile';
 
 const ValidationTextInput = ({
   label,
@@ -64,35 +65,21 @@ const CreateDiscountCode = ({navigation, route}) => {
   const [dateError, setDateError] = useState('');
 
   const handleGenerateCode = async () => {
-    const url = 'http://43.204.219.99:8080/caterer/addCoupon';
-    const token = await AsyncStorage.getItem('token');
+    try {
+      const CouponCode = CreateCoupon(
+        title,
+        description,
+        couponCode,
+        active,
+        selectedDate,
+      );
 
-    const requestBody = {
-      title: title,
-      description: description,
-      code: couponCode,
-      is_percent: true,
-      value: 40,
-      expiry: selectedDate,
-      is_active: active === 'Yes' ? true : false,
-    };
-
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + JSON.parse(token),
-      },
-      body: JSON.stringify(requestBody),
-    })
-      .then(async res => {
-        const response = await res.json();
-        console.log(response);
-        if (response.status === 1) {
-          navigation.navigate('Discount Codes');
-        }
-      })
-      .catch(error => console.log(error));
+      if (CouponCode.status === 1) {
+        navigation.navigate('Discount Codes');
+      }
+    } catch (error) {
+      console.log('Fail to create a new coupon ', error);
+    }
   };
 
   const handleDateChange = (event, newDate) => {

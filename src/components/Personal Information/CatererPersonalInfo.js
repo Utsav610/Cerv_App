@@ -17,6 +17,7 @@ import {useSelector} from 'react-redux';
 import {BackHandler} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Images from '../../constants/Images';
+import {CatererProfileData} from '../../services/catererProfile';
 
 export default function CatererPersonalInfo({navigation}) {
   const [profileData, setProfileData] = useState({});
@@ -51,20 +52,8 @@ export default function CatererPersonalInfo({navigation}) {
       .then(async userData => {
         const {id} = JSON.parse(userData);
 
-        const token = await AsyncStorage.getItem('token');
-        console.log(token);
-        fetch(`http://43.204.219.99:8080/catererInfo/${id}`, {
-          headers: {
-            Authorization: 'Bearer ' + JSON.parse(token),
-          },
-        })
-          .then(response => response.json())
-          .then(data => {
-            setProfileData(data);
-          })
-          .catch(error => {
-            console.error('Error fetching catere data:', error);
-          });
+        const profileData = await CatererProfileData(id);
+        setProfileData(profileData);
       })
       .catch(error => {
         console.log('Error retrieving userData:', error);
@@ -97,9 +86,7 @@ export default function CatererPersonalInfo({navigation}) {
         <View style={styles.inputContainer}>
           <FontAwesome5 name={'user'} size={20} color={Color.primaryColor} />
           <View style={styles.input}>
-            <Text style={styles.text}>
-              {profileData?.caterer?.caterer?.name}
-            </Text>
+            <Text style={styles.text}>{profileData?.caterer?.name}</Text>
           </View>
         </View>
 
@@ -111,9 +98,7 @@ export default function CatererPersonalInfo({navigation}) {
             color={Color.primaryColor}
           />
           <View style={styles.input}>
-            <Text style={styles.text}>
-              {profileData?.caterer?.caterer?.email}
-            </Text>
+            <Text style={styles.text}>{profileData?.caterer?.email}</Text>
           </View>
         </View>
 
@@ -122,14 +107,14 @@ export default function CatererPersonalInfo({navigation}) {
           <Feather name={'phone'} size={20} color={Color.primaryColor} />
           <View style={styles.input}>
             <Text style={styles.text}>
-              {profileData?.caterer?.caterer?.phone_number}
+              {profileData?.caterer?.phone_number}
             </Text>
           </View>
         </View>
         <View>
           <Text style={styles.headerText}>OrderType</Text>
           <Text style={styles.headerText}>
-            {getOrderTypeText(profileData?.caterer?.order_type)}
+            {getOrderTypeText(profileData?.order_type)}
           </Text>
         </View>
         <View>
@@ -149,9 +134,7 @@ export default function CatererPersonalInfo({navigation}) {
         </View>
         <View>
           <Text style={styles.label}>Business License Number</Text>
-          <Text style={styles.textInput}>
-            {profileData?.caterer?.license_num}
-          </Text>
+          <Text style={styles.textInput}>{profileData?.license_num}</Text>
           <View>
             <Text>Business License Photo</Text>
             <Image
@@ -161,10 +144,10 @@ export default function CatererPersonalInfo({navigation}) {
           </View>
           <Text style={styles.label}>Address</Text>
 
-          <Text style={styles.textInput}>{profileData?.caterer?.address}</Text>
+          <Text style={styles.textInput}>{profileData?.address}</Text>
           <Text style={styles.label}>Bio</Text>
 
-          <Text style={styles.textInput}>{profileData?.caterer?.bio}</Text>
+          <Text style={styles.textInput}>{profileData?.bio}</Text>
         </View>
         <View>
           <View>
@@ -184,7 +167,7 @@ export default function CatererPersonalInfo({navigation}) {
         <CustomButton
           title="Edit Information"
           onPress={() => {
-            navigation.navigate('Edit information');
+            navigation.navigate('Edit information', {});
           }}
         />
       </View>

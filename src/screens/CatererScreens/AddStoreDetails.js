@@ -157,7 +157,7 @@ export default function AddStoreDetails({navigation, route}) {
     fetch(url, {
       method: 'POST',
       headers: {
-        'Content-Type': 'multipart/form-data',
+        // 'Content-Type': 'multipart/form-data',
       },
       body: formData,
     })

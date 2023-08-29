@@ -82,7 +82,7 @@ export default function AddCategory({navigation, route}) {
         fetch(url, {
           method: 'PUT',
           headers: {
-            'Content-Type': 'multipart/form-data',
+            // 'Content-Type': 'multipart/form-data',
             Authorization: 'Bearer ' + JSON.parse(token),
           },
           body: JSON.stringify(formData),
@@ -100,14 +100,14 @@ export default function AddCategory({navigation, route}) {
         fetch(url, {
           method: 'POST',
           headers: {
-            'Content-Type': 'multipart/form-data',
+            // 'Content-Type': 'multipart/form-data',
             Authorization: 'Bearer ' + JSON.parse(token),
           },
           body: JSON.stringify(formData),
         })
           .then(async res => {
             const response = await res.json();
-            console.log(response);
+
             if (response.status === 1) {
               navigation.goBack();
             }

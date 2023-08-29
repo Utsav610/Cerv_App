@@ -168,16 +168,8 @@ export default function CustomerPersonalInfo({navigation}) {
             editable={isEdit}
           />
         </View>
-        {/* {console.log('name ', profileData?.data?.name)} */}
+
         <View style={styles.btnContainer}>
-          {/* <CustomButton
-            title="Edit Information"
-            onPress={() => {
-              navigation.navigate('Edit information', {
-                name: profileData?.data?.name,
-              });
-            }}
-          /> */}
           {isEdit ? (
             <CustomButton title="Save" onPress={handleSave} />
           ) : (

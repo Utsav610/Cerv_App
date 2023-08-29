@@ -8,15 +8,15 @@ const getToken = async () => {
   return JSON.parse(token);
 };
 
-export const CatererProfileData = async () => {
-  const response = await fetch(BASE_URL + '/caterer/getProfile', {
+export const CatererProfileData = async id => {
+  const response = await fetch(BASE_URL + `/catererInfo/${id}`, {
     headers: {
       Authorization: 'Bearer ' + (await getToken()),
     },
   });
   const data = await response.json();
 
-  return data.data;
+  return data.caterer;
 };
 
 export const UpdateCatererProfile = async name => {
@@ -44,52 +44,59 @@ export const UpdateCatererProfile = async name => {
     throw error;
   }
 };
+export const getCoupons = async () => {
+  const response = await fetch(BASE_URL + '/caterer/getCoupons', {
+    headers: {
+      Authorization: 'Bearer ' + (await getToken()),
+    },
+  });
+  const data = await response.json();
 
-// export const FetchCard = async () => {
-//   const response = await fetch(BASE_URL + '/getCards', {
-//     headers: {
-//       Authorization: 'Bearer ' + (await getToken()),
-//     },
-//   });
-//   const data = await response.json();
+  return data.data;
+};
 
-//   return data.message.data;
-// };
+export const CreateCoupon = async (
+  title,
+  description,
+  couponCode,
+  selectedDate,
+  active,
+) => {
+  const params = {
+    title: title,
+    description: description,
+    code: couponCode,
+    is_percent: true,
+    value: 40,
+    expiry: selectedDate,
+    is_active: active === 'Yes' ? true : false,
+  };
 
-// export const AddCard = async (cardNumber, cvv, name, fdate) => {
-//   const params = {
-//     number: cardNumber,
-//     expire: fdate,
-//     cvc: cvv,
-//     name: name,
-//   };
+  const response = await fetch(BASE_URL + '/caterer/addCoupon', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + (await getToken()),
+    },
+    body: JSON.stringify(params),
+  });
+  const data = await response.json();
+  return data;
+};
 
-//   const response = await fetch(BASE_URL + '/addCard', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       Authorization: 'Bearer ' + (await getToken()),
-//     },
-//     body: JSON.stringify(params),
-//   });
-//   const data = await response.json();
-//   return data;
-// };
+export const DeleteCoupon = async id => {
+  const params = {
+    couponId: 1,
+  };
 
-// export const ChangePassword = async (password, newPassword) => {
-//   const params = {
-//     currentPassword: password,
-//     newPassword: newPassword,
-//   };
+  const response = await fetch(BASE_URL + '/caterer/deleteCoupon', {
+    method: 'DEL',
+    headers: {
+      Authorization: 'Bearer ' + (await getToken()),
+    },
+    body: JSON.stringify(params),
+  });
 
-//   const response = await fetch(BASE_URL + '/users/changePassword', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       Authorization: 'Bearer ' + (await getToken()),
-//     },
-//     body: JSON.stringify(params),
-//   });
-//   const data = await response.json();
-//   return data;
-// };
+  const data = await response.json();
+  return data;
+};
